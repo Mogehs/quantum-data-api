@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+        {% block title %}Massive API | The Standard for Financial Market Data{% endblock %}
+    </title>
+    
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <style type="text/tailwindcss">
+        @layer base {
+            :root {
+                --primary: #1E1B4B;
+                --accent: #4F46E5;
+                --background: #FFFFFF;
+                --surface: #F8FAFC;
+                --border: #E2E8F0;
+                --text-main: #1E293B;
+                --text-muted: #64748B;
+            }
+            .dark {
+                --primary: #4F46E5;
+                --accent: #818CF8;
+                --background: #0F172A;
+                --surface: #1E293B;
+                --border: #334155;
+                --text-main: #F1F5F9;
+                --text-muted: #94A3B8;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .code-glow {
+            box-shadow: 0 10px 30px -10px rgba(30, 27, 75, 0.3);
+        }
+        .grid-bg-light {
+            background-image: radial-gradient(circle at 2px 2px, #E2E8F0 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .dark .grid-bg-light {
+            background-image: radial-gradient(circle at 2px 2px, #334155 1px, transparent 0);
+        }
+    </style>
+    
+    <script>
+        // Check for dark mode preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1E1B4B",
+                        accent: "#4F46E5",
+                        slate: {
+                            950: "#020617",
+                        }
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        mono: ["JetBrains Mono", "monospace"],
+                    },
+                },
+            },
+        };
+    </script>
+    
+    {% block head %}{% endblock %}
+</head>
+<body class="font-display bg-[var(--background)] text-[var(--text-main)] transition-colors duration-300">
+    {% include 'partials/navbar.html' %}
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'partials/footer.html' %}
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

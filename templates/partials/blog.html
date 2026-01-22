@@ -1,0 +1,68 @@
+<section class="py-24 bg-[var(--background)] border-t border-[var(--border)]" id="blog">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-center justify-between mb-16 gap-4">
+            <div class="max-w-xl">
+                <span class="text-accent text-xs font-bold uppercase tracking-widest mb-3 block">Engineering Blog</span>
+                <h2 class="text-4xl font-extrabold text-[var(--text-main)]">Latest from the Blog</h2>
+            </div>
+            <a class="text-xs font-bold text-accent hover:underline flex items-center gap-2" href="#">
+                View all posts <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Blog Post 1 -->
+            <div class="group">
+                <div class="aspect-[16/9] bg-[var(--surface)] rounded-lg mb-6 overflow-hidden relative border border-[var(--border)]">
+                    <div class="w-full h-full grid-bg-light opacity-30 dark:opacity-10 absolute inset-0"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20">analytics</span>
+                    </div>
+                </div>
+                <div class="text-[10px] font-bold text-accent uppercase tracking-widest mb-3">API Performance</div>
+                <h3 class="text-lg font-bold mb-3 text-[var(--text-main)] group-hover:text-accent transition-colors">Optimizing WebSocket Throughput for High-Frequency Feeds</h3>
+                <p class="text-sm text-[var(--text-muted)] leading-relaxed mb-6">
+                    Learn how we achieved sub-ms latency using custom binary protocols and optimized buffer management...
+                </p>
+                <a class="text-xs font-bold text-[var(--text-main)] flex items-center gap-2" href="#">
+                    Read More <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </a>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div class="group">
+                <div class="aspect-[16/9] bg-[var(--surface)] rounded-lg mb-6 overflow-hidden relative border border-[var(--border)]">
+                    <div class="w-full h-full grid-bg-light opacity-30 dark:opacity-10 absolute inset-0"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20">database</span>
+                    </div>
+                </div>
+                <div class="text-[10px] font-bold text-accent uppercase tracking-widest mb-3">Data Science</div>
+                <h3 class="text-lg font-bold mb-3 text-[var(--text-main)] group-hover:text-accent transition-colors">Handling Corporate Actions in Historical Datasets</h3>
+                <p class="text-sm text-[var(--text-muted)] leading-relaxed mb-6">
+                    Our guide on how adjusted price data works and why splits/dividends matter for your backtesting strategy...
+                </p>
+                <a class="text-xs font-bold text-[var(--text-main)] flex items-center gap-2" href="#">
+                    Read More <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </a>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="group">
+                <div class="aspect-[16/9] bg-[var(--surface)] rounded-lg mb-6 overflow-hidden relative border border-[var(--border)]">
+                    <div class="w-full h-full grid-bg-light opacity-30 dark:opacity-10 absolute inset-0"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20">terminal</span>
+                    </div>
+                </div>
+                <div class="text-[10px] font-bold text-accent uppercase tracking-widest mb-3">Integrations</div>
+                <h3 class="text-lg font-bold mb-3 text-[var(--text-main)] group-hover:text-accent transition-colors">Connecting Massive.io to Python Data Frameworks</h3>
+                <p class="text-sm text-[var(--text-muted)] leading-relaxed mb-6">
+                    A step-by-step guide to streaming market data directly into Pandas and NumPy for real-time analysis...
+                </p>
+                <a class="text-xs font-bold text-[var(--text-main)] flex items-center gap-2" href="#">
+                    Read More <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

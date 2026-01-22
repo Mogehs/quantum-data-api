@@ -1,0 +1,57 @@
+<section class="py-24 bg-[var(--surface)] border-t border-[var(--border)]" id="contact">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+            <div>
+                <span class="text-accent text-xs font-bold uppercase tracking-widest mb-3 block">Get in Touch</span>
+                <h2 class="text-4xl font-extrabold mb-6 text-[var(--text-main)]">Have technical questions?<br/>Talk to our experts.</h2>
+                <p class="text-[var(--text-muted)] mb-10 max-w-md">
+                    Our engineering team is available for deep dives into our infrastructure, custom data needs, or enterprise partnerships.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-accent">
+                            <span class="material-symbols-outlined">mail</span>
+                        </div>
+                        <div class="text-sm font-semibold text-[var(--text-main)]">support@massive.io</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-accent">
+                            <span class="material-symbols-outlined">location_on</span>
+                        </div>
+                        <div class="text-sm font-semibold text-[var(--text-main)]">Financial District, New York</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-[var(--background)] p-8 rounded-xl border border-[var(--border)] shadow-sm">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Full Name</label>
+                            <input class="w-full border-[var(--border)] bg-[var(--surface)] text-[var(--text-main)] rounded-lg text-sm focus:ring-accent focus:border-accent py-2.5" placeholder="John Doe" type="text"/>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Work Email</label>
+                            <input class="w-full border-[var(--border)] bg-[var(--surface)] text-[var(--text-main)] rounded-lg text-sm focus:ring-accent focus:border-accent py-2.5" placeholder="john@company.com" type="email"/>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Subject</label>
+                        <select class="w-full border-[var(--border)] bg-[var(--surface)] text-[var(--text-main)] rounded-lg text-sm focus:ring-accent focus:border-accent py-2.5">
+                            <option>General Inquiry</option>
+                            <option>Technical Support</option>
+                            <option>Sales & Partnerships</option>
+                            <option>API Documentation Feedback</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Message</label>
+                        <textarea class="w-full border-[var(--border)] bg-[var(--surface)] text-[var(--text-main)] rounded-lg text-sm focus:ring-accent focus:border-accent py-2.5" placeholder="How can we help you?" rows="4"></textarea>
+                    </div>
+                    <button class="w-full py-3.5 bg-primary text-white font-bold rounded-lg hover:bg-slate-900 transition-all shadow-lg shadow-indigo-900/10">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
