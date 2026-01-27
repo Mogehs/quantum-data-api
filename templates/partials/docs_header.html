@@ -1,0 +1,76 @@
+<header class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/95 backdrop-blur-md">
+    <div class="flex items-center justify-between px-4 h-14">
+        <div class="flex items-center space-x-6">
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-sidebar-toggle" class="lg:hidden p-1 -ml-1 text-[var(--text-muted)] hover:text-accent transition-colors">
+                <span class="material-symbols-outlined text-2xl">menu</span>
+            </button>
+            <a href="/" class="flex items-center space-x-3 pr-4 border-r border-[var(--border)] group">
+                <div class="w-7 h-7 bg-primary rounded shadow-sm flex items-center justify-center text-white transition-transform group-hover:scale-105">
+                    <span class="material-symbols-outlined text-lg">database</span>
+                </div>
+                <div class="flex items-baseline space-x-1.5 text-[var(--text-main)] transition-colors group-hover:text-accent">
+                    <span class="text-xs font-bold tracking-tight uppercase hidden sm:block">QuantData</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[var(--surface)] text-[var(--text-muted)] uppercase tracking-wider">Docs</span>
+                </div>
+            </a>
+            <nav class="hidden xl:flex items-center space-x-6 text-sm font-medium">
+                <a class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors" href="#">Guides</a>
+                <a class="text-accent relative after:absolute after:bottom-[-20px] after:left-0 after:right-0 after:h-[2px] after:bg-accent px-1" href="#">API Reference</a>
+                <a class="text-[var(--text-muted)] hover:text-accent transition-colors" href="/playground">Playground</a>
+                <a class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors" href="#">Changelog</a>
+                <div class="h-4 w-px bg-[var(--border)]"></div>
+                <a class="text-[var(--text-muted)] hover:text-accent text-xs transition-colors flex items-center" href="/">
+                    Main Site <span class="material-symbols-outlined text-sm ml-1">open_in_new</span>
+                </a>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4 flex-1 justify-end">
+            <!-- Search bar - hide on very small screens -->
+            <div class="relative w-full max-w-sm group hidden md:block">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[var(--text-muted)] group-focus-within:text-accent transition-colors">
+                    <span class="material-symbols-outlined text-lg">search</span>
+                </span>
+                <input class="w-full pl-10 pr-16 py-1.5 bg-[var(--surface)] border border-[var(--border)] rounded-md text-sm text-[var(--text-main)] focus:ring-1 focus:ring-accent focus:border-accent transition-all outline-none" placeholder="Search documentation..." type="text"/>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <kbd class="hidden sm:inline-flex items-center px-1.5 py-0.5 font-sans text-[10px] font-medium text-[var(--text-muted)] bg-[var(--background)] border border-[var(--border)] rounded shadow-sm">
+                        <span class="text-xs mr-0.5">⌘</span>K
+                    </kbd>
+                </div>
+            </div>
+            <div class="flex items-center space-x-1 sm:space-x-2 border-l border-[var(--border)] pl-4">
+                <button id="theme-toggle" class="p-2 text-[var(--text-muted)] hover:text-accent transition-colors hidden sm:block" title="Toggle Theme">
+                    <span id="theme-toggle-dark-icon" class="material-symbols-outlined hidden">dark_mode</span>
+                    <span id="theme-toggle-light-icon" class="material-symbols-outlined hidden">light_mode</span>
+                </button>
+                <button class="p-2 text-[var(--text-muted)] hover:text-accent transition-colors hidden sm:block" title="Notifications">
+                    <span class="material-symbols-outlined text-xl">notifications</span>
+                </button>
+                <button class="bg-primary hover:bg-slate-900 text-white px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm font-semibold transition-all shadow-sm">
+                    Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="border-t border-[var(--border)] bg-[var(--surface)]/50 px-4 py-2 overflow-x-auto custom-scrollbar">
+        <nav class="flex items-center space-x-2 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)] whitespace-nowrap">
+            <a class="hover:text-accent flex items-center" href="/">
+                <span class="material-symbols-outlined text-sm mr-1">home</span> Home
+            </a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <a class="hover:text-accent" href="/docs">Documentation</a>
+            
+            {% if page == 'overview' %}
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <span class="text-[var(--text-main)] font-bold">Overview</span>
+            {% else %}
+                {% if page == 'api-reference' or page in ['intraday', 'monthly'] %}
+                <span class="material-symbols-outlined text-xs">chevron_right</span>
+                <span class="text-[var(--text-muted)]">API Reference</span>
+                {% endif %}
+                <span class="material-symbols-outlined text-xs">chevron_right</span>
+                <span class="text-[var(--text-main)] font-bold">{{ title }}</span>
+            {% endif %}
+        </nav>
+    </div>
+</header>

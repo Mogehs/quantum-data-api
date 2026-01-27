@@ -1,0 +1,333 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Pricing | QuantDataApi - Scalable Financial Data{% endblock %}
+
+{% block head %}
+<style type="text/tailwindcss">
+    .plan-card:hover {
+        transform: translateY(-4px);
+        transition: all 0.3s ease;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="pt-20 pb-16 text-center grid-bg-light">
+    <div class="max-w-4xl mx-auto px-4">
+        <span class="text-accent text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Pricing Plans</span>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-primary dark:text-white mb-6">
+            Ready to scale your <br/><span class="text-slate-400">trading infrastructure?</span>
+        </h1>
+        <p class="text-lg text-[var(--text-muted)] mb-12 max-w-2xl mx-auto">
+            Simple, transparent pricing for developers and institutions. No hidden fees, just pure financial data at microsecond latency.
+        </p>
+        <div class="flex items-center justify-center gap-4">
+            <span class="text-sm font-semibold text-slate-500">Monthly</span>
+            <button id="billing-toggle" class="relative w-14 h-7 bg-primary rounded-full p-1 transition-colors flex items-center outline-none">
+                <div id="toggle-circle" class="w-5 h-5 bg-white rounded-full shadow-sm transition-transform duration-300"></div>
+            </button>
+            <span class="text-sm font-semibold text-primary dark:text-accent flex items-center gap-2">
+                Yearly
+                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold uppercase">Save 20%</span>
+            </span>
+        </div>
+    </div>
+</header>
+
+<section class="pb-24 px-4 bg-[var(--background)]" id="pricing">
+    <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Free Plan -->
+        <div class="plan-card bg-[var(--surface)] p-8 rounded-2xl border border-[var(--border)] shadow-sm flex flex-col hover:border-accent group">
+            <div class="mb-8">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 font-mono">Free</h3>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-4xl font-extrabold text-[var(--text-main)]">$0</span>
+                    <span class="text-sm text-slate-400">/mo</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">For personal hobby projects</p>
+            </div>
+            <ul class="space-y-4 mb-10 flex-grow">
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    1,000 API calls per month
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    EOD Historical Data only
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Standard REST API
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Community Support
+                </li>
+            </ul>
+            <button class="w-full py-3 border border-[var(--border)] rounded-lg font-bold text-xs text-[var(--text-main)] hover:bg-primary hover:text-white transition-all uppercase tracking-wider">Start Building</button>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="plan-card bg-[var(--surface)] p-8 rounded-2xl border-2 border-accent shadow-xl relative flex flex-col lg:scale-105 z-10 transition-all">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest">Most Popular</div>
+            <div class="mb-8">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-accent mb-2 font-mono">Pro</h3>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-4xl font-extrabold text-[var(--text-main)] pricing-value" data-monthly="79" data-yearly="63">$79</span>
+                    <span class="text-sm text-slate-400 pricing-period">/mo</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">For professional traders</p>
+            </div>
+            <ul class="space-y-4 mb-10 flex-grow">
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    100,000 API calls per month
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Real-time WebSockets
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    1-min Intraday History
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Standard Email Support
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Advanced SDK Access
+                </li>
+            </ul>
+            <button class="w-full py-4 bg-accent text-white rounded-lg font-bold text-xs hover:bg-indigo-700 transition-all uppercase tracking-wider shadow-lg shadow-indigo-200 dark:shadow-none">Subscribe Now</button>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="plan-card bg-[var(--surface)] p-8 rounded-2xl border border-[var(--border)] shadow-sm flex flex-col hover:border-accent">
+            <div class="mb-8">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2 font-mono">Enterprise</h3>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-4xl font-extrabold text-[var(--text-main)] pricing-value" data-monthly="299" data-yearly="239">$299</span>
+                    <span class="text-sm text-slate-400 pricing-period">/mo</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">For growing fintech teams</p>
+            </div>
+            <ul class="space-y-4 mb-10 flex-grow">
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    1M API calls per month
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Tick-level Historical Data
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    99.9% Uptime SLA
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Priority Slack Support
+                </li>
+                <li class="flex items-start gap-3 text-xs text-[var(--text-muted)]">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+                    Team Management Tools
+                </li>
+            </ul>
+            <button class="w-full py-3 border border-primary dark:border-accent rounded-lg font-bold text-xs text-[var(--text-main)] hover:bg-primary dark:hover:bg-accent hover:text-white transition-all uppercase tracking-wider">Contact Sales</button>
+        </div>
+
+        <!-- Custom Plan -->
+        <div class="plan-card bg-primary dark:bg-slate-900 p-8 rounded-2xl border border-primary dark:border-slate-800 shadow-sm flex flex-col">
+            <div class="mb-8">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-2 font-mono">Custom</h3>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-4xl font-extrabold text-white">Custom</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">For institutional scale</p>
+            </div>
+            <ul class="space-y-4 mb-10 flex-grow">
+                <li class="flex items-start gap-3 text-xs text-slate-300">
+                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                    Unlimited API Throughput
+                </li>
+                <li class="flex items-start gap-3 text-xs text-slate-300">
+                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                    Dedicated Infrastructure
+                </li>
+                <li class="flex items-start gap-3 text-xs text-slate-300">
+                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                    Whitelabel Data Solutions
+                </li>
+                <li class="flex items-start gap-3 text-xs text-slate-300">
+                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                    24/7 Phone Support
+                </li>
+            </ul>
+            <button class="w-full py-3 bg-white text-primary rounded-lg font-bold text-xs hover:bg-slate-100 transition-all uppercase tracking-wider">Talk to Us</button>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Table -->
+<section class="py-24 bg-[var(--surface)] border-y border-[var(--border)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-extrabold text-[var(--text-main)] mb-4">Compare Features</h2>
+            <p class="text-[var(--text-muted)] max-w-xl mx-auto">Deep dive into the specifics of each plan to find your perfect match.</p>
+        </div>
+        <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse min-w-[800px]">
+                <thead>
+                    <tr class="border-b border-[var(--border)]">
+                        <th class="py-6 px-4 text-sm font-bold text-[var(--text-muted)] uppercase tracking-wider w-1/4">Feature</th>
+                        <th class="py-6 px-4 text-sm font-bold text-[var(--text-main)] uppercase tracking-wider text-center">Free</th>
+                        <th class="py-6 px-4 text-sm font-bold text-accent uppercase tracking-wider text-center">Pro</th>
+                        <th class="py-6 px-4 text-sm font-bold text-[var(--text-main)] uppercase tracking-wider text-center">Enterprise</th>
+                        <th class="py-6 px-4 text-sm font-bold text-[var(--text-main)] uppercase tracking-wider text-center">Custom</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--border)]">
+                    <tr>
+                        <td class="py-5 px-4 text-sm font-semibold text-[var(--text-main)]">Monthly Requests</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">1,000</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">100,000</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">1,000,000</td>
+                        <td class="py-5 px-4 text-sm text-center text-primary dark:text-accent font-bold">Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="py-5 px-4 text-sm font-semibold text-[var(--text-main)]">Data Latency</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">Delayed (15m)</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">Real-time</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">Real-time</td>
+                        <td class="py-5 px-4 text-sm text-center text-primary dark:text-accent font-bold">Direct Line</td>
+                    </tr>
+                    <tr>
+                        <td class="py-5 px-4 text-sm font-semibold text-[var(--text-main)]">Websocket Feeds</td>
+                        <td class="py-5 px-4 text-sm text-center text-slate-300">—</td>
+                        <td class="py-5 px-4 text-sm text-center text-emerald-500"><span class="material-symbols-outlined">check</span></td>
+                        <td class="py-5 px-4 text-sm text-center text-emerald-500"><span class="material-symbols-outlined">check</span></td>
+                        <td class="py-5 px-4 text-sm text-center text-emerald-500"><span class="material-symbols-outlined">check</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-5 px-4 text-sm font-semibold text-[var(--text-main)]">Historical Precision</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">Daily</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">1-Min</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">Tick-level</td>
+                        <td class="py-5 px-4 text-sm text-center text-[var(--text-muted)]">Raw PCAP</td>
+                    </tr>
+                    <tr>
+                        <td class="py-5 px-4 text-sm font-semibold text-[var(--text-main)]">Account Manager</td>
+                        <td class="py-5 px-4 text-sm text-center text-slate-300">—</td>
+                        <td class="py-5 px-4 text-sm text-center text-slate-300">—</td>
+                        <td class="py-5 px-4 text-sm text-center text-emerald-500"><span class="material-symbols-outlined">check</span></td>
+                        <td class="py-5 px-4 text-sm text-center text-emerald-500"><span class="material-symbols-outlined">check</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-24 bg-[var(--background)]">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <span class="text-accent text-xs font-bold uppercase tracking-widest mb-3 block font-mono">Developer FAQ</span>
+            <h2 class="text-3xl font-extrabold text-[var(--text-main)] mb-4">Common Questions</h2>
+        </div>
+        <div class="space-y-6">
+            {% set faqs = [
+                {
+                    'q': 'How do you measure API call limits?',
+                    'a': 'API calls are counted per request to our REST endpoints. For WebSocket streams, we count initial connections and specific data subscriptions. We provide a real-time dashboard in the Console to track your usage.'
+                },
+                {
+                    'q': 'What happens if I exceed my monthly limit?',
+                    'a': 'By default, we stop requests once the limit is reached to protect you from unexpected costs. You can enable "Auto-Scaling" in your settings to pay a small overage fee per 1,000 additional calls instead.'
+                },
+                {
+                    'q': 'Can I switch between monthly and yearly billing?',
+                    'a': 'Yes, you can upgrade to yearly billing at any time to take advantage of the 20% discount. Changes will be reflected in your next billing cycle.'
+                },
+                {
+                    'q': 'Do you offer a sandbox environment?',
+                    'a': 'Yes, all accounts come with access to our Sandbox API which provides randomized data for testing your integration logic without consuming your production credits.'
+                }
+            ] %}
+            
+            {% for faq in faqs %}
+            <div class="faq-item border border-[var(--border)] rounded-xl p-6 hover:bg-[var(--surface)] transition-all cursor-pointer group">
+                <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-[var(--text-main)]">{{ faq.q }}</h4>
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-accent transition-colors">add</span>
+                </div>
+                <div class="faq-answer mt-4 text-sm text-[var(--text-muted)] leading-relaxed hidden">
+                    {{ faq.a }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Billing Toggle
+    const billingToggle = document.getElementById('billing-toggle');
+    const toggleCircle = document.getElementById('toggle-circle');
+    const pricingValues = document.querySelectorAll('.pricing-value');
+    const pricingPeriods = document.querySelectorAll('.pricing-period');
+    let isYearly = true;
+
+    if (billingToggle) {
+        billingToggle.addEventListener('click', () => {
+            isYearly = !isYearly;
+            
+            // Toggle Animation
+            if (isYearly) {
+                toggleCircle.style.transform = 'translateX(28px)';
+                billingToggle.classList.add('bg-primary');
+                billingToggle.classList.remove('bg-slate-400');
+            } else {
+                toggleCircle.style.transform = 'translateX(0px)';
+                billingToggle.classList.remove('bg-primary');
+                billingToggle.classList.add('bg-slate-400');
+            }
+
+            // Update Prices
+            pricingValues.forEach(val => {
+                const newValue = isYearly ? val.getAttribute('data-yearly') : val.getAttribute('data-monthly');
+                val.textContent = `$${newValue}`;
+            });
+
+            pricingPeriods.forEach(p => {
+                p.textContent = isYearly ? '/yr' : '/mo';
+            });
+        });
+
+        // Initialize state
+        toggleCircle.style.transform = 'translateX(28px)';
+    }
+
+    // FAQ Collapsible
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('span.material-symbols-outlined');
+            
+            const isOpen = !answer.classList.contains('hidden');
+            
+            if (isOpen) {
+                answer.classList.add('hidden');
+                icon.textContent = 'add';
+            } else {
+                answer.classList.remove('hidden');
+                icon.textContent = 'remove';
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,328 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Playground | QuantDataApi - API Query Builder{% endblock %}
+
+{% block head %}
+<style type="text/tailwindcss">
+    .grid-bg-light {
+        background-image: radial-gradient(circle at 2px 2px, #E2E8F0 1px, transparent 0);
+        background-size: 40px 40px;
+    }
+    .dark .grid-bg-light {
+        background-image: radial-gradient(circle at 2px 2px, #334155 1px, transparent 0);
+    }
+    /* Hide global scroll during playground session for app-like fee */
+    body {
+        overflow: hidden;
+    }
+    /* Custom scrollbar hiding utility */
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden">
+    <!-- Sidebar: Query Builder -->
+    <div class="w-full lg:w-[450px] border-r border-[var(--border)] flex flex-col bg-[var(--surface)] overflow-y-auto hide-scrollbar">
+        <div class="p-6 border-b border-[var(--border)]">
+            <h1 class="text-xl font-extrabold text-[var(--text-main)] tracking-tight">API Query Builder</h1>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Configure your request and generate production-ready code.</p>
+        </div>
+        
+        <div class="p-6 space-y-6">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2 font-mono">Asset Type</label>
+                    <select class="w-full bg-[var(--background)] border-[var(--border)] rounded text-sm py-2 px-3 focus:ring-accent focus:border-accent text-[var(--text-main)]">
+                        <option>US Equities</option>
+                        <option>Forex</option>
+                        <option>Crypto</option>
+                        <option>Options</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2 font-mono">Symbol</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-[var(--text-muted)]">
+                            <span class="material-symbols-outlined text-sm">search</span>
+                        </span>
+                        <input class="w-full bg-[var(--background)] border-[var(--border)] rounded text-sm py-2 pl-10 focus:ring-accent focus:border-accent text-[var(--text-main)]" placeholder="e.g. NVDA" type="text" value="AAPL"/>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2 font-mono">Timeframe</label>
+                        <select class="w-full bg-[var(--background)] border-[var(--border)] rounded text-sm py-2 px-3 focus:ring-accent focus:border-accent text-[var(--text-main)]">
+                            <option>1 Minute</option>
+                            <option selected="">5 Minutes</option>
+                            <option>15 Minutes</option>
+                            <option>Daily</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2 font-mono">Format</label>
+                        <select class="w-full bg-[var(--background)] border-[var(--border)] rounded text-sm py-2 px-3 focus:ring-accent focus:border-accent text-[var(--text-main)]">
+                            <option>JSON</option>
+                            <option>CSV</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2 font-mono">Start Date</label>
+                        <input class="w-full bg-[var(--background)] border-[var(--border)] rounded text-xs py-2 px-3 focus:ring-accent focus:border-accent text-[var(--text-main)]" type="date" value="2024-05-15"/>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2 font-mono">End Date</label>
+                        <input class="w-full bg-[var(--background)] border-[var(--border)] rounded text-xs py-2 px-3 focus:ring-accent focus:border-accent text-[var(--text-main)]" type="date" value="2024-05-20"/>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="w-full py-3 bg-accent text-white font-bold rounded text-xs uppercase tracking-widest hover:bg-opacity-90 transition-all shadow-md flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm">play_arrow</span> Execute Query
+            </button>
+        </div>
+        
+        <!-- Code Export Section -->
+        <div class="mt-auto border-t border-[var(--border)] bg-[var(--background)]">
+            <div class="flex items-center px-4 py-2 border-b border-[var(--border)]">
+                <div class="flex gap-4" id="lang-tabs">
+                    <button class="lang-tab text-[10px] font-bold uppercase tracking-widest text-accent border-b-2 border-accent pb-1" data-lang="python">Python</button>
+                    <button class="lang-tab text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors" data-lang="nodejs">Node.js</button>
+                    <button class="lang-tab text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors" data-lang="curl">cURL</button>
+                </div>
+                <button class="ml-auto p-1 text-[var(--text-muted)] hover:text-accent transition-colors">
+                    <span class="material-symbols-outlined text-sm">content_copy</span>
+                </button>
+            </div>
+            <div id="code-content" class="p-6 bg-slate-950 text-slate-300 font-mono text-[11px] leading-relaxed overflow-x-auto min-h-[200px]">
+                <!-- Python (Default) -->
+                <div id="lang-python" class="lang-content">
+                    <div class="flex gap-2">
+                        <span class="text-indigo-400">import</span> 
+                        <span>quantdata_api</span>
+                        <span class="text-indigo-400">as</span>
+                        <span>qd</span>
+                    </div>
+                    <br/>
+                    <div>
+                        <span class="text-slate-400">client = qd.Client(api_key=</span><span class="text-emerald-400">'YOUR_KEY'</span><span class="text-slate-400">)</span>
+                    </div>
+                    <div>data = client.get_bars(</div>
+                    <div class="pl-4">
+                        <span class="text-indigo-300">symbol</span>=<span class="text-emerald-400">'AAPL'</span>,
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-indigo-300">timeframe</span>=<span class="text-emerald-400">'5Min'</span>,
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-indigo-300">start</span>=<span class="text-emerald-400">'2024-05-15'</span>,
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-indigo-300">limit</span>=<span class="text-emerald-400">100</span>
+                    </div>
+                    <div>)</div>
+                </div>
+
+                <!-- Node.js -->
+                <div id="lang-nodejs" class="lang-content hidden">
+                    <div class="flex gap-2">
+                        <span class="text-indigo-400">const</span> 
+                        <span>qd</span>
+                        <span class="text-slate-400">=</span>
+                        <span class="text-indigo-400">require</span>(
+                        <span class="text-emerald-400">'quantdata-api'</span>);
+                    </div>
+                    <br/>
+                    <div>
+                        <span class="text-indigo-400">const</span>
+                        <span class="text-slate-400">client =</span>
+                        <span class="text-indigo-400">new</span>
+                        <span class="text-slate-300">qd.Client</span>(<span class="text-emerald-400">'YOUR_KEY'</span>);
+                    </div>
+                    <br/>
+                    <div>
+                        <span class="text-indigo-400">const</span> 
+                        <span class="text-slate-300">data =</span>
+                        <span class="text-indigo-400">await</span>
+                        <span class="text-slate-300">client.getBars</span>({
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-slate-300">symbol:</span>
+                        <span class="text-emerald-400">'AAPL'</span>,
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-slate-300">timeframe:</span>
+                        <span class="text-emerald-400">'5Min'</span>,
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-slate-300">start:</span>
+                        <span class="text-emerald-400">'2024-05-15'</span>
+                    </div>
+                    <div>});</div>
+                </div>
+
+                <!-- cURL -->
+                <div id="lang-curl" class="lang-content hidden">
+                    <div class="flex gap-2">
+                        <span class="text-indigo-400">curl</span>
+                        <span class="text-slate-400">-X</span>
+                        <span class="text-slate-300">GET</span>
+                        <span class="text-emerald-400">"https://api.quantdata.com/v1/bars"</span>
+                        <span class="text-slate-400">\</span>
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-slate-400">-H</span>
+                        <span class="text-emerald-400">"X-API-KEY: YOUR_KEY"</span>
+                        <span class="text-slate-400">\</span>
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-slate-400">-d</span>
+                        <span class="text-emerald-400">"symbol=AAPL"</span>
+                        <span class="text-slate-400">\</span>
+                    </div>
+                    <div class="pl-4">
+                        <span class="text-slate-400">-d</span>
+                        <span class="text-emerald-400">"timeframe=5Min"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Visualizer Area -->
+    <div class="flex-grow flex flex-col bg-[var(--background)] overflow-hidden">
+        <!-- Candlestick Chart Area -->
+        <div class="h-1/2 border-b border-[var(--border)] relative flex flex-col">
+            <div class="px-6 py-3 border-b border-[var(--border)] flex items-center justify-between bg-[var(--surface)]/50">
+                <div class="flex items-center gap-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-[var(--text-main)]">AAPL / USD — 5m</span>
+                    <span class="text-xs text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/30 px-2 py-0.5 rounded">+1.24%</span>
+                </div>
+                <div class="flex items-center gap-4 text-[10px] font-bold text-[var(--text-muted)]">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> OHLC</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-slate-400 rounded-sm"></span> Volume</span>
+                </div>
+            </div>
+            
+            <div class="flex-grow relative p-6 flex items-end gap-2 overflow-hidden bg-[var(--background)] grid-bg-light">
+                <!-- Mock Candlesticks -->
+                {% for i in range(12) %}
+                    {% set is_up = i % 2 == 0 %}
+                    <div class="flex-1 flex flex-col items-center justify-end h-full relative group">
+                        <div class="w-[1px] h-[{{ 60 + (i * 2) }}%] bg-[var(--border)] absolute left-1/2 -translate-x-1/2 -z-0"></div>
+                        <div class="w-full max-w-[14px] h-[{{ 30 + (i * 3) }}%] {{ 'bg-emerald-500/80 border-emerald-600' if is_up else 'bg-rose-500/80 border-rose-600' }} rounded-sm border z-10 hover:ring-2 hover:ring-offset-2 hover:ring-accent transition-all"></div>
+                        <div class="w-full max-w-[14px] h-[{{ 10 + (i * 2) }}%] bg-slate-300 dark:bg-slate-700 mt-2 rounded-t-sm opacity-50"></div>
+                    </div>
+                {% endfor %}
+                
+                <div class="absolute right-0 top-0 bottom-0 w-16 border-l border-[var(--border)] bg-[var(--background)]/80 backdrop-blur-sm flex flex-col justify-between py-6 px-2 text-[9px] font-mono text-[var(--text-muted)] z-20">
+                    <span>192.50</span>
+                    <span>191.00</span>
+                    <span>189.50</span>
+                    <span>188.00</span>
+                    <span>186.50</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Output Area -->
+        <div class="h-1/2 flex flex-col bg-[var(--background)] overflow-hidden">
+            <div class="px-6 py-3 border-b border-[var(--border)] flex items-center justify-between bg-[var(--surface)]/50">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Tabular Output (Preview)</span>
+                <button class="px-3 py-1 bg-white dark:bg-slate-800 border border-[var(--border)] rounded text-[10px] font-bold text-accent hover:text-white hover:bg-accent transition-all flex items-center gap-1 shadow-sm">
+                    <span class="material-symbols-outlined text-sm">download</span> Export
+                </button>
+            </div>
+            
+            <div class="flex-grow overflow-auto custom-scrollbar">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-[var(--surface)] border-b border-[var(--border)] z-10">
+                        <tr>
+                            <th class="px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-mono">Date</th>
+                            <th class="px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-mono">Open</th>
+                            <th class="px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-mono">High</th>
+                            <th class="px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-mono">Low</th>
+                            <th class="px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-mono">Close</th>
+                            <th class="px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-mono">Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs font-mono divide-y divide-[var(--border)] text-[var(--text-main)]">
+                        {% for i in range(10) %}
+                        <tr class="hover:bg-[var(--surface)] transition-colors">
+                            <td class="px-6 py-3 whitespace-nowrap text-[var(--text-muted)]">2024-05-20 15:{{ 55 - (i * 5) }}</td>
+                            <td class="px-6 py-3">191.{{ 4 + i }}</td>
+                            <td class="px-6 py-3 text-emerald-500 font-bold">191.{{ 55 + i }}</td>
+                            <td class="px-6 py-3 text-rose-500">190.{{ 98 - i }}</td>
+                            <td class="px-6 py-3 font-extrabold text-[var(--text-main)]">191.{{ 24 - i }}</td>
+                            <td class="px-6 py-3 text-[var(--text-muted)]">{{ 1420293 - (i * 10000) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<!-- Compact Footer for App Feel -->
+<footer class="bg-[var(--background)] border-t border-[var(--border)] h-12 flex items-center px-6">
+    <div class="max-w-full w-full mx-auto flex justify-between items-center">
+        <div class="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">
+            <a class="hover:text-accent transition-colors" href="#">Terms</a>
+            <a class="hover:text-accent transition-colors" href="#">Privacy</a>
+            <a class="hover:text-accent transition-colors" href="#">API Status</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1.5 text-[9px] font-bold text-emerald-500 uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                System Operational
+            </span>
+            <p class="text-[10px] font-medium text-[var(--text-muted)]">© 2024 QuantDataApi</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Tab Switching Logic
+    const tabs = document.querySelectorAll('.lang-tab');
+    const contents = document.querySelectorAll('.lang-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetLang = tab.getAttribute('data-lang');
+
+            // Update Tabs Styling
+            tabs.forEach(t => {
+                t.classList.remove('text-accent', 'border-b-2', 'border-accent', 'pb-1');
+                t.classList.add('text-[var(--text-muted)]');
+            });
+            tab.classList.remove('text-[var(--text-muted)]');
+            tab.classList.add('text-accent', 'border-b-2', 'border-accent', 'pb-1');
+
+            // Switch Content
+            contents.forEach(content => {
+                if (content.id === `lang-${targetLang}`) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

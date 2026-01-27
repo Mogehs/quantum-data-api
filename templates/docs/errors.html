@@ -1,0 +1,67 @@
+{% extends 'docs.html' %}
+
+{% block title %}Errors & Responses | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">Errors & Responses</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        Learn about our response formats and how to troubleshoot common API errors.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-16" id="http-codes">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">HTTP Status Codes</h2>
+        <div class="space-y-4">
+            <div class="flex items-start p-4 hover:bg-[var(--surface)]/50 rounded-xl transition-colors">
+                <div class="w-16 font-mono font-bold text-green-500">200</div>
+                <div>
+                    <h4 class="font-bold text-[var(--text-main)] text-sm">Success</h4>
+                    <p class="text-xs text-[var(--text-muted)]">Request processed successfully.</p>
+                </div>
+            </div>
+            <div class="flex items-start p-4 hover:bg-[var(--surface)]/50 rounded-xl transition-colors">
+                <div class="w-16 font-mono font-bold text-red-500">400</div>
+                <div>
+                    <h4 class="font-bold text-[var(--text-main)] text-sm">Bad Request</h4>
+                    <p class="text-xs text-[var(--text-muted)]">Missing or invalid parameters.</p>
+                </div>
+            </div>
+            <div class="flex items-start p-4 hover:bg-[var(--surface)]/50 rounded-xl transition-colors">
+                <div class="w-16 font-mono font-bold text-red-500">403</div>
+                <div>
+                    <h4 class="font-bold text-[var(--text-main)] text-sm">Forbidden</h4>
+                    <p class="text-xs text-[var(--text-muted)]">Invalid API key or insufficient permissions.</p>
+                </div>
+            </div>
+            <div class="flex items-start p-4 hover:bg-[var(--surface)]/50 rounded-xl transition-colors">
+                <div class="w-16 font-mono font-bold text-red-500">429</div>
+                <div>
+                    <h4 class="font-bold text-[var(--text-main)] text-sm">Too Many Requests</h4>
+                    <p class="text-xs text-[var(--text-muted)]">Rate limit exceeded.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16" id="error-format">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Error Response Body</h2>
+        <div class="bg-slate-950 rounded-xl overflow-hidden shadow-sm border border-slate-800">
+            <pre class="p-6 text-xs text-slate-300 font-mono leading-relaxed"><code>{
+  "Error Message": "Invalid API call. Please retry..."
+}</code></pre>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent border-l-2 border-accent -ml-[17px] pl-4 block font-bold" href="#http-codes">HTTP Codes</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#error-format">Error Format</a></li>
+    </ul>
+</nav>
+{% endblock %}

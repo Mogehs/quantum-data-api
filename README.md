@@ -1,11 +1,12 @@
-# Massive API - Jinja2 Templates (FastAPI)
+# QuantDataApi - Financial Data APIs
 
-This project contains modular Jinja2 templates for the Massive API homepage, configured for use with **FastAPI**.
+This project contains modular Jinja2 templates for the **QuantDataApi** platform, focused on high-performance financial data for developers.
 
 ## Core Structure
 - `templates/layout/base.html`: The main skeletal structure.
 - `templates/partials/`: Reusable components (Navbar, Hero, Features, etc.).
-- `templates/index.html`: The main page that extends the base layout.
+- `templates/index.html`: The main landing page.
+- `templates/docs.html`: Technical API documentation.
 
 ## How to Run
 
@@ -22,14 +23,11 @@ Start the uvicorn server:
 ```bash
 python app.py
 ```
-*Alternatively, you can run:*
-```bash
-uvicorn app:app --reload
-```
 
 ### 3. View the Site
 Open your browser and navigate to:
 [http://127.0.0.1:8000](http://127.0.0.1:8000)
+Documentation is at [/docs](http://127.0.0.1:8000/docs)
 
 ## Design System
 - **Styling**: Tailwind CSS (via CDN)

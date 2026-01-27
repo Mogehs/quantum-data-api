@@ -1,0 +1,50 @@
+<aside id="docs-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 border-r border-[var(--border)] bg-[var(--background)] transform -translate-x-full transition-transform duration-300 ease-in-out lg:sticky lg:inset-y-auto lg:translate-x-0 lg:z-0 lg:h-[calc(100vh-5.5rem)] lg:top-[5.5rem] overflow-y-auto custom-scrollbar">
+    <nav class="py-8 space-y-8">
+        <div>
+            <div class="px-6 text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">Introduction</div>
+            <ul class="space-y-1">
+                <li>
+                    <a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'overview' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs">
+                        Overview
+                    </a>
+                </li>
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'concepts' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/concepts">Core Concepts</a></li>
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'architecture' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/architecture">Architecture</a></li>
+            </ul>
+        </div>
+        
+        <div>
+            <div class="px-6 text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">Getting Started</div>
+            <ul class="space-y-1">
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'quickstart' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/quickstart">Quickstart Guide</a></li>
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'auth' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/auth">Authentication</a></li>
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'sdks' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/sdks">SDKs & Libraries</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div class="px-6 text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">API Reference</div>
+            <button class="sidebar-toggle w-full flex items-center justify-between px-6 py-2 text-[var(--text-main)] group outline-none">
+                <div class="flex items-center">
+                    <span class="material-symbols-outlined text-accent text-lg mr-2 font-light">monitoring</span>
+                    <span class="text-sm font-semibold">Core Stock APIs</span>
+                </div>
+                <span class="chevron-icon material-symbols-outlined text-sm transition-transform rotate-90 text-[var(--text-muted)]">chevron_right</span>
+            </button>
+            <ul class="space-y-1 ml-6 border-l border-[var(--border)] pl-4 mt-1">
+                <li><a class="block py-1.5 text-sm transition-colors {% if page == 'api-reference' %}text-accent font-semibold{% else %}text-[var(--text-muted)] hover:text-accent{% endif %}" href="/docs/api-reference">Daily Time Series</a></li>
+                <li><a class="block py-1.5 text-sm transition-colors {% if page == 'intraday' %}text-accent font-semibold{% else %}text-[var(--text-muted)] hover:text-accent{% endif %}" href="/docs/intraday">Intraday</a></li>
+                <li><a class="block py-1.5 text-sm transition-colors {% if page == 'monthly' %}text-accent font-semibold{% else %}text-[var(--text-muted)] hover:text-accent{% endif %}" href="/docs/monthly">Monthly</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div class="px-6 text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">Usage</div>
+            <ul class="space-y-1">
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'limits' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/limits">Rate Limits</a></li>
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'errors' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/errors">Errors & Responses</a></li>
+                <li><a class="flex items-center px-6 py-2 text-sm transition-colors {% if page == 'versioning' %}bg-[var(--surface)] text-accent font-semibold border-r-2 border-accent{% else %}text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-accent{% endif %}" href="/docs/versioning">Versioning</a></li>
+            </ul>
+        </div>
+    </nav>
+</aside>

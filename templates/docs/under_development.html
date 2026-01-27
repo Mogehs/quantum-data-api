@@ -1,0 +1,34 @@
+{% extends 'docs.html' %}
+
+{% block title %}{{ title }} | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<div class="flex flex-col items-center text-center py-20">
+    <div class="w-20 h-20 bg-indigo-50 dark:bg-indigo-900/20 rounded-full flex items-center justify-center mb-8">
+        <span class="material-symbols-outlined text-4xl text-accent">construction</span>
+    </div>
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">{{ title }}</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed mb-10 max-w-xl">
+        This section is currently under development. We're working hard to bring you detailed documentation and guides for this feature. Stay tuned!
+    </p>
+    <div class="flex gap-4">
+        <a href="/docs" class="px-6 py-2 bg-accent text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all shadow-md">
+            Return to Overview
+        </a>
+        <a href="/" class="px-6 py-2 border border-[var(--border)] text-[var(--text-main)] rounded-lg font-semibold hover:bg-[var(--surface)] transition-all">
+            Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<div class="bg-[var(--background)] p-6 rounded-2xl border border-[var(--border)] shadow-sm">
+    <p class="text-xs font-bold text-[var(--text-main)] mb-2 uppercase tracking-wider">Coming Soon</p>
+    <ul class="space-y-3 text-[12px] text-[var(--text-muted)]">
+        <li class="flex items-center"><span class="material-symbols-outlined text-sm mr-2 text-accent">check_circle</span> Detailed Tutorials</li>
+        <li class="flex items-center"><span class="material-symbols-outlined text-sm mr-2 text-accent">check_circle</span> Code Examples</li>
+        <li class="flex items-center"><span class="material-symbols-outlined text-sm mr-2 text-accent">check_circle</span> Video Walkthroughs</li>
+    </ul>
+</div>
+{% endblock %}

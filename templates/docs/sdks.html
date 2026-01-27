@@ -1,0 +1,99 @@
+{% extends 'docs.html' %}
+
+{% block title %}SDKs & Libraries | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">SDKs & Libraries</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        Official and community-maintained client libraries for the QuantDataApi.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-16" id="official-libraries">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Official Libraries</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 border border-[var(--border)] rounded-2xl bg-[var(--surface)]/30 group hover:border-accent transition-all">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-12 h-12 bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="w-8 h-8"/>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[var(--text-main)]">Python</h4>
+                        <p class="text-[10px] text-accent font-bold uppercase tracking-widest">pip install quantdata</p>
+                    </div>
+                </div>
+                <p class="text-sm text-[var(--text-muted)] mb-4">The most comprehensive library with built-in pandas support and rate limiting.</p>
+                <a href="#" class="text-xs font-bold text-accent hover:underline flex items-center">
+                    View on GitHub <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                </a>
+            </div>
+
+            <div class="p-6 border border-[var(--border)] rounded-2xl bg-[var(--surface)]/30 group hover:border-accent transition-all">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-12 h-12 bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="w-8 h-8"/>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[var(--text-main)]">Node.js</h4>
+                        <p class="text-[10px] text-accent font-bold uppercase tracking-widest">npm install quantdata-ts</p>
+                    </div>
+                </div>
+                <p class="text-sm text-[var(--text-muted)] mb-4">Full TypeScript support and async/await first architecture for high-concurrency apps.</p>
+                <a href="#" class="text-xs font-bold text-accent hover:underline flex items-center">
+                    View on GitHub <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16" id="community-wrappers">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Community Wrappers</h2>
+        <div class="overflow-x-auto border border-[var(--border)] rounded-2xl">
+            <table class="min-w-full divide-y divide-[var(--border)]">
+                <thead class="bg-[var(--surface)]">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Language</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Package / Repository</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Maintainer</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--border)] text-sm">
+                    <tr>
+                        <td class="px-6 py-4 font-semibold text-[var(--text-main)]">Ruby</td>
+                        <td class="px-6 py-4 text-accent">quantdata-ruby</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">@fintech_dev</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 font-semibold text-[var(--text-main)]">Go</td>
+                        <td class="px-6 py-4 text-accent">go-quantdata</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">@gopher_trade</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 font-semibold text-[var(--text-main)]">C#</td>
+                        <td class="px-6 py-4 text-accent">QuantData.Net</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">@dotnet_quant</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent border-l-2 border-accent -ml-[17px] pl-4 block font-bold" href="#official-libraries">Official SDKs</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#community-wrappers">Community</a></li>
+    </ul>
+</nav>
+
+<div class="mt-12 p-6 bg-[var(--background)] rounded-2xl border border-[var(--border)]">
+    <h5 class="text-xs font-bold text-[var(--text-main)] mb-2">Contribute</h5>
+    <p class="text-[11px] text-[var(--text-muted)] leading-relaxed mb-4">Building a wrapper in a new language? Let us know!</p>
+    <button class="w-full py-2 bg-accent text-white rounded-lg text-xs font-bold shadow-sm hover:opacity-90 transition-all">Submit Link</button>
+</div>
+{% endblock %}

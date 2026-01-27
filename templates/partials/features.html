@@ -82,7 +82,7 @@
                         <!-- cURL Snippet -->
                         <div id="curl-snippet" class="code-snippet text-slate-400">
                             <span class="text-blue-400">curl</span> --request GET \<br/>
-                            &nbsp;&nbsp;--url <span class="text-orange-300">'https://api.massive.io/v2/market/bars'</span> \<br/>
+                            &nbsp;&nbsp;--url <span class="text-orange-300">'https://api.quantdata.io/v2/market/bars'</span> \<br/>
                             &nbsp;&nbsp;--header <span class="text-orange-300">'Authorization: Bearer YOUR_API_KEY'</span> \<br/>
                             &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'symbol=AAPL'</span> \<br/>
                             &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'start=2024-01-01'</span> \<br/>
@@ -95,7 +95,7 @@
                             <span class="text-blue-400">const</span> axios = <span class="text-emerald-400">require</span>(<span class="text-orange-300">'axios'</span>);<br/><br/>
                             <span class="text-blue-400">const</span> options = {<br/>
                             &nbsp;&nbsp;method: <span class="text-orange-300">'GET'</span>,<br/>
-                            &nbsp;&nbsp;url: <span class="text-orange-300">'https://api.massive.io/v2/market/bars'</span>,<br/>
+                            &nbsp;&nbsp;url: <span class="text-orange-300">'https://api.quantdata.io/v2/market/bars'</span>,<br/>
                             &nbsp;&nbsp;params: { <span class="text-slate-300">symbol</span>: <span class="text-orange-300">'AAPL'</span>, <span class="text-slate-300">interval</span>: <span class="text-orange-300">'5min'</span> },<br/>
                             &nbsp;&nbsp;headers: { <span class="text-slate-300">Authorization</span>: <span class="text-orange-300">'Bearer YOUR_API_KEY'</span> }<br/>
                             };<br/><br/>
@@ -107,7 +107,7 @@
                         <!-- Python Snippet -->
                         <div id="python-snippet" class="code-snippet text-slate-400 hidden">
                             <span class="text-blue-400">import</span> requests<br/><br/>
-                            <span class="text-slate-300">url</span> = <span class="text-orange-300">"https://api.massive.io/v2/market/bars"</span><br/>
+                            <span class="text-slate-300">url</span> = <span class="text-orange-300">"https://api.quantdata.io/v2/market/bars"</span><br/>
                             <span class="text-slate-300">params</span> = {<br/>
                             &nbsp;&nbsp;<span class="text-orange-300">"symbol"</span>: <span class="text-orange-300">"AAPL"</span>,<br/>
                             &nbsp;&nbsp;<span class="text-orange-300">"start"</span>: <span class="text-orange-300">"2024-01-01"</span>,<br/>

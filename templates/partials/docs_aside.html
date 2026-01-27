@@ -1,0 +1,71 @@
+<div>
+    <div class="flex items-center justify-between mb-4">
+        <h4 class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Request Samples</h4>
+        <div class="flex bg-[var(--border)] p-0.5 rounded-md" id="lang-tabs">
+            <button class="lang-tab px-2.5 py-1 text-[10px] font-bold rounded bg-[var(--background)] text-accent shadow-sm" data-lang="py">PY</button>
+            <button class="lang-tab px-2.5 py-1 text-[10px] font-bold rounded text-[var(--text-muted)] hover:text-[var(--text-main)] px-2" data-lang="js">JS</button>
+            <button class="lang-tab px-2.5 py-1 text-[10px] font-bold rounded text-[var(--text-muted)] hover:text-[var(--text-main)] px-2" data-lang="go">GO</button>
+        </div>
+    </div>
+    <div class="bg-slate-950 rounded-xl overflow-hidden shadow-2xl border border-slate-800">
+        <div class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700/50">
+            <span class="text-[10px] text-slate-400 font-mono" id="file-name">example.py</span>
+            <span class="material-symbols-outlined text-sm text-slate-500 hover:text-white cursor-pointer">content_copy</span>
+        </div>
+        
+        <!-- Python Snippet -->
+        <div class="lang-snippet p-6 font-mono text-xs leading-relaxed overflow-x-auto text-slate-300" id="snippet-py">
+            <div><span class="text-pink-400">import</span> requests</div>
+            <div class="mt-4"><span class="text-cyan-400">url</span> = <span class="text-amber-300">'https://api.quantdata.io/query'</span></div>
+            <div><span class="text-cyan-400">params</span> = {</div>
+            <div class="pl-4"><span class="text-amber-300">'function'</span>: <span class="text-amber-300">'TIME_SERIES_DAILY'</span>,</div>
+            <div class="pl-4"><span class="text-amber-300">'symbol'</span>: <span class="text-amber-300">'IBM'</span>,</div>
+            <div class="pl-4"><span class="text-amber-300">'apikey'</span>: <span class="text-amber-300">'YOUR_KEY'</span></div>
+            <div>}</div>
+            <div class="mt-4"><span class="text-cyan-400">r</span> = requests.get(url, params=params)</div>
+            <div><span class="text-white">print</span>(r.json())</div>
+        </div>
+
+        <!-- JS Snippet -->
+        <div class="lang-snippet p-6 font-mono text-xs leading-relaxed overflow-x-auto text-slate-300 hidden" id="snippet-js">
+            <div><span class="text-blue-400">const</span> axios = <span class="text-emerald-400">require</span>(<span class="text-orange-300">'axios'</span>);</div>
+            <div class="mt-4"><span class="text-blue-400">const</span> <span class="text-slate-200">url</span> = <span class="text-orange-300">'https://api.quantdata.io/query'</span>;</div>
+            <div class="mt-2"><span class="text-blue-400">const</span> <span class="text-slate-200">params</span> = {</div>
+            <div class="pl-4"><span class="text-slate-300">function</span>: <span class="text-orange-300">'TIME_SERIES_DAILY'</span>,</div>
+            <div class="pl-4"><span class="text-slate-300">symbol</span>: <span class="text-orange-300">'IBM'</span>,</div>
+            <div class="pl-4"><span class="text-slate-300">apikey</span>: <span class="text-orange-300">'YOUR_KEY'</span></div>
+            <div>};</div>
+            <div class="mt-4">axios.<span class="text-emerald-400">get</span>(url, { params })</div>
+            <div class="pl-4">.then(<span class="text-slate-200">res</span> => console.<span class="text-emerald-400">log</span>(res.data));</div>
+        </div>
+
+        <!-- Go Snippet -->
+        <div class="lang-snippet p-6 font-mono text-xs leading-relaxed overflow-x-auto text-slate-300 hidden" id="snippet-go">
+            <div><span class="text-pink-400">package</span> main</div>
+            <div class="mt-2"><span class="text-pink-400">import</span> (</div>
+            <div class="pl-4"><span class="text-orange-300">"fmt"</span></div>
+            <div class="pl-4"><span class="text-orange-300">"net/http"</span></div>
+            <div>)</div>
+            <div class="mt-4"><span class="text-blue-400">func</span> <span class="text-emerald-400">main</span>() {</div>
+            <div class="pl-4"><span class="text-slate-300">url</span> := <span class="text-orange-300">"https://api.quantdata.io/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=YOUR_KEY"</span></div>
+            <div class="pl-4"><span class="text-slate-300">resp</span>, _ := http.<span class="text-emerald-400">Get</span>(url)</div>
+            <div class="pl-4">fmt.<span class="text-emerald-400">Println</span>(resp.Status)</div>
+            <div>}</div>
+        </div>
+
+        <div class="px-4 py-3 bg-slate-800/30 flex justify-end">
+            <button class="flex items-center px-4 py-1.5 rounded-md text-xs font-bold text-white bg-primary hover:bg-slate-900 transition-all shadow-lg shadow-blue-500/20">
+                <span class="material-symbols-outlined text-sm mr-1.5">play_arrow</span> Try It
+            </button>
+        </div>
+    </div>
+    <div class="mt-12">
+        <h4 class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] mb-4">On this page</h4>
+        <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+            <li><a class="text-accent border-l-2 border-accent -ml-[17px] pl-4 block font-bold" href="#">Query Parameters</a></li>
+            <li><a class="text-[var(--text-muted)] hover:text-[var(--text-main)] block transition-colors" href="#">Response Metadata</a></li>
+            <li><a class="text-[var(--text-muted)] hover:text-[var(--text-main)] block transition-colors" href="#">Time Series Data</a></li>
+            <li><a class="text-[var(--text-muted)] hover:text-[var(--text-main)] block transition-colors" href="#">Error Codes</a></li>
+        </ul>
+    </div>
+</div>

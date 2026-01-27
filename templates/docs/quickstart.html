@@ -1,0 +1,76 @@
+{% extends 'docs.html' %}
+
+{% block title %}Quickstart Guide | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">Quickstart Guide</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        Get up and running with QuantDataApi in under 5 minutes. This guide will walk you through making your first API call.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-12" id="prerequisites">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center">
+            <span class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-accent flex items-center justify-center mr-3 text-base font-bold">1</span>
+            Get your API Key
+        </h2>
+        <p class="text-[var(--text-muted)] mb-4">
+            If you haven't already, sign up for a free account on our <a class="text-accent font-medium hover:underline" href="#">Developer Dashboard</a> and grab your API key from the dashboard overview.
+        </p>
+    </section>
+
+    <section class="mb-12" id="first-api-call">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center">
+            <span class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-accent flex items-center justify-center mr-3 text-base font-bold">2</span>
+            Make your first request
+        </h2>
+        <p class="text-[var(--text-muted)] mb-6">
+            Open your terminal and run the following cURL command. Replace <code class="bg-[var(--surface)] px-1.5 rounded">DEMO_KEY</code> with your real API key.
+        </p>
+        
+        <div class="overflow-x-auto bg-slate-950 rounded-xl shadow-sm border border-slate-800 mb-8">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700/30">
+                <span class="text-[10px] text-slate-400 font-mono">Terminal / cURL</span>
+                <span class="material-symbols-outlined text-sm text-slate-400 hover:text-white cursor-pointer">content_copy</span>
+            </div>
+            <pre class="p-5 text-xs text-slate-300 font-mono leading-relaxed"><code>curl "https://api.quantdata.io/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=DEMO_KEY"</code></pre>
+        </div>
+
+        <p class="text-[var(--text-muted)] mb-4">
+            You should receive a JSON response containing daily price data for IBM.
+        </p>
+    </section>
+
+    <section class="mb-12" id="next-steps">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-4">Next Steps</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="/docs/concepts" class="group p-5 border border-[var(--border)] rounded-xl hover:border-accent hover:shadow-md transition-all bg-[var(--surface)]/30">
+                <h3 class="font-bold text-[var(--text-main)] mb-1 group-hover:text-accent">Core Concepts</h3>
+                <p class="text-sm text-[var(--text-muted)]">Learn about functions and intervals.</p>
+            </a>
+            <a href="/docs/auth" class="group p-5 border border-[var(--border)] rounded-xl hover:border-accent hover:shadow-md transition-all bg-[var(--surface)]/30">
+                <h3 class="font-bold text-[var(--text-main)] mb-1 group-hover:text-accent">Authentication</h3>
+                <p class="text-sm text-[var(--text-muted)]">Best practices for key security.</p>
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">Steps</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent border-l-2 border-accent -ml-[17px] pl-4 block font-bold" href="#prerequisites">Prerequisites</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#first-api-call">First Request</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#next-steps">Next Steps</a></li>
+    </ul>
+</nav>
+
+<div class="mt-12 p-6 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
+    <h5 class="text-xs font-bold text-indigo-900 dark:text-indigo-300 mb-2">Did you know?</h5>
+    <p class="text-[11px] text-indigo-800 dark:text-indigo-400 leading-relaxed">Most users integrate our API in python using the <code class="font-bold">quantdata-py</code> library.</p>
+</div>
+{% endblock %}

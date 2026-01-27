@@ -1,0 +1,59 @@
+{% extends 'docs.html' %}
+
+{% block title %}Versioning | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">Versioning</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        Our commitment to API stability and long-term backwards compatibility.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-16" id="current-version">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Current Version</h2>
+        <p class="text-[var(--text-muted)] leading-relaxed mb-6">
+            The current stable version is <code class="bg-[var(--surface)] px-1.5 py-0.5 rounded text-accent">v1</code>. All API endpoints include the version in the URL path.
+        </p>
+        <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
+            <h4 class="font-bold text-[var(--text-main)] mb-2">Backwards Compatibility</h4>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed">We guarantee that V1 will remain functional and unchanged for at least 5 years after the release of V2 to give developers ample time to migrate.</p>
+        </div>
+    </section>
+
+    <section class="mb-16" id="deprecations">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Deprecation Policy</h2>
+        <p class="text-[var(--text-muted)] mb-4 leading-relaxed">
+            When a feature or endpoint is slated for removal:
+        </p>
+        <ul class="space-y-4 text-sm text-[var(--text-muted)]">
+            <li class="flex items-start">
+                <span class="material-symbols-outlined text-amber-500 mr-2">warning</span>
+                <span>An announcement will be posted in our <strong>Developer Newsletter</strong>.</span>
+            </li>
+            <li class="flex items-start">
+                <span class="material-symbols-outlined text-amber-500 mr-2">warning</span>
+                <span>A <code class="font-mono">Deprecation</code> header will be added to affected API responses.</span>
+            </li>
+        </ul>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent border-l-2 border-accent -ml-[17px] pl-4 block font-bold" href="#current-version">Current Version</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#deprecations">Deprecations</a></li>
+    </ul>
+</nav>
+
+<div class="mt-12 p-6 bg-[var(--background)] rounded-2xl border border-[var(--border)] text-center">
+    <span class="material-symbols-outlined text-3xl text-accent mb-3">history</span>
+    <h5 class="text-[11px] font-bold text-[var(--text-main)] uppercase tracking-wider mb-2">Changelog</h5>
+    <p class="text-[10px] text-[var(--text-muted)] mb-4 leading-tight">See all recent updates to our API and platform.</p>
+    <a href="#" class="inline-block px-4 py-2 border border-[var(--border)] hover:border-accent text-[var(--text-main)] rounded-lg text-[10px] font-bold transition-all">View History</a>
+</div>
+{% endblock %}

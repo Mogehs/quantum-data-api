@@ -1,0 +1,122 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}API Documentation | QuantDataApi{% endblock %}
+
+{% block head %}
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+</style>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="docs-layout">
+    {% include 'partials/docs_header.html' %}
+    
+    <div class="flex min-h-[calc(100vh-5.5rem)] relative">
+        <!-- Backdrop for mobile sidebar -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity duration-300 opacity-0"></div>
+        
+        <!-- Left Sidebar -->
+        {% include 'partials/docs_sidebar.html' %}
+        
+        <!-- Center Content -->
+        <main class="flex-1 min-w-0 bg-[var(--background)]">
+            <div class="max-w-4xl px-8 py-12 lg:px-12 lg:py-16 mx-auto">
+                {% block docs_content %}{% endblock %}
+            </div>
+        </main>
+        
+        <!-- Right Sidebar (Aside) -->
+        <aside class="hidden lg:block lg:w-[320px] xl:w-[380px] bg-[var(--surface)]/30 border-l border-[var(--border)] lg:sticky lg:top-[5.5rem] lg:h-[calc(100vh-5.5rem)] overflow-y-auto custom-scrollbar">
+            <div class="p-8 lg:p-10">
+                {% block docs_aside %}
+                    {% include 'partials/docs_aside.html' %}
+                {% endblock %}
+            </div>
+        </aside>
+    </div>
+</div>
+
+<div class="fixed bottom-6 right-6 z-50">
+    <button class="w-12 h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-105">
+        <span class="material-symbols-outlined text-2xl">help</span>
+    </button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Language Tab Switching
+    document.querySelectorAll('.lang-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const lang = tab.getAttribute('data-lang');
+            const fileName = lang === 'py' ? 'example.py' : (lang === 'js' ? 'example.js' : 'main.go');
+            
+            // Update Tab styles
+            document.querySelectorAll('.lang-tab').forEach(t => {
+                t.classList.remove('bg-[var(--background)]', 'text-accent', 'shadow-sm');
+                t.classList.add('text-[var(--text-muted)]');
+            });
+            tab.classList.add('bg-[var(--background)]', 'text-accent', 'shadow-sm');
+            tab.classList.remove('text-[var(--text-muted)]');
+
+            // Update Snipets visibility
+            document.querySelectorAll('.lang-snippet').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`snippet-${lang}`).classList.remove('hidden');
+
+            // Update file name
+            document.getElementById('file-name').textContent = fileName;
+        });
+    });
+
+    // Sidebar Collapsible Submenus
+    document.querySelectorAll('.sidebar-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+            const submenu = button.nextElementSibling;
+            const icon = button.querySelector('.chevron-icon');
+            
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                icon.classList.add('rotate-90');
+            } else {
+                submenu.classList.add('hidden');
+                icon.classList.remove('rotate-90');
+            }
+        });
+    });
+
+    // Mobile Sidebar Toggle
+    const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
+    const docsSidebar = document.getElementById('docs-sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    if (mobileSidebarToggle && docsSidebar && sidebarBackdrop) {
+        const toggleSidebar = () => {
+            const isOpen = !docsSidebar.classList.contains('-translate-x-full');
+            
+            if (isOpen) {
+                // Close
+                docsSidebar.classList.add('-translate-x-full');
+                sidebarBackdrop.classList.add('opacity-0');
+                setTimeout(() => sidebarBackdrop.classList.add('hidden'), 300);
+            } else {
+                // Open
+                sidebarBackdrop.classList.remove('hidden');
+                setTimeout(() => {
+                    docsSidebar.classList.remove('-translate-x-full');
+                    sidebarBackdrop.classList.remove('opacity-0');
+                }, 10);
+            }
+        };
+
+        mobileSidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarBackdrop.addEventListener('click', toggleSidebar);
+    }
+</script>
+{% endblock %}

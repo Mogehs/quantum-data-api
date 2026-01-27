@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>
-        {% block title %}Massive API | The Standard for Financial Market Data{% endblock %}
+        {% block title %}QuantDataApi | High-Performance Financial Market Data{% endblock %}
     </title>
     
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -83,14 +83,65 @@
     {% block head %}{% endblock %}
 </head>
 <body class="font-display bg-[var(--background)] text-[var(--text-main)] transition-colors duration-300">
+    {% block navbar %}
     {% include 'partials/navbar.html' %}
+    {% endblock %}
     
     <main>
         {% block content %}{% endblock %}
     </main>
 
+    {% block footer %}
     {% include 'partials/footer.html' %}
+    {% endblock %}
     
     {% block scripts %}{% endblock %}
+
+    <script>
+        function initThemeToggle() {
+            var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+            var themeToggleBtn = document.getElementById('theme-toggle');
+
+            if (!themeToggleBtn || !themeToggleDarkIcon || !themeToggleLightIcon) return;
+
+            // Change the icons inside the button based on previous settings
+            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                themeToggleLightIcon.classList.remove('hidden');
+                themeToggleDarkIcon.classList.add('hidden');
+            } else {
+                themeToggleDarkIcon.classList.remove('hidden');
+                themeToggleLightIcon.classList.add('hidden');
+            }
+
+            themeToggleBtn.addEventListener('click', function() {
+                // toggle icons inside button
+                themeToggleDarkIcon.classList.toggle('hidden');
+                themeToggleLightIcon.classList.toggle('hidden');
+
+                // if set via local storage previously
+                if (localStorage.getItem('theme')) {
+                    if (localStorage.getItem('theme') === 'light') {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                    }
+                } else {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                }
+            });
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initThemeToggle);
+    </script>
 </body>
 </html>

@@ -2,17 +2,18 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <div class="flex items-center gap-10">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center transition-transform group-hover:scale-105">
                         <span class="material-symbols-outlined text-white text-[20px]">analytics</span>
                     </div>
-                    <span class="text-xl font-bold tracking-tight text-[var(--text-main)]">MASSIVE<span class="text-accent">.io</span></span>
-                </div>
+                    <span class="text-xl font-bold tracking-tight text-[var(--text-main)] transition-colors group-hover:text-primary">QuantData<span class="text-accent">Api</span></span>
+                </a>
                 <div class="hidden md:flex gap-8 text-[13px] font-semibold text-[var(--text-muted)] uppercase tracking-wider">
                     <a class="hover:text-primary dark:hover:text-accent transition-colors" href="#">Market Data</a>
-                    <a class="hover:text-primary dark:hover:text-accent transition-colors" href="#">Documentation</a>
+                    <a class="hover:text-primary dark:hover:text-accent transition-colors" href="/docs">Documentation</a>
                     <a class="hover:text-primary dark:hover:text-accent transition-colors" href="#">SDKs</a>
-                    <a class="hover:text-primary dark:hover:text-accent transition-colors" href="#pricing">Pricing</a>
+                    <a class="{% if page == 'playground' %}text-primary dark:text-accent{% else %}hover:text-primary dark:hover:text-accent{% endif %} transition-colors" href="/playground">Playground</a>
+                    <a class="hover:text-primary dark:hover:text-accent transition-colors" href="/pricing">Pricing</a>
                 </div>
             </div>
             <div class="flex items-center gap-4">
@@ -20,12 +21,12 @@
                     <span id="theme-toggle-dark-icon" class="material-symbols-outlined hidden">dark_mode</span>
                     <span id="theme-toggle-light-icon" class="material-symbols-outlined hidden">light_mode</span>
                 </button>
-                <div class="relative hidden lg:block">
+                <form action="/docs" class="relative hidden lg:block" method="GET">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                         <span class="material-symbols-outlined text-sm">search</span>
                     </span>
-                    <input class="block w-48 pl-10 pr-3 py-1.5 border border-[var(--border)] rounded bg-slate-50 dark:bg-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary text-xs" placeholder="Search API docs..." type="text"/>
-                </div>
+                    <input class="block w-48 pl-10 pr-3 py-1.5 border border-[var(--border)] rounded bg-slate-50 dark:bg-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary text-xs" name="q" placeholder="Search API docs..." type="text"/>
+                </form>
                 <button class="px-5 py-2 text-xs font-bold text-white bg-primary hover:bg-slate-900 rounded transition-all shadow-sm">
                     Console
                 </button>
@@ -34,43 +35,3 @@
     </div>
 </nav>
 
-<script>
-    var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-    // Change the icons inside the button based on previous settings
-    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        themeToggleLightIcon.classList.remove('hidden');
-    } else {
-        themeToggleDarkIcon.classList.remove('hidden');
-    }
-
-    var themeToggleBtn = document.getElementById('theme-toggle');
-
-    themeToggleBtn.addEventListener('click', function() {
-        // toggle icons inside button
-        themeToggleDarkIcon.classList.toggle('hidden');
-        themeToggleLightIcon.classList.toggle('hidden');
-
-        // if set via local storage previously
-        if (localStorage.getItem('theme')) {
-            if (localStorage.getItem('theme') === 'light') {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            }
-
-        // if NOT set via local storage previously
-        } else {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-    });
-</script>

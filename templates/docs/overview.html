@@ -1,0 +1,99 @@
+{% extends 'docs.html' %}
+
+{% block title %}Documentation Overview | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">Documentation Overview</h1>
+<p class="text-xl text-[var(--text-muted)] leading-relaxed mb-10">
+    Welcome to the QuantDataApi documentation. Our platform provides institutional-grade financial market data, real-time stock quotes, and historical analytics through a high-performance RESTful interface.
+</p>
+
+<section class="mb-16" id="getting-started">
+    <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center">
+        <span class="material-symbols-outlined mr-2 text-accent">rocket_launch</span> Getting Started
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <a class="group p-5 border border-[var(--border)] rounded-xl hover:border-accent hover:shadow-md transition-all bg-[var(--surface)]/30" href="#">
+            <h3 class="font-bold text-[var(--text-main)] mb-2 group-hover:text-accent">Quickstart Guide</h3>
+            <p class="text-sm text-[var(--text-muted)]">Get up and running with your first API call in under 5 minutes.</p>
+        </a>
+        <a class="group p-5 border border-[var(--border)] rounded-xl hover:border-accent hover:shadow-md transition-all bg-[var(--surface)]/30" href="#">
+            <h3 class="font-bold text-[var(--text-main)] mb-2 group-hover:text-accent">API Keys</h3>
+            <p class="text-sm text-[var(--text-muted)]">Generate and manage your secret keys in the developer dashboard.</p>
+        </a>
+    </div>
+</section>
+
+<section class="mb-16" id="base-url">
+    <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Base URL</h2>
+    <p class="text-[var(--text-muted)] mb-4">All API requests should be made to the following base endpoint:</p>
+    <div class="relative group">
+        <div class="bg-slate-900 text-slate-300 font-mono text-sm p-4 rounded-xl border border-slate-800 flex justify-between items-center shadow-lg">
+            <span>https://api.quantdata.io/v1</span>
+            <button class="hover:text-white transition-colors" title="Copy to clipboard">
+                <span class="material-symbols-outlined text-lg">content_copy</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="mb-16" id="rate-limits">
+    <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Rate Limits</h2>
+    <p class="text-[var(--text-muted)] mb-6">To ensure platform stability, we enforce rate limits based on your subscription tier. Exceeding these limits will result in a <code class="bg-red-50 dark:bg-red-900/20 px-1.5 py-0.5 rounded text-red-600 dark:text-red-400 font-mono text-sm">429 Too Many Requests</code> response.</p>
+    <div class="overflow-hidden border border-[var(--border)] rounded-xl shadow-sm">
+        <table class="min-w-full divide-y divide-[var(--border)]">
+            <thead class="bg-[var(--surface)]">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Tier</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Requests / Min</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Monthly Volume</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent divide-y divide-[var(--border)]">
+                <tr>
+                    <td class="px-6 py-4 text-sm font-semibold text-[var(--text-main)]">Free Sandbox</td>
+                    <td class="px-6 py-4 text-sm text-[var(--text-muted)]">5 requests</td>
+                    <td class="px-6 py-4 text-sm text-[var(--text-muted)]">1,000 requests</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 text-sm font-semibold text-[var(--text-main)]">Professional</td>
+                    <td class="px-6 py-4 text-sm text-[var(--text-muted)]">120 requests</td>
+                    <td class="px-6 py-4 text-sm text-[var(--text-muted)]">100,000 requests</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 text-sm font-semibold text-[var(--text-main)]">Enterprise</td>
+                    <td class="px-6 py-4 text-sm text-[var(--text-muted)]">Unlimited</td>
+                    <td class="px-6 py-4 text-sm text-[var(--text-muted)]">Custom</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="mb-16" id="response-formats">
+    <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Response Formats</h2>
+    <p class="text-[var(--text-muted)] mb-6">By default, all responses are returned in JSON format. We use standard HTTP response codes to indicate the success or failure of an API request.</p>
+    <div class="bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-accent p-6 rounded-r-xl">
+        <div class="flex items-center mb-2">
+            <span class="material-symbols-outlined text-accent mr-2">info</span>
+            <span class="font-bold text-[var(--text-main)]">Content-Type</span>
+        </div>
+        <p class="text-sm text-[var(--text-muted)]">Ensure your requests include the <code class="bg-[var(--background)] px-1 rounded font-mono border border-[var(--border)]">Accept: application/json</code> header to receive structured data.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<ul class="space-y-3 text-sm">
+    <li><a class="text-accent font-medium border-l-2 border-accent pl-4 block" href="#getting-started">Getting Started</a></li>
+    <li><a class="text-[var(--text-muted)] hover:text-accent pl-4 border-l-2 border-transparent block transition-colors" href="#base-url">Base URL</a></li>
+    <li><a class="text-[var(--text-muted)] hover:text-accent pl-4 border-l-2 border-transparent block transition-colors" href="#rate-limits">Rate Limits</a></li>
+    <li><a class="text-[var(--text-muted)] hover:text-accent pl-4 border-l-2 border-transparent block transition-colors" href="#response-formats">Response Formats</a></li>
+</ul>
+<div class="mt-12 p-6 bg-[var(--background)] rounded-2xl border border-[var(--border)] shadow-sm">
+    <p class="text-xs font-bold text-[var(--text-main)] mb-2">Need help?</p>
+    <p class="text-[12px] text-[var(--text-muted)] mb-4 leading-relaxed">Our support engineers are ready to assist you with integration.</p>
+    <button class="w-full py-2 bg-[var(--surface)] border border-[var(--border)] rounded-lg text-xs font-semibold shadow-sm hover:border-accent transition-colors text-[var(--text-main)]">Contact Support</button>
+</div>
+{% endblock %}

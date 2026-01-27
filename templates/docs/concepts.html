@@ -1,0 +1,119 @@
+{% extends 'docs.html' %}
+
+{% block title %}Core Concepts | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">Core Concepts</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        Understand the fundamental building blocks of the QuantDataApi ecosystem. Mastering these concepts will help you integrate our data more effectively.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-16" id="ticker-symbols">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-3 text-accent transition-transform hover:rotate-12">label</span>
+            Ticker Symbols
+        </h2>
+        <p class="text-[var(--text-muted)] mb-6">
+            Everything starts with a symbol. A ticker symbol is a unique series of letters representing a particular security listed on an exchange.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[var(--surface)]/30 p-8 rounded-2xl border border-[var(--border)]">
+            <div>
+                <h4 class="font-bold text-[var(--text-main)] mb-2 flex items-center">
+                    <span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span> US Equities
+                </h4>
+                <p class="text-sm text-[var(--text-muted)] italic">"AAPL", "MSFT", "TSLA"</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-[var(--text-main)] mb-2 flex items-center">
+                    <span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> Crypto
+                </h4>
+                <p class="text-sm text-[var(--text-muted)] italic">"BTC", "ETH", "SOL"</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16" id="api-functions">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-3 text-accent">function</span>
+            API Functions
+        </h2>
+        <p class="text-[var(--text-muted)] mb-6">
+            The <code class="bg-[var(--surface)] px-1.5 py-0.5 rounded text-accent font-bold">function</code> parameter is the most important part of any request. it tells our engine exactly what type of intelligence you need.
+        </p>
+        <div class="space-y-4">
+            <div class="p-4 border-l-4 border-[var(--border)] hover:border-accent transition-colors bg-[var(--surface)]/10 rounded-r-xl">
+                <h4 class="font-bold text-[var(--text-main)] mb-1">Time Series Daily</h4>
+                <p class="text-sm text-[var(--text-muted)]">Historical OHLCV data at a daily granularity.</p>
+            </div>
+            <div class="p-4 border-l-4 border-[var(--border)] hover:border-accent transition-colors bg-[var(--surface)]/10 rounded-r-xl">
+                <h4 class="font-bold text-[var(--text-main)] mb-1">Quote Endpoint</h4>
+                <p class="text-sm text-[var(--text-muted)]">Real-time lightweight price and volume data.</p>
+            </div>
+            <div class="p-4 border-l-4 border-[var(--border)] hover:border-accent transition-colors bg-[var(--surface)]/10 rounded-r-xl">
+                <h4 class="font-bold text-[var(--text-main)] mb-1">Technical Indicators</h4>
+                <p class="text-sm text-[var(--text-muted)]">Computed values like SMA, RSI, or MACD.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16" id="data-granularity">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-3 text-accent">view_compact</span>
+            Data Granularity
+        </h2>
+        <p class="text-[var(--text-muted)] mb-6">
+            Depending on your use case—from HFT to long-term investing—you can Choose the resolution of data that suits your needs.
+        </p>
+        <div class="overflow-x-auto border border-[var(--border)] rounded-2xl shadow-sm">
+            <table class="min-w-full divide-y divide-[var(--border)]">
+                <thead class="bg-[var(--surface)]">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Interval</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Update Frequency</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Best For...</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--border)] text-sm">
+                    <tr>
+                        <td class="px-6 py-4 text-[var(--text-main)] font-semibold">Real-time</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">< 100ms</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">Day Trading, Alerts</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-[var(--text-main)] font-semibold">Intraday</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">1, 5, 15, 60m</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">Technical Analysis</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-[var(--text-main)] font-semibold">Historical</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">Daily / Weekly</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">Portfolio Backtesting</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent hover:text-accent transition-colors block border-l-2 border-accent -ml-[17px] pl-4 font-bold" href="#ticker-symbols">Ticker Symbols</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#api-functions">API Functions</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#data-granularity">Data Granularity</a></li>
+    </ul>
+</nav>
+
+<div class="mt-12 p-6 bg-slate-900 rounded-2xl text-white relative overflow-hidden">
+    <div class="relative z-10">
+        <h5 class="text-sm font-bold mb-2">Pro Tip</h5>
+        <p class="text-[11px] text-slate-300 leading-relaxed">Use the <code class="text-accent bg-white/10 px-1 rounded">SYMBOL_SEARCH</code> function to programmatically find valid ticker symbols.</p>
+    </div>
+    <span class="material-symbols-outlined absolute -bottom-2 -right-2 text-6xl opacity-10">lightbulb</span>
+</div>
+{% endblock %}

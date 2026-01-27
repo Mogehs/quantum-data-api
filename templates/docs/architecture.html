@@ -1,0 +1,123 @@
+{% extends 'docs.html' %}
+
+{% block title %}System Architecture | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">System Architecture</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        QuantDataApi is built for scale, reliability, and extreme speed. Explore the high-level architecture that powers our institutional-grade market data.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-16" id="overview">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-3 text-accent">hub</span>
+            High-Level Flow
+        </h2>
+        <p class="text-[var(--text-muted)] mb-10">
+            Our architecture is designed to handle millions of concurrent messages from global exchanges while maintaining sub-millisecond internal latency.
+        </p>
+        
+        <!-- Simplified Architecture Diagram (Using pure CSS/HTML) -->
+        <div class="relative py-12 px-6 bg-[var(--surface)]/30 rounded-3xl border border-[var(--border)] mb-12 overflow-hidden">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 relative z-10">
+                <!-- Source -->
+                <div class="flex flex-col items-center space-y-3">
+                    <div class="p-4 bg-[var(--background)] border border-[var(--border)] rounded-2xl shadow-sm w-32 text-center">
+                        <span class="material-symbols-outlined text-accent mb-2">account_balance</span>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-main)]">Exchanges</div>
+                    </div>
+                    <div class="h-8 w-px bg-gradient-to-b from-accent to-transparent"></div>
+                </div>
+
+                <!-- Processor -->
+                <div class="flex flex-col items-center space-y-3">
+                     <div class="p-6 bg-accent text-white rounded-3xl shadow-xl w-40 text-center relative">
+                        <div class="absolute -top-2 -right-2 bg-indigo-900 text-[8px] font-bold px-2 py-1 rounded-full uppercase">Ultra Low Latency</div>
+                        <span class="material-symbols-outlined mb-2 text-2xl">memory</span>
+                        <div class="text-[11px] font-extrabold uppercase tracking-[0.15em]">Core Engine</div>
+                    </div>
+                </div>
+
+                 <!-- Delivery -->
+                <div class="flex flex-col items-center space-y-3">
+                    <div class="h-8 w-px bg-gradient-to-t from-accent to-transparent"></div>
+                    <div class="p-4 bg-[var(--background)] border border-[var(--border)] rounded-2xl shadow-sm w-32 text-center">
+                        <span class="material-symbols-outlined text-accent mb-2">terminal</span>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-main)]">Your App</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Background Decoration -->
+            <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
+            <div class="absolute -top-20 -right-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+
+    <section class="mb-16" id="security-layers">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-3 text-accent">shield</span>
+            Security Layers
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-6 border border-[var(--border)] rounded-2xl hover:shadow-md transition-all">
+                <span class="material-symbols-outlined text-accent mb-4">lock</span>
+                <h4 class="font-bold text-[var(--text-main)] mb-2">TLS 1.3</h4>
+                <p class="text-xs text-[var(--text-muted)] leading-relaxed">End-to-end encryption for every data byte in transit.</p>
+            </div>
+            <div class="p-6 border border-[var(--border)] rounded-2xl hover:shadow-md transition-all">
+                <span class="material-symbols-outlined text-accent mb-4">gpp_maybe</span>
+                <h4 class="font-bold text-[var(--text-main)] mb-2">WAF</h4>
+                <p class="text-xs text-[var(--text-muted)] leading-relaxed">Advanced protection against DDoS and injection attacks.</p>
+            </div>
+            <div class="p-6 border border-[var(--border)] rounded-2xl hover:shadow-md transition-all">
+                <span class="material-symbols-outlined text-accent mb-4">fingerprint</span>
+                <h4 class="font-bold text-[var(--text-main)] mb-2">Auth Layer</h4>
+                <p class="text-xs text-[var(--text-muted)] leading-relaxed">Granular API key scopes and token-based validation.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16" id="caching-strategy">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-3 text-accent">bolt</span>
+            Caching & Delivery
+        </h2>
+        <p class="text-[var(--text-muted)] mb-6 leading-relaxed">
+            We utilize a multi-tier caching strategy powered by a globally distributed CDN. Popular requests are served from the edge, significantly reducing the "Time to First Byte" (TTFB) for users worldwide.
+        </p>
+        <div class="bg-[var(--surface)] p-6 rounded-2xl border-l border-accent border-r border-t border-b border-opacity-10 shadow-sm flex items-start space-x-4">
+            <span class="material-symbols-outlined text-accent p-2 bg-accent/10 rounded-lg">public</span>
+            <div>
+                <h4 class="text-sm font-bold text-[var(--text-main)] mb-1">Global Edge Network</h4>
+                <p class="text-xs text-[var(--text-muted)] m-0">
+                    With 40+ points of presence (PoP), your data is always delivered from the server closest to you.
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent hover:text-accent transition-colors block border-l-2 border-accent -ml-[17px] pl-4 font-bold" href="#overview">High-Level Flow</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#security-layers">Security Layers</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#caching-strategy">Caching & Delivery</a></li>
+    </ul>
+</nav>
+
+<div class="mt-12 p-6 bg-[var(--surface)] rounded-2xl border border-[var(--border)] text-center">
+    <span class="material-symbols-outlined text-3xl text-accent mb-3">cloud_sync</span>
+    <h5 class="text-[11px] font-bold text-[var(--text-main)] uppercase tracking-wider mb-2">System Status</h5>
+    <div class="flex items-center justify-center space-x-2">
+        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+        <span class="text-[10px] text-green-500 font-bold uppercase">All Systems Operational</span>
+    </div>
+</div>
+{% endblock %}

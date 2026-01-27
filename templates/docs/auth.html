@@ -1,0 +1,123 @@
+{% extends 'docs.html' %}
+
+{% block title %}Authentication Guide | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">Authentication</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        Learn how to authenticate your requests to the QuantDataApi. All requests require a valid API key to be included in the header or as a query parameter.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-12" id="obtaining-key">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center">
+            <span class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-accent flex items-center justify-center mr-3 text-base font-bold">1</span>
+            Obtaining your API Key
+        </h2>
+        <p class="text-[var(--text-muted)] mb-4">
+            To start using the QuantDataApi, you'll need to create an account on our <a class="text-accent font-medium hover:underline" href="#">Developer Dashboard</a>. Once registered, you can generate your first API key in the <strong>Settings &gt; API Keys</strong> section.
+        </p>
+        <div class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30 rounded-xl p-6 flex items-start space-x-4">
+            <span class="material-symbols-outlined text-accent mt-0.5">info</span>
+            <div>
+                <h4 class="text-sm font-bold text-indigo-900 dark:text-indigo-300 mb-1">Key Generation</h4>
+                <p class="text-sm text-indigo-800 dark:text-indigo-400 m-0">
+                    Standard accounts include 1 production key and 2 sandbox keys. Enterprise accounts allow for unlimited key creation with granular scope control.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-12" id="usage">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-4 flex items-center">
+            <span class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-accent flex items-center justify-center mr-3 text-base font-bold">2</span>
+            Using your API Key
+        </h2>
+        <p class="text-[var(--text-muted)] mb-6">
+            We support two methods for passing your API key. For security reasons, we strongly recommend using the <strong>Authorization Header</strong> method for all production environments.
+        </p>
+        
+        <div class="space-y-10">
+            <div id="header-auth">
+                <h3 class="text-lg font-bold text-[var(--text-main)] mb-3">Option 1: Authorization Header (Recommended)</h3>
+                <p class="text-sm text-[var(--text-muted)] mb-4">Include your key in the standard HTTP header using the Bearer scheme.</p>
+                <div class="overflow-x-auto bg-slate-950 rounded-xl shadow-sm border border-slate-800">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700/30">
+                        <span class="text-[10px] text-slate-400 font-mono">cURL / Header</span>
+                        <span class="material-symbols-outlined text-sm text-slate-400 hover:text-white cursor-pointer">content_copy</span>
+                    </div>
+                    <pre class="p-5 text-xs text-slate-300 font-mono leading-relaxed"><code>curl -X GET "https://api.quantdata.io/v1/market/quote?symbol=AAPL" \
+  -H <span class="text-amber-300">"Authorization: Bearer YOUR_API_KEY"</span></code></pre>
+                </div>
+            </div>
+
+            <div id="query-auth">
+                <h3 class="text-lg font-bold text-[var(--text-main)] mb-3">Option 2: Query Parameter</h3>
+                <p class="text-sm text-[var(--text-muted)] mb-4">Alternatively, you can pass the key as a query parameter named <code class="bg-[var(--surface)] px-1 rounded">apikey</code>.</p>
+                <div class="overflow-x-auto bg-slate-950 rounded-xl shadow-sm border border-slate-800">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700/30">
+                        <span class="text-[10px] text-slate-400 font-mono">Query URL</span>
+                        <span class="material-symbols-outlined text-sm text-slate-400 hover:text-white cursor-pointer">content_copy</span>
+                    </div>
+                    <pre class="p-5 text-xs text-slate-300 font-mono leading-relaxed"><code>https://api.quantdata.io/v1/market/quote?symbol=AAPL&amp;<span class="text-amber-300">apikey=YOUR_API_KEY</span></code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-12" id="best-practices">
+        <div class="bg-slate-900 rounded-2xl p-8 text-white relative overflow-hidden shadow-xl">
+            <div class="absolute top-0 right-0 p-8 opacity-10">
+                <span class="material-symbols-outlined text-[120px]">security</span>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="material-symbols-outlined text-blue-400">verified_user</span>
+                    <h3 class="text-xl font-bold">Security Best Practices</h3>
+                </div>
+                <ul class="space-y-4 text-slate-300 text-sm">
+                    <li class="flex items-start">
+                        <span class="material-symbols-outlined text-green-400 mr-3 text-lg">check_circle</span>
+                        <span><strong class="text-white">Keep your keys secret:</strong> Never check keys into version control (Git, etc). Use environment variables or a secret management service.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="material-symbols-outlined text-green-400 mr-3 text-lg">check_circle</span>
+                        <span><strong class="text-white">Use restriction scopes:</strong> Limit your keys to specific IP addresses or referrer domains whenever possible.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="material-symbols-outlined text-green-400 mr-3 text-lg">check_circle</span>
+                        <span><strong class="text-white">Rotate keys regularly:</strong> We recommend rotating production keys every 90 days to minimize risk if a leak occurs.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="material-symbols-outlined text-green-400 mr-3 text-lg">check_circle</span>
+                        <span><strong class="text-white">Server-side only:</strong> Avoid using keys in client-side code (browsers, mobile apps) where they can be easily extracted.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent hover:text-accent transition-colors block border-l-2 border-accent -ml-[17px] pl-4 font-bold" href="#obtaining-key">Obtaining your API Key</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#usage">Usage Methods</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors pl-4 block" href="#header-auth">Authorization Header</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors pl-4 block" href="#query-auth">Query Parameter</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#best-practices">Best Practices</a></li>
+    </ul>
+</nav>
+
+<div class="mt-12 p-6 bg-[var(--background)] rounded-2xl border border-[var(--border)] shadow-sm">
+    <h5 class="text-xs font-bold text-[var(--text-main)] mb-2">Need help?</h5>
+    <p class="text-[12px] text-[var(--text-muted)] mb-4 leading-relaxed">Having trouble with authentication? Our support engineers are available 24/7.</p>
+    <a class="text-xs font-bold text-accent flex items-center hover:underline" href="#">
+        Contact Support <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+    </a>
+</div>
+{% endblock %}

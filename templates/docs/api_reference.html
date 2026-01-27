@@ -1,0 +1,56 @@
+{% extends 'docs.html' %}
+
+{% block title %}API Reference | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<div class="inline-flex items-center px-2 py-1 rounded bg-indigo-50 dark:bg-indigo-900/30 text-accent text-[10px] font-bold uppercase tracking-widest mb-4">
+    GET /query
+</div>
+<h1 class="text-4xl font-bold text-[var(--text-main)] mb-6 tracking-tight">TIME_SERIES_DAILY</h1>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <p class="text-lg text-[var(--text-muted)] leading-relaxed mb-8">
+        This API returns raw (as-traded) daily time series (date, daily open, daily high, daily low, daily close, daily volume) of the global equity specified, covering 20+ years of historical data. 
+    </p>
+    
+    <div class="bg-[var(--surface)] border-l-4 border-accent p-4 rounded-r-lg mb-10 flex items-start text-[var(--text-main)]">
+        <span class="material-symbols-outlined text-accent mr-3">info</span>
+        <p class="text-sm m-0">
+            If you are also interested in split/dividend-adjusted data, please use the <a class="font-bold underline decoration-accent/30 hover:decoration-accent" href="#">Daily Adjusted API</a>.
+        </p>
+    </div>
+
+    <h3 class="text-xl font-bold mb-6 flex items-center border-b border-[var(--border)] pb-2 text-[var(--text-main)]">
+        Query Parameters
+    </h3>
+    
+    <div class="overflow-x-auto border border-[var(--border)] rounded-xl mb-10 shadow-sm">
+        <table class="min-w-full divide-y divide-[var(--border)]">
+            <thead class="bg-[var(--surface)]/50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Parameter</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Type</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Description</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent divide-y divide-[var(--border)] text-[var(--text-muted)]">
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap"><code class="text-sm text-accent font-bold bg-transparent">function</code></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><span class="text-xs font-mono">string</span></td>
+                    <td class="px-6 py-4 text-sm">Required. Set to <code class="bg-[var(--surface)] px-1 rounded">TIME_SERIES_DAILY</code></td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap"><code class="text-sm text-accent font-bold bg-transparent">symbol</code></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><span class="text-xs font-mono">string</span></td>
+                    <td class="px-6 py-4 text-sm">Required. The ticker symbol of the equity (e.g., IBM)</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap"><code class="text-sm text-accent font-bold bg-transparent">outputsize</code></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><span class="text-xs font-mono">string</span></td>
+                    <td class="px-6 py-4 text-sm">Optional. <code class="">compact</code> (default) or <code class="">full</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

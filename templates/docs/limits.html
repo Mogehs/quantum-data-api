@@ -1,0 +1,73 @@
+{% extends 'docs.html' %}
+
+{% block title %}Rate Limits | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<header class="mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--text-main)] mb-4 tracking-tight">Rate Limits</h1>
+    <p class="text-xl text-[var(--text-muted)] leading-relaxed">
+        To ensure platform stability and fair usage, we enforce rate limits on all API requests.
+    </p>
+</header>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <section class="mb-16" id="tier-limits">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Subscription Tiers</h2>
+        <div class="overflow-x-auto border border-[var(--border)] rounded-2xl shadow-sm">
+            <table class="min-w-full divide-y divide-[var(--border)]">
+                <thead class="bg-[var(--surface)]">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Tier</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Requests / Min</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Daily Limit</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--border)] text-sm">
+                    <tr>
+                        <td class="px-6 py-4 font-semibold text-[var(--text-main)]">Free Sandbox</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">5 RPM</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">500 total</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 font-semibold text-[var(--text-main)]">Startup</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">30 RPM</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">10,000 total</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 font-semibold text-[var(--text-main)]">Professional</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">150 RPM</td>
+                        <td class="px-6 py-4 text-[var(--text-muted)]">100,000 total</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="mb-16" id="handling-limits">
+        <h2 class="text-2xl font-bold text-[var(--text-main)] mb-6">Handling Rate Limits</h2>
+        <p class="text-[var(--text-muted)] mb-6 leading-relaxed">
+            When you exceed your limit, the API will return a <code class="bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded text-red-600 dark:text-red-400 font-mono">429 Too Many Requests</code> status code.
+        </p>
+        <div class="bg-[var(--surface)]/30 p-6 rounded-2xl border border-[var(--border)]">
+            <h4 class="font-bold text-[var(--text-main)] mb-2">Recommended Strategy</h4>
+            <p class="text-sm text-[var(--text-muted)]">Use an exponential backoff algorithm in your client code to wait before retrying requests after a 429 error.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">On this page</h4>
+<nav>
+    <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+        <li><a class="text-accent border-l-2 border-accent -ml-[17px] pl-4 block font-bold" href="#tier-limits">Subscription Tiers</a></li>
+        <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#handling-limits">Best Practices</a></li>
+    </ul>
+</nav>
+
+<div class="mt-12 p-6 bg-accent/5 rounded-2xl border border-accent/20">
+    <p class="text-xs font-bold text-accent mb-2 uppercase tracking-tight">Need More?</p>
+    <p class="text-[11px] text-[var(--text-muted)] leading-relaxed mb-4">Contact our sales team for custom ultra-high frequency enterprise plans.</p>
+    <a href="#" class="text-xs font-bold text-accent hover:underline">Get Enterprise Quote →</a>
+</div>
+{% endblock %}

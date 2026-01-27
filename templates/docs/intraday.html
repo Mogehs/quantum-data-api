@@ -1,0 +1,87 @@
+{% extends 'docs.html' %}
+
+{% block title %}Intraday Time Series | QuantDataApi{% endblock %}
+
+{% block docs_content %}
+<div class="inline-flex items-center px-2 py-1 rounded bg-indigo-50 dark:bg-indigo-900/30 text-accent text-[10px] font-bold uppercase tracking-widest mb-4">
+    GET /query
+</div>
+<h1 class="text-4xl font-bold text-[var(--text-main)] mb-6 tracking-tight">TIME_SERIES_INTRADAY</h1>
+
+<div class="prose prose-slate dark:prose-invert max-w-none">
+    <p class="text-lg text-[var(--text-muted)] leading-relaxed mb-8">
+        This API returns intraday time series (date, open, high, low, close, volume) of the equity specified, covering the most recent 1-2 months of intraday data.
+    </p>
+    
+    <div class="bg-[var(--surface)] border-l-4 border-accent p-4 rounded-r-lg mb-10 flex items-start text-[var(--text-main)]">
+        <span class="material-symbols-outlined text-accent mr-3">info</span>
+        <p class="text-sm m-0">
+            For intraday data older than 2 months, please refer to our <a class="font-bold underline decoration-accent/30 hover:decoration-accent" href="#">Historical Intraday Archive</a>.
+        </p>
+    </div>
+
+    <h3 class="text-xl font-bold mb-6 flex items-center border-b border-[var(--border)] pb-2 text-[var(--text-main)]">
+        Query Parameters
+    </h3>
+    
+    <div class="overflow-x-auto border border-[var(--border)] rounded-xl mb-10 shadow-sm">
+        <table class="min-w-full divide-y divide-[var(--border)]">
+            <thead class="bg-[var(--surface)]/50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Parameter</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Type</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Description</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent divide-y divide-[var(--border)] text-[var(--text-muted)]">
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap"><code class="text-sm text-accent font-bold bg-transparent">function</code></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><span class="text-xs font-mono">string</span></td>
+                    <td class="px-6 py-4 text-sm">Required. Set to <code class="bg-[var(--surface)] px-1 rounded">TIME_SERIES_INTRADAY</code></td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap"><code class="text-sm text-accent font-bold bg-transparent">symbol</code></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><span class="text-xs font-mono">string</span></td>
+                    <td class="px-6 py-4 text-sm">Required. The ticker symbol (e.g., IBM)</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap"><code class="text-sm text-accent font-bold bg-transparent">interval</code></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><span class="text-xs font-mono">string</span></td>
+                    <td class="px-6 py-4 text-sm">Required. <code class="">1min</code>, <code class="">5min</code>, <code class="">15min</code>, <code class="">30min</code>, <code class="">60min</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block docs_aside %}
+<h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">Request Samples</h4>
+<div class="bg-slate-950 rounded-xl overflow-hidden shadow-2xl border border-slate-800">
+    <div class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700/50">
+        <span class="text-[10px] text-slate-400 font-mono">Python</span>
+        <span class="material-symbols-outlined text-sm text-slate-500 hover:text-white cursor-pointer">content_copy</span>
+    </div>
+    <div class="p-6 font-mono text-xs leading-relaxed overflow-x-auto text-slate-300">
+        <div><span class="text-pink-400">import</span> requests</div>
+        <div class="mt-4"><span class="text-cyan-400">url</span> = <span class="text-amber-300">'https://api.quantdata.io/query'</span></div>
+        <div><span class="text-cyan-400">params</span> = {</div>
+        <div class="pl-4"><span class="text-amber-300">'function'</span>: <span class="text-amber-300">'TIME_SERIES_INTRADAY'</span>,</div>
+        <div class="pl-4"><span class="text-amber-300">'symbol'</span>: <span class="text-amber-300">'IBM'</span>,</div>
+        <div class="pl-4"><span class="text-amber-300">'interval'</span>: <span class="text-amber-300">'5min'</span>,</div>
+        <div class="pl-4"><span class="text-amber-300">'apikey'</span>: <span class="text-amber-300">'demo'</span></div>
+        <div>}</div>
+        <div class="mt-4"><span class="text-cyan-400">r</span> = requests.get(url, params=params)</div>
+    </div>
+</div>
+
+<div class="mt-12">
+    <h4 class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] mb-4">On this page</h4>
+    <nav>
+        <ul class="space-y-3 border-l border-[var(--border)] pl-4 text-xs font-medium">
+            <li><a class="text-accent border-l-2 border-accent -ml-[17px] pl-4 block font-bold" href="#">Query Parameters</a></li>
+            <li><a class="text-[var(--text-muted)] hover:text-accent transition-colors block" href="#">Typical Response</a></li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}
