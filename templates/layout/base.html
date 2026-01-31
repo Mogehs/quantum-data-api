@@ -17,23 +17,89 @@
     <style type="text/tailwindcss">
         @layer base {
             :root {
-                --primary: #1E1B4B;
-                --accent: #4F46E5;
+                --primary: #0B1020;
+                --accent: #18C5B8;
+                --secondary-accent: #4F7CFF;
+                /* --background: #F7F9FC; */
                 --background: #FFFFFF;
-                --surface: #F8FAFC;
-                --border: #E2E8F0;
-                --text-main: #1E293B;
-                --text-muted: #64748B;
+                --surface: #FFFFFF;
+                --border: #D6DEEA;
+                --text-main: #0B1020;
+                --text-muted: #4A5875;
+                --on-accent: #FFFFFF;
             }
             .dark {
-                --primary: #4F46E5;
-                --accent: #818CF8;
-                --background: #0F172A;
-                --surface: #1E293B;
-                --border: #334155;
-                --text-main: #F1F5F9;
-                --text-muted: #94A3B8;
+                --primary: #2EE6D6;
+                --accent: #2EE6D6;
+                --secondary-accent: #5B8CFF;
+                --background: #0B1020;
+                --surface: #11172A;
+                --border: #1E2A44;
+                --text-main: #EAF0FF;
+                --text-muted: #A9B2C7;
+                --on-accent: #0B1020;
             }
+        }
+        
+        @layer utilities {
+            .animate-slide-up {
+                animation: slide-up 0.5s ease-out forwards;
+                will-change: transform, opacity;
+            }
+            .animate-fade-in {
+                animation: fade-in 0.6s ease-out forwards;
+                will-change: opacity;
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+                will-change: transform;
+            }
+            .card-lift {
+                transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+                will-change: transform, box-shadow;
+            }
+            .card-lift:hover {
+                @apply -translate-y-1 shadow-lg border-[var(--accent)];
+            }
+            .reveal {
+                opacity: 0;
+                transform: translateY(15px);
+                transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+                will-change: transform, opacity;
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .typewriter-cursor {
+                display: inline-block;
+                width: 3px;
+                height: 1em;
+                background-color: var(--accent);
+                margin-left: 4px;
+                vertical-align: middle;
+                animation: blink 1s step-end infinite;
+            }
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0; }
+            }
+        }
+
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
@@ -65,11 +131,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#1E1B4B",
-                        accent: "#4F46E5",
-                        slate: {
-                            950: "#020617",
-                        }
+                        primary: "var(--primary)",
+                        accent: "var(--accent)",
+                        'secondary-accent': "var(--secondary-accent)",
                     },
                     fontFamily: {
                         display: ["Inter", "sans-serif"],
@@ -99,49 +163,90 @@
 
     <script>
         function initThemeToggle() {
-            var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-            var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-            var themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const btn = document.getElementById('theme-toggle');
 
-            if (!themeToggleBtn || !themeToggleDarkIcon || !themeToggleLightIcon) return;
+            if (!btn || !darkIcon || !lightIcon) return;
 
-            // Change the icons inside the button based on previous settings
-            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                themeToggleLightIcon.classList.remove('hidden');
-                themeToggleDarkIcon.classList.add('hidden');
+            // Initialize icons
+            if (document.documentElement.classList.contains('dark')) {
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
             } else {
-                themeToggleDarkIcon.classList.remove('hidden');
-                themeToggleLightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
             }
 
-            themeToggleBtn.addEventListener('click', function() {
-                // toggle icons inside button
-                themeToggleDarkIcon.classList.toggle('hidden');
-                themeToggleLightIcon.classList.toggle('hidden');
+            btn.addEventListener('click', () => {
+                darkIcon.classList.toggle('hidden');
+                lightIcon.classList.toggle('hidden');
 
-                // if set via local storage previously
-                if (localStorage.getItem('theme')) {
-                    if (localStorage.getItem('theme') === 'light') {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                    }
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
                 } else {
-                    if (document.documentElement.classList.contains('dark')) {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                    } else {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                    }
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
                 }
             });
         }
-        
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', initThemeToggle);
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        function initTypewriter() {
+            const elements = document.querySelectorAll('[data-typewriter]');
+            elements.forEach(el => {
+                const words = JSON.parse(el.getAttribute('data-typewriter'));
+                if (!words || !words.length) return;
+
+                let wordIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function type() {
+                    const currentWord = words[wordIndex];
+                    if (isDeleting) {
+                        el.textContent = currentWord.substring(0, charIndex - 1);
+                        charIndex--;
+                    } else {
+                        el.textContent = currentWord.substring(0, charIndex + 1);
+                        charIndex++;
+                    }
+
+                    let speed = isDeleting ? 60 : 120;
+
+                    if (!isDeleting && charIndex === currentWord.length) {
+                        isDeleting = true;
+                        speed = 2500; // Stay typed
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        wordIndex = (wordIndex + 1) % words.length;
+                        speed = 500; // Pause before typing next word
+                    }
+
+                    setTimeout(type, speed);
+                }
+
+                type();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initThemeToggle();
+            initScrollReveal();
+            initTypewriter();
+        });
     </script>
 </body>
 </html>

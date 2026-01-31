@@ -24,6 +24,10 @@ async def pricing(request: Request):
 async def playground(request: Request):
     return templates.TemplateResponse("playground.html", {"request": request, "page": "playground"})
 
+@app.get("/contact")
+async def contact_page(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request, "page": "contact"})
+
 @app.get("/docs/auth")
 async def docs_auth(request: Request):
     return templates.TemplateResponse("docs/auth.html", {"request": request, "page": "auth", "title": "Authentication"})
@@ -68,6 +72,10 @@ async def docs_errors(request: Request):
 async def docs_versioning(request: Request):
     return templates.TemplateResponse("docs/versioning.html", {"request": request, "page": "versioning", "title": "Versioning"})
 
+@app.get("/docs-v2")
+async def docs_v2(request: Request):
+    return templates.TemplateResponse("docs/v2.html", {"request": request, "page": "docs-v2", "title": "Documentation V2"})
+
 @app.get("/docs/{slug}")
 async def docs_placeholder(request: Request, slug: str):
     # Mapping slug to readable title
@@ -91,6 +99,4 @@ async def docs_placeholder(request: Request, slug: str):
     })
 
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stripe-Inspired Documentation Hub | Financial Data SaaS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#635bff",
+                        "slate-link": "#424770",
+                        "border-light": "#e6ebf1",
+                        "ide-bg": "#0f172a",
+                        "ide-header": "#1e293b",
+                        "ide-text": "#f8fafc",
+                        "ide-accent": "#38bdf8",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        mono: ["Fira Code", "monospace"],
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body { 
+                font-family: 'Inter', sans-serif;
+                -webkit-font-smoothing: antialiased;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e6ebf1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cfd7df; }
+        
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+        .syntax-key { color: #f472b6; }
+        .syntax-string { color: #34d399; }
+        .syntax-number { color: #fbbf24; }
+        .syntax-comment { color: #94a3b8; }
+        .syntax-keyword { color: #818cf8; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: flex; }
+
+        #main-code-block.fullscreen {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+            border: none;
+            border-radius: 0;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+        }
+        #main-code-block.fullscreen .code-content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+        }
+        #main-code-block.fullscreen .tab-content {
+            height: auto;
+            min-height: min-content;
+        }
+        #main-code-block.fullscreen .response-section {
+            padding-bottom: 3rem; /* Extra padding for the bottom of the screen */
+            max-height: 35vh;
+            overflow-y: auto;
+        }
+
+        /* Mobile specific styles */
+        @media (max-width: 1024px) {
+            #sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                height: 100vh;
+                z-index: 2000;
+                transition: left 0.3s ease-in-out;
+                width: 280px;
+                box-shadow: 20px 0 50px rgba(0,0,0,0.1);
+            }
+            #sidebar.open {
+                left: 0;
+            }
+            #sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.4);
+                z-index: 1999;
+                backdrop-filter: blur(2px);
+            }
+            #sidebar-overlay.visible {
+                display: block;
+            }
+        }
+    </style>
+    <script>
+        // Initial theme check
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<header class="sticky top-0 z-50 w-full bg-white dark:bg-slate-950 border-b border-border-light dark:border-slate-800">
+<div class="max-w-[1600px] mx-auto flex items-center justify-between px-6 h-[60px]">
+<div class="flex items-center space-x-8 flex-1">
+<div class="flex items-center space-x-2 shrink-0">
+<button id="mobile-menu-btn" class="lg:hidden p-2 -ml-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
+    <span class="material-symbols-outlined">menu</span>
+</button>
+<div class="w-6 h-6 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[16px]">database</span>
+</div>
+<div class="flex items-center">
+<span class="text-[15px] font-bold tracking-tight text-[#0a2540] dark:text-white uppercase">Massive</span>
+<span class="text-[15px] font-medium text-primary ml-1 uppercase">Docs</span>
+</div>
+</div>
+<div class="relative w-full max-w-[480px] hidden md:block">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-20 py-[6px] bg-[#f6f9fc] dark:bg-slate-900 border-none rounded-md text-[14px] placeholder-slate-500 focus:ring-2 focus:ring-primary/20 transition-all text-slate-900 dark:text-slate-100" placeholder="Search documentation" type="text"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none space-x-1">
+<button class="flex items-center px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-[11px] font-semibold text-slate-400 shadow-sm">
+<span class="mr-0.5 text-[10px]">CMD</span>K
+                    </button>
+<button class="flex items-center px-2 py-1 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-semibold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                        Ask AI <span class="material-symbols-outlined text-[12px] ml-1">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-4 md:space-x-6">
+<div class="flex items-center space-x-4 md:space-x-6 text-[14px] font-medium text-slate-link dark:text-slate-400">
+<button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center">
+    <span id="theme-toggle-dark-icon" class="material-symbols-outlined hidden">dark_mode</span>
+    <span id="theme-toggle-light-icon" class="material-symbols-outlined hidden">light_mode</span>
+</button>
+<a class="hidden sm:inline-block hover:text-primary transition-colors" href="#">Support</a>
+<a class="hidden sm:inline-block hover:text-primary transition-colors" href="#">Sign in</a>
+</div>
+<button class="bg-primary text-white px-3 md:px-4 py-[6px] rounded-full text-[13px] md:text-[14px] font-semibold hover:bg-[#544af4] transition-all shadow-sm shrink-0">
+                Create account
+            </button>
+</div>
+</div>
+<div class="border-b border-border-light dark:border-slate-800 bg-white dark:bg-slate-950">
+<div class="max-w-[1600px] mx-auto flex items-center justify-between px-6 h-[48px] overflow-hidden">
+<nav class="flex items-center space-x-8 text-[14px] font-medium text-slate-link dark:text-slate-400 overflow-x-auto no-scrollbar whitespace-nowrap" id="top-nav">
+<a class="nav-tab text-primary border-b-2 border-primary py-[13px] px-1" href="#" data-tab="guides">Guides</a>
+<a class="nav-tab hover:text-primary transition-colors py-[13px] px-1" href="#" data-tab="api">API Reference</a>
+<a class="nav-tab hover:text-primary transition-colors py-[13px] px-1" href="#" data-tab="changelog">Changelog</a>
+<a class="nav-tab hover:text-primary transition-colors py-[13px] px-1" href="#" data-tab="sdks">SDKs</a>
+</nav>
+<div class="hidden lg:flex items-center space-x-6 text-[13px] font-medium text-slate-link dark:text-slate-400">
+<div class="flex items-center space-x-1 hover:text-primary cursor-pointer group">
+<span>APIs &amp; SDKs</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-y-0.5 transition-transform">expand_more</span>
+</div>
+<div class="flex items-center space-x-1 hover:text-primary cursor-pointer group">
+<span>Help</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-y-0.5 transition-transform">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class="max-w-[1600px] mx-auto flex">
+<div id="sidebar-overlay"></div>
+<aside class="w-64 shrink-0 border-r border-border-light dark:border-slate-800 lg:h-[calc(100vh-108px)] lg:sticky top-[108px] overflow-y-auto custom-scrollbar p-6 bg-white dark:bg-slate-950" id="sidebar">
+    <!-- Sidebar content will be rendered here by JS -->
+</aside>
+<main class="flex-1 min-w-0 bg-white dark:bg-slate-950">
+<div class="p-6 md:p-12 lg:p-16 max-w-5xl">
+<header class="mb-8 lg:mb-12">
+<div class="flex items-center space-x-2 text-[13px] text-slate-500 mb-4 flex-wrap">
+<a class="hover:text-primary" href="#">API Reference</a>
+<span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Market Data</span>
+</div>
+<h1 class="text-[28px] md:text-[36px] font-bold text-[#0a2540] dark:text-white mb-4">Real-time Stock Quotes</h1>
+<p class="text-[16px] md:text-[18px] text-[#424770] dark:text-slate-400 leading-relaxed max-w-3xl">Access real-time, low-latency market data for thousands of global equities. Our REST API delivers the latest price, volume, and depth data updated every millisecond.</p>
+</header>
+<div class="grid grid-cols-1 gap-12">
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="text-[14px] font-bold text-slate-link dark:text-slate-400 uppercase tracking-wider">Example Request</h2>
+<span class="text-[13px] text-slate-400">POST /v1/market/quotes</span>
+</div>
+<div class="rounded-xl overflow-hidden shadow-2xl border border-slate-800 bg-ide-bg flex flex-col" id="main-code-block">
+<div class="bg-ide-header border-b border-slate-700/50 flex items-center justify-between px-4 h-11 shrink-0 overflow-hidden">
+<div class="flex items-center h-full overflow-x-auto no-scrollbar whitespace-nowrap" id="language-tabs">
+<button class="tab-btn px-4 h-full text-[12px] font-semibold text-white border-b-2 border-primary bg-slate-800/50 transition-colors" data-lang="python">Python</button>
+<button class="tab-btn px-4 h-full text-[12px] font-medium text-slate-400 hover:text-slate-200 transition-colors" data-lang="javascript">JavaScript</button>
+<button class="tab-btn px-4 h-full text-[12px] font-medium text-slate-400 hover:text-slate-200 transition-colors" data-lang="curl">cURL</button>
+<button class="tab-btn px-4 h-full text-[12px] font-medium text-slate-400 hover:text-slate-200 transition-colors" data-lang="go">Go</button>
+<button class="tab-btn px-4 h-full text-[12px] font-medium text-slate-400 hover:text-slate-200 transition-colors" data-lang="php">PHP</button>
+</div>
+<div class="flex items-center space-x-4">
+<button class="flex items-center text-slate-400 hover:text-white transition-colors group" id="copy-btn">
+<span class="material-symbols-outlined text-[18px] mr-1.5 group-hover:scale-110 transition-transform">content_copy</span>
+<span class="text-[11px] font-semibold uppercase tracking-wider" id="copy-text">Copy</span>
+</button>
+<button class="text-slate-400 hover:text-white transition-colors" id="expand-btn">
+<span class="material-symbols-outlined text-[18px]" id="expand-icon">open_in_full</span>
+</button>
+</div>
+</div>
+
+<div class="code-content-wrapper flex flex-col relative bg-ide-bg">
+<div class="flex custom-scrollbar overflow-x-auto tab-content active" id="content-python">
+<div class="w-12 pt-6 flex flex-col items-center text-slate-600 font-mono text-[13px] border-r border-slate-800/50 bg-ide-bg shrink-0 select-none">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+</div>
+<div class="flex-1 pt-6 pb-6 px-6 font-mono text-[13px] leading-6 whitespace-pre text-ide-text code-snippet">
+<span class="syntax-keyword">import</span> requests
+url = <span class="syntax-string">"https://api.massive.com/v1/market/quotes"</span>
+payload = {
+    <span class="syntax-key">"symbols"</span>: [<span class="syntax-string">"AAPL"</span>, <span class="syntax-string">"MSFT"</span>, <span class="syntax-string">"NVDA"</span>],
+    <span class="syntax-key">"fields"</span>: [<span class="syntax-string">"price"</span>, <span class="syntax-string">"change"</span>, <span class="syntax-string">"volume"</span>]
+}
+headers = {
+    <span class="syntax-key">"Authorization"</span>: <span class="syntax-string">"Bearer YOUR_API_KEY"</span>
+}
+response = requests.post(url, json=payload, headers=headers)
+<span class="syntax-keyword">print</span>(response.json())</div>
+</div>
+
+<div class="flex custom-scrollbar overflow-x-auto tab-content" id="content-javascript">
+<div class="w-12 pt-6 flex flex-col items-center text-slate-600 font-mono text-[13px] border-r border-slate-800/50 bg-ide-bg shrink-0 select-none">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+</div>
+<div class="flex-1 pt-6 pb-6 px-6 font-mono text-[13px] leading-6 whitespace-pre text-ide-text code-snippet">
+<span class="syntax-keyword">const</span> axios = <span class="syntax-keyword">require</span>(<span class="syntax-string">'axios'</span>);
+
+<span class="syntax-keyword">const</span> response = <span class="syntax-keyword">await</span> axios.post(<span class="syntax-string">'https://api.massive.com/v1/market/quotes'</span>, {
+    symbols: [<span class="syntax-string">'AAPL'</span>, <span class="syntax-string">'MSFT'</span>],
+    fields: [<span class="syntax-string">'price'</span>, <span class="syntax-string">'change'</span>]
+}, {
+    headers: { <span class="syntax-string">'Authorization'</span>: <span class="syntax-string">'Bearer YOUR_API_KEY'</span> }
+});</div>
+</div>
+
+<div class="flex custom-scrollbar overflow-x-auto tab-content" id="content-curl">
+<div class="w-12 pt-6 flex flex-col items-center text-slate-600 font-mono text-[13px] border-r border-slate-800/50 bg-ide-bg shrink-0 select-none">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+</div>
+<div class="flex-1 pt-6 pb-6 px-6 font-mono text-[13px] leading-6 whitespace-pre text-ide-text code-snippet">
+curl -X POST <span class="syntax-string">"https://api.massive.com/v1/market/quotes"</span> \
+     -H <span class="syntax-string">"Authorization: Bearer YOUR_API_KEY"</span> \
+     -H <span class="syntax-string">"Content-Type: application/json"</span> \
+     -d <span class="syntax-string">'{ "symbols": ["AAPL", "MSFT"] }'</span></div>
+</div>
+
+<div class="absolute bottom-4 right-6">
+<button class="bg-primary/10 dark:bg-primary/20 text-primary hover:bg-primary hover:text-white border border-primary/20 dark:border-primary/40 px-4 py-1.5 rounded-md text-[13px] font-semibold transition-all flex items-center shadow-lg backdrop-blur-sm">
+                                    Try it
+                                    <span class="material-symbols-outlined text-[16px] ml-1.5">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-900/50 border-t border-slate-800 p-4 shrink-0 response-section">
+<div class="flex items-center space-x-2 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span>Response • 200 OK</span>
+</div>
+<div class="font-mono text-[12px] leading-5 text-ide-text overflow-x-auto">
+{
+  <span class="syntax-key">"data"</span>: [
+    { <span class="syntax-key">"symbol"</span>: <span class="syntax-string">"AAPL"</span>, <span class="syntax-key">"price"</span>: <span class="syntax-number">189.43</span>, <span class="syntax-key">"change"</span>: <span class="syntax-number">+1.2%</span> },
+    { <span class="syntax-key">"symbol"</span>: <span class="syntax-string">"MSFT"</span>, <span class="syntax-key">"price"</span>: <span class="syntax-number">415.10</span>, <span class="syntax-key">"change"</span>: <span class="syntax-number">-0.4%</span> }
+  ]
+}
+                            </div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-[14px] font-bold text-slate-link dark:text-slate-400 uppercase tracking-wider mb-6 pb-2 border-b border-border-light dark:border-slate-800">Available Parameters</h2>
+<div class="space-y-6">
+<div class="flex space-x-4 pb-6 border-b border-border-light dark:border-slate-800">
+<div class="flex-1">
+<div class="flex items-center space-x-2 mb-1">
+<code class="text-primary dark:text-primary font-bold text-[14px]">symbols</code>
+<span class="text-[12px] px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-600 dark:text-slate-400 font-medium">Required</span>
+<span class="text-[12px] text-slate-400">Array of strings</span>
+</div>
+<p class="text-[14px] text-[#424770] dark:text-slate-400">A comma-separated list of ticker symbols (e.g., AAPL, TSLA).</p>
+</div>
+</div>
+<div class="flex space-x-4 pb-6 border-b border-border-light dark:border-slate-800">
+<div class="flex-1">
+<div class="flex items-center space-x-2 mb-1">
+<code class="text-primary dark:text-primary font-bold text-[14px]">interval</code>
+<span class="text-[12px] px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-600 dark:text-slate-400 font-medium">Optional</span>
+<span class="text-[12px] text-slate-400">String</span>
+</div>
+<p class="text-[14px] text-[#424770] dark:text-slate-400">Streaming interval for real-time updates. Default is <code class="bg-slate-50 dark:bg-slate-800 px-1 rounded text-pink-500">1s</code>.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<footer class="mt-24 pt-12 border-t border-border-light dark:border-slate-800 flex flex-col md:flex-row justify-between items-center text-[13px] text-slate-500 space-y-4 md:space-y-0 text-center md:text-left">
+<div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
+<span>© 2024 Massive Data Inc.</span>
+<div class="flex space-x-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<span class="flex items-center"><span class="material-symbols-outlined text-[16px] mr-1">language</span> English (US)</span>
+</div>
+</footer>
+</div>
+</main>
+</div>
+<div class="fixed bottom-8 right-8 z-[60]">
+<button class="bg-[#0a2540] dark:bg-primary text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined">question_mark</span>
+</button>
+</div>
+
+<script>
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    function toggleMobileMenu() {
+        sidebar.classList.toggle('open');
+        sidebarOverlay.classList.toggle('visible');
+        document.body.classList.toggle('overflow-hidden');
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    sidebarOverlay.addEventListener('click', toggleMobileMenu);
+
+    // Theme Toggle Logic
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+    function updateThemeIcons() {
+        if (document.documentElement.classList.contains('dark')) {
+            themeToggleLightIcon.classList.remove('hidden');
+            themeToggleDarkIcon.classList.add('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+            themeToggleLightIcon.classList.add('hidden');
+        }
+    }
+
+    updateThemeIcons();
+
+    themeToggleBtn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        updateThemeIcons();
+    });
+
+    // Sidebar Data
+    const sidebarData = {
+        guides: [
+            {
+                title: "Get Started",
+                items: [
+                    { label: "Overview", active: true },
+                    { label: "Quickstarts", active: false },
+                    { label: "Authentication", active: false }
+                ]
+            },
+            {
+                title: "Core Concepts",
+                items: [
+                    { label: "Request Limits", active: false },
+                    { label: "Data Quality", active: false }
+                ]
+            }
+        ],
+        api: [
+            {
+                title: "Core Resources",
+                items: [
+                    { 
+                        label: "Market Data", 
+                        icon: "insights", 
+                        submenu: ["Real-time Quotes", "Order Books", "History"] 
+                    },
+                    { 
+                        label: "Technical Indicators", 
+                        icon: "show_chart",
+                        submenu: ["Moving Averages", "RSI", "MACD"]
+                    },
+                    { 
+                        label: "Crypto & Forex", 
+                        icon: "account_balance_wallet",
+                        submenu: ["Exchange Rates", "Crypto Pairs"]
+                    }
+                ]
+            },
+            {
+                title: "API Utilities",
+                items: [
+                    { label: "Health Check", icon: "check_circle" },
+                    { label: "Usage Stats", icon: "bar_chart" }
+                ]
+            }
+        ],
+        changelog: [
+            {
+                title: "Versions",
+                items: [
+                    { label: "v2.0 (Latest)", icon: "new_releases" },
+                    { label: "v1.5", icon: "history" },
+                    { label: "v1.0", icon: "history" }
+                ]
+            }
+        ],
+        sdks: [
+            {
+                title: "Official Libraries",
+                items: [
+                    { label: "Python SDK", icon: "code" },
+                    { label: "Node.js SDK", icon: "code" },
+                    { label: "Go SDK", icon: "code" }
+                ]
+            }
+        ]
+    };
+
+    function renderSidebar(tabKey) {
+        const sidebar = document.getElementById('sidebar');
+        const sections = sidebarData[tabKey];
+        
+        // Clear sidebar and add transition class
+        sidebar.style.opacity = '0';
+        
+        setTimeout(() => {
+            let html = '<div class="space-y-8">';
+            sections.forEach(section => {
+                html += `<div>
+                    <h3 class="text-[11px] font-bold text-[#0a2540] dark:text-white uppercase tracking-wider mb-4">${section.title}</h3>
+                    <ul class="space-y-3">`;
+                
+                section.items.forEach(item => {
+                    const hasSubmenu = item.submenu && item.submenu.length > 0;
+                    const activeClass = item.active ? 'text-primary' : 'text-slate-link dark:text-slate-400 hover:text-primary dark:hover:text-primary';
+                    
+                    html += `<li>`;
+                    if (hasSubmenu) {
+                        html += `
+                            <button class="submenu-toggle flex items-center justify-between w-full text-[14px] text-slate-link dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">
+                                <span class="flex items-center">
+                                    ${item.icon ? `<span class="material-symbols-outlined text-[18px] mr-2 text-slate-400">${item.icon}</span>` : ''}
+                                    ${item.label}
+                                </span>
+                                <span class="material-symbols-outlined text-[16px] text-slate-300 transition-transform duration-200 chevron-icon">chevron_right</span>
+                            </button>
+                            <ul class="submenu hidden pl-6 pt-2 space-y-2 border-l border-slate-100 dark:border-slate-800 ml-2 mt-2">
+                                ${item.submenu.map(sub => `<li><a href="#" class="text-[13px] text-slate-500 dark:text-slate-500 hover:text-primary font-medium transition-colors">${sub}</a></li>`).join('')}
+                            </ul>
+                        `;
+                    } else {
+                        html += `
+                            <a class="flex items-center text-[14px] font-medium ${activeClass}" href="#">
+                                ${item.icon ? `<span class="material-symbols-outlined text-[18px] mr-2 text-slate-400">${item.icon}</span>` : ''}
+                                ${item.label}
+                            </a>
+                        `;
+                    }
+                    html += `</li>`;
+                });
+                
+                html += `</ul></div>`;
+            });
+            html += '</div>';
+            
+            sidebar.innerHTML = html;
+            sidebar.style.opacity = '1';
+            sidebar.style.transition = 'opacity 0.2s ease-in-out';
+
+            attachSubmenuListeners();
+        }, 150);
+    }
+
+    function attachSubmenuListeners() {
+        document.querySelectorAll('.submenu-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const submenu = btn.nextElementSibling;
+                const chevron = btn.querySelector('.chevron-icon');
+                
+                submenu.classList.toggle('hidden');
+                chevron.classList.toggle('rotate-90');
+            });
+        });
+    }
+
+    // Top Tab switching
+    const navTabs = document.querySelectorAll('.nav-tab');
+    navTabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tabKey = tab.getAttribute('data-tab');
+            
+            navTabs.forEach(t => {
+                t.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                t.classList.add('hover:text-primary');
+            });
+            tab.classList.add('text-primary', 'border-b-2', 'border-primary');
+            tab.classList.remove('hover:text-primary');
+            
+            renderSidebar(tabKey);
+        });
+    });
+
+    // Initial render
+    renderSidebar('guides');
+
+    // Code Block Tab switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            
+            tabButtons.forEach(b => {
+                b.classList.remove('text-white', 'border-b-2', 'border-primary', 'bg-slate-800/50');
+                b.classList.add('text-slate-400', 'hover:text-slate-200');
+            });
+            btn.classList.add('text-white', 'border-b-2', 'border-primary', 'bg-slate-800/50');
+            btn.classList.remove('text-slate-400', 'hover:text-slate-200');
+
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === `content-${lang}`) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
+
+    // Copy to clipboard
+    const copyBtn = document.getElementById('copy-btn');
+    const copyTextSpan = document.getElementById('copy-text');
+
+    copyBtn.addEventListener('click', () => {
+        const activeContent = document.querySelector('.tab-content.active .code-snippet');
+        const textToCopy = activeContent.innerText;
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            copyTextSpan.innerText = 'Copied!';
+            setTimeout(() => {
+                copyTextSpan.innerText = 'Copy';
+            }, 2000);
+        });
+    });
+
+    // Fullscreen logic
+    const expandBtn = document.getElementById('expand-btn');
+    const mainCodeBlock = document.getElementById('main-code-block');
+    const expandIcon = document.getElementById('expand-icon');
+
+    expandBtn.addEventListener('click', () => {
+        mainCodeBlock.classList.toggle('fullscreen');
+        if (mainCodeBlock.classList.contains('fullscreen')) {
+            expandIcon.innerText = 'close_fullscreen';
+            document.body.style.overflow = 'hidden';
+        } else {
+            expandIcon.innerText = 'open_in_full';
+            document.body.style.overflow = 'auto';
+        }
+    });
+</script>
+
+</body></html>

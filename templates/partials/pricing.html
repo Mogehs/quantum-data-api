@@ -1,13 +1,13 @@
-<section class="py-24 bg-[var(--surface)] border-t border-[var(--border)]" id="pricing">
+<section class="py-24 bg-[var(--surface)] border-t border-[var(--border)] reveal" id="pricing">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-accent text-xs font-bold uppercase tracking-widest mb-3 block">Pricing Plans</span>
+        <div class="text-center max-w-2xl mx-auto mb-16 animate-fade-in">
+            <span class="text-[var(--accent)] text-xs font-bold uppercase tracking-widest mb-3 block">Pricing Plans</span>
             <h2 class="text-4xl font-extrabold mb-4 text-[var(--text-main)]">Scalable plans for every team</h2>
             <p class="text-[var(--text-muted)]">Transparent pricing that grows with your application requirements.</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Free Plan -->
-            <div class="bg-[var(--background)] p-8 rounded-xl border border-[var(--border)] shadow-sm flex flex-col">
+            <div class="bg-[var(--background)] p-8 rounded-xl border border-[var(--border)] shadow-sm flex flex-col card-lift animate-slide-up">
                 <h3 class="text-sm font-bold uppercase tracking-widest text-[var(--text-muted)] mb-2">Free</h3>
                 <div class="flex items-baseline gap-1 mb-6">
                     <span class="text-3xl font-extrabold text-[var(--text-main)]">$0</span>
@@ -24,12 +24,12 @@
                         <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span> Community support
                     </li>
                 </ul>
-                <button class="w-full py-3 border border-[var(--border)] rounded font-bold text-xs text-[var(--text-main)] hover:bg-[var(--surface)] transition-all">Get Started</button>
+                <button class="w-full py-3 border border-[var(--border)] rounded font-bold text-xs text-[var(--text-main)] transition-all duration-200 hover:bg-accent hover:text-[var(--on-accent)] hover:border-accent active:scale-95">Get Started</button>
             </div>
             
             <!-- Pro Plan -->
-            <div class="bg-[var(--background)] p-8 rounded-xl border-2 border-accent shadow-xl relative flex flex-col">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest">Most Popular</div>
+            <div class="bg-[var(--background)] p-8 rounded-xl border-2 border-[var(--accent)] shadow-xl relative flex flex-col card-lift animate-slide-up [animation-delay:200ms]">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest animate-pulse">Most Popular</div>
                 <h3 class="text-sm font-bold uppercase tracking-widest text-[var(--text-main)] mb-2">Pro</h3>
                 <div class="flex items-baseline gap-1 mb-6">
                     <span class="text-3xl font-extrabold text-[var(--text-main)]">$79</span>
@@ -49,11 +49,11 @@
                         <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span> Email support
                     </li>
                 </ul>
-                <button class="w-full py-3 bg-accent text-white rounded font-bold text-xs hover:bg-indigo-700 transition-all">Select Pro</button>
+                <button class="w-full py-3 bg-[var(--accent)] text-[var(--on-accent)] rounded font-bold text-xs transition-[opacity,transform] duration-200 hover:opacity-90 active:scale-95 shadow-lg shadow-[var(--accent)]/30">Select Pro</button>
             </div>
 
             <!-- Enterprise Plan -->
-            <div class="bg-[var(--background)] p-8 rounded-xl border border-[var(--border)] shadow-sm flex flex-col">
+            <div class="bg-[var(--background)] p-8 rounded-xl border border-[var(--border)] shadow-sm flex flex-col card-lift animate-slide-up [animation-delay:400ms]">
                 <h3 class="text-sm font-bold uppercase tracking-widest text-[var(--text-muted)] mb-2">Enterprise</h3>
                 <div class="flex items-baseline gap-1 mb-6">
                     <span class="text-3xl font-extrabold text-[var(--text-main)]">$299</span>
@@ -73,34 +73,34 @@
                         <span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span> Priority support
                     </li>
                 </ul>
-                <button class="w-full py-3 border border-[var(--border)] rounded font-bold text-xs text-[var(--text-main)] hover:bg-[var(--surface)] transition-all">Contact Sales</button>
+                <button class="w-full py-3 border border-[var(--border)] rounded font-bold text-xs text-[var(--text-main)] hover:bg-accent hover:text-[var(--on-accent)] hover:border-accent transition-all active:scale-95">Contact Sales</button>
             </div>
 
             <!-- Custom Plan -->
-            <div class="bg-primary dark:bg-slate-900 p-8 rounded-xl border border-primary dark:border-slate-800 shadow-sm flex flex-col">
-                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-2">Custom</h3>
+            <div class="bg-[#0B1222] dark:bg-[var(--accent)] p-8 rounded-xl border border-[#1E2A44] dark:border-transparent shadow-sm flex flex-col animate-slide-up [animation-delay:600ms] group hover:shadow-2xl transition-all card-lift">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 dark:text-slate-700/80 mb-2">Custom</h3>
                 <div class="flex items-baseline gap-1 mb-6">
-                    <span class="text-3xl font-extrabold text-white">Custom</span>
+                    <span class="text-3xl font-extrabold text-white dark:text-slate-900">Custom</span>
                 </div>
                 <ul class="space-y-4 mb-8 flex-grow">
-                    <li class="text-xs flex items-center gap-3 text-slate-300">
-                        <span class="material-symbols-outlined text-accent text-lg">check_circle</span> Unlimited calls
+                    <li class="text-xs flex items-center gap-3 text-slate-300 dark:text-slate-800">
+                        <span class="material-symbols-outlined text-[var(--accent)] dark:text-slate-900 text-lg">check_circle</span> Unlimited calls
                     </li>
-                    <li class="text-xs flex items-center gap-3 text-slate-300">
-                        <span class="material-symbols-outlined text-accent text-lg">check_circle</span> Dedicated infrastructure
+                    <li class="text-xs flex items-center gap-3 text-slate-300 dark:text-slate-800">
+                        <span class="material-symbols-outlined text-[var(--accent)] dark:text-slate-900 text-lg">check_circle</span> Dedicated infrastructure
                     </li>
-                    <li class="text-xs flex items-center gap-3 text-slate-300">
-                        <span class="material-symbols-outlined text-accent text-lg">check_circle</span> Custom data ingestion
+                    <li class="text-xs flex items-center gap-3 text-slate-300 dark:text-slate-800">
+                        <span class="material-symbols-outlined text-[var(--accent)] dark:text-slate-900 text-lg">check_circle</span> Custom data ingestion
                     </li>
-                    <li class="text-xs flex items-center gap-3 text-slate-300">
-                        <span class="material-symbols-outlined text-accent text-lg">check_circle</span> Account manager
+                    <li class="text-xs flex items-center gap-3 text-slate-300 dark:text-slate-800">
+                        <span class="material-symbols-outlined text-[var(--accent)] dark:text-slate-900 text-lg">check_circle</span> Account manager
                     </li>
                 </ul>
-                <button class="w-full py-3 bg-[var(--background)] text-[var(--text-main)] rounded font-bold text-xs hover:bg-[var(--surface)] transition-all border border-[var(--border)]">Speak to Us</button>
+                <button class="w-full py-3 bg-[var(--background)] dark:bg-slate-900 text-[var(--text-main)] dark:text-white rounded font-bold text-xs hover:bg-[var(--surface)] dark:hover:opacity-90 transition-all border border-[var(--border)] dark:border-transparent active:scale-95">Speak to Us</button>
             </div>
         </div>
-        <div class="mt-16 text-center">
-            <a href="/pricing" class="inline-flex items-center gap-2 px-8 py-3 bg-[var(--surface)] border border-[var(--border)] rounded-full text-sm font-bold text-[var(--text-main)] hover:border-accent hover:text-accent transition-all group">
+        <div class="mt-16 text-center animate-fade-in [animation-delay:800ms]">
+            <a href="/pricing" class="inline-flex items-center gap-2 px-8 py-3 bg-[var(--surface)] border border-[var(--border)] rounded-full text-sm font-bold text-[var(--text-main)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all group active:scale-95">
                 Compare All Features & FAQ
                 <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </a>

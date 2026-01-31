@@ -8,6 +8,15 @@
         transform: translateY(-4px);
         transition: all 0.3s ease;
     }
+    .faq-answer-container {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.3s ease-out, margin-top 0.3s ease-out;
+    }
+    .faq-item.active .faq-answer-container {
+        grid-template-rows: 1fr;
+        margin-top: 1rem;
+    }
 </style>
 {% endblock %}
 
@@ -16,7 +25,7 @@
     <div class="max-w-4xl mx-auto px-4">
         <span class="text-accent text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Pricing Plans</span>
         <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-primary dark:text-white mb-6">
-            Ready to scale your <br/><span class="text-slate-400">trading infrastructure?</span>
+            Ready to scale your <br/><span class="text-slate-400" data-typewriter='["trading infrastructure?", "data pipelines?", "quant strategies?", "API throughput?"]'></span><span class="typewriter-cursor"></span>
         </h1>
         <p class="text-lg text-[var(--text-muted)] mb-12 max-w-2xl mx-auto">
             Simple, transparent pricing for developers and institutions. No hidden fees, just pure financial data at microsecond latency.
@@ -64,7 +73,7 @@
                     Community Support
                 </li>
             </ul>
-            <button class="w-full py-3 border border-[var(--border)] rounded-lg font-bold text-xs text-[var(--text-main)] hover:bg-primary hover:text-white transition-all uppercase tracking-wider">Start Building</button>
+            <button class="w-full py-3 border border-[var(--border)] rounded-lg font-bold text-xs text-[var(--text-main)] hover:bg-accent hover:text-[var(--on-accent)] hover:border-accent transition-all uppercase tracking-wider active:scale-95">Start Building</button>
         </div>
 
         <!-- Pro Plan -->
@@ -100,7 +109,7 @@
                     Advanced SDK Access
                 </li>
             </ul>
-            <button class="w-full py-4 bg-accent text-white rounded-lg font-bold text-xs hover:bg-indigo-700 transition-all uppercase tracking-wider shadow-lg shadow-indigo-200 dark:shadow-none">Subscribe Now</button>
+            <button class="w-full py-4 bg-accent text-[var(--on-accent)] rounded-lg font-bold text-xs hover:opacity-90 active:scale-95 transition-all uppercase tracking-wider shadow-lg shadow-accent/20">Subscribe Now</button>
         </div>
 
         <!-- Enterprise Plan -->
@@ -135,37 +144,37 @@
                     Team Management Tools
                 </li>
             </ul>
-            <button class="w-full py-3 border border-primary dark:border-accent rounded-lg font-bold text-xs text-[var(--text-main)] hover:bg-primary dark:hover:bg-accent hover:text-white transition-all uppercase tracking-wider">Contact Sales</button>
+            <button class="w-full py-3 border border-primary dark:border-accent rounded-lg font-bold text-xs text-[var(--text-main)] hover:bg-accent hover:text-[var(--on-accent)] hover:border-accent transition-all uppercase tracking-wider active:scale-95">Contact Sales</button>
         </div>
 
         <!-- Custom Plan -->
-        <div class="plan-card bg-primary dark:bg-slate-900 p-8 rounded-2xl border border-primary dark:border-slate-800 shadow-sm flex flex-col">
+        <div class="plan-card bg-[#0B1222] dark:bg-[var(--accent)] p-8 rounded-2xl border border-[#1E2A44] dark:border-transparent shadow-sm flex flex-col group hover:shadow-2xl transition-all">
             <div class="mb-8">
-                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-2 font-mono">Custom</h3>
+                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 dark:text-slate-700/80 mb-2 font-mono">Custom</h3>
                 <div class="flex items-baseline gap-1">
-                    <span class="text-4xl font-extrabold text-white">Custom</span>
+                    <span class="text-4xl font-extrabold text-white dark:text-slate-900">Custom</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-2">For institutional scale</p>
+                <p class="text-xs text-slate-400 dark:text-slate-700/60 mt-2">For institutional scale</p>
             </div>
             <ul class="space-y-4 mb-10 flex-grow">
-                <li class="flex items-start gap-3 text-xs text-slate-300">
-                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                <li class="flex items-start gap-3 text-xs text-slate-300 dark:text-slate-800">
+                    <span class="material-symbols-outlined text-accent dark:text-slate-900 text-lg">check_circle</span>
                     Unlimited API Throughput
                 </li>
-                <li class="flex items-start gap-3 text-xs text-slate-300">
-                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                <li class="flex items-start gap-3 text-xs text-slate-300 dark:text-slate-800">
+                    <span class="material-symbols-outlined text-accent dark:text-slate-900 text-lg">check_circle</span>
                     Dedicated Infrastructure
                 </li>
-                <li class="flex items-start gap-3 text-xs text-slate-300">
-                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                <li class="flex items-start gap-3 text-xs text-slate-300 dark:text-slate-800">
+                    <span class="material-symbols-outlined text-accent dark:text-slate-900 text-lg">check_circle</span>
                     Whitelabel Data Solutions
                 </li>
-                <li class="flex items-start gap-3 text-xs text-slate-300">
-                    <span class="material-symbols-outlined text-accent text-lg">check_circle</span>
+                <li class="flex items-start gap-3 text-xs text-slate-300 dark:text-slate-800">
+                    <span class="material-symbols-outlined text-accent dark:text-slate-900 text-lg">check_circle</span>
                     24/7 Phone Support
                 </li>
             </ul>
-            <button class="w-full py-3 bg-white text-primary rounded-lg font-bold text-xs hover:bg-slate-100 transition-all uppercase tracking-wider">Talk to Us</button>
+            <button class="w-full py-3 bg-[var(--background)] dark:bg-slate-900 text-[var(--text-main)] dark:text-white rounded-lg font-bold text-xs hover:opacity-90 active:scale-95 transition-all uppercase tracking-wider border border-[var(--border)] dark:border-transparent">Talk to Us</button>
         </div>
     </div>
 </section>
@@ -261,10 +270,12 @@
             <div class="faq-item border border-[var(--border)] rounded-xl p-6 hover:bg-[var(--surface)] transition-all cursor-pointer group">
                 <div class="flex items-center justify-between">
                     <h4 class="font-bold text-[var(--text-main)]">{{ faq.q }}</h4>
-                    <span class="material-symbols-outlined text-slate-400 group-hover:text-accent transition-colors">add</span>
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-accent transition-transform duration-300 icon-toggle">add</span>
                 </div>
-                <div class="faq-answer mt-4 text-sm text-[var(--text-muted)] leading-relaxed hidden">
-                    {{ faq.a }}
+                <div class="faq-answer-container overflow-hidden">
+                    <div class="faq-answer min-h-0 text-sm text-[var(--text-muted)] leading-relaxed">
+                        {{ faq.a }}
+                    </div>
                 </div>
             </div>
             {% endfor %}
@@ -315,17 +326,26 @@
     // FAQ Collapsible
     document.querySelectorAll('.faq-item').forEach(item => {
         item.addEventListener('click', () => {
-            const answer = item.querySelector('.faq-answer');
-            const icon = item.querySelector('span.material-symbols-outlined');
+            const icon = item.querySelector('.icon-toggle');
+            const isActive = item.classList.contains('active');
             
-            const isOpen = !answer.classList.contains('hidden');
-            
-            if (isOpen) {
-                answer.classList.add('hidden');
+            // Close others (Optional, for a cleaner experience)
+            document.querySelectorAll('.faq-item').forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('active');
+                    other.querySelector('.icon-toggle').textContent = 'add';
+                    other.querySelector('.icon-toggle').classList.remove('rotate-180');
+                }
+            });
+
+            if (isActive) {
+                item.classList.remove('active');
                 icon.textContent = 'add';
+                icon.classList.remove('rotate-180');
             } else {
-                answer.classList.remove('hidden');
+                item.classList.add('active');
                 icon.textContent = 'remove';
+                icon.classList.add('rotate-180');
             }
         });
     });

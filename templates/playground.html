@@ -23,6 +23,12 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+    
+    /* Make native date picker icons white in dark mode only */
+    .dark input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1) brightness(100%) contrast(100%);
+        cursor: pointer;
+    }
 </style>
 {% endblock %}
 
@@ -88,7 +94,7 @@
                 </div>
             </div>
             
-            <button class="w-full py-3 bg-accent text-white font-bold rounded text-xs uppercase tracking-widest hover:bg-opacity-90 transition-all shadow-md flex items-center justify-center gap-2">
+            <button class="w-full py-3 bg-accent text-[var(--on-accent)] font-bold rounded text-xs uppercase tracking-widest hover:bg-opacity-90 transition-all shadow-md flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined text-sm">play_arrow</span> Execute Query
             </button>
         </div>
@@ -240,7 +246,7 @@
         <div class="h-1/2 flex flex-col bg-[var(--background)] overflow-hidden">
             <div class="px-6 py-3 border-b border-[var(--border)] flex items-center justify-between bg-[var(--surface)]/50">
                 <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Tabular Output (Preview)</span>
-                <button class="px-3 py-1 bg-white dark:bg-slate-800 border border-[var(--border)] rounded text-[10px] font-bold text-accent hover:text-white hover:bg-accent transition-all flex items-center gap-1 shadow-sm">
+                <button class="px-3 py-1 bg-white dark:bg-slate-800 border border-[var(--border)] rounded text-[10px] font-bold text-accent hover:text-[var(--on-accent)] hover:bg-accent transition-all flex items-center gap-1 shadow-sm">
                     <span class="material-symbols-outlined text-sm">download</span> Export
                 </button>
             </div>
