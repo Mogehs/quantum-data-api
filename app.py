@@ -28,6 +28,14 @@ async def playground(request: Request):
 async def contact_page(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request, "page": "contact"})
 
+@app.get("/terms")
+async def terms_of_service(request: Request):
+    return templates.TemplateResponse("terms.html", {"request": request, "page": "terms"})
+
+@app.get("/privacy")
+async def privacy_policy(request: Request):
+    return templates.TemplateResponse("privacy.html", {"request": request, "page": "privacy"})
+
 @app.get("/docs/auth")
 async def docs_auth(request: Request):
     return templates.TemplateResponse("docs/auth.html", {"request": request, "page": "auth", "title": "Authentication"})

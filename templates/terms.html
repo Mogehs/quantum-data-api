@@ -1,0 +1,208 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Terms of Service | QuantDataApi{% endblock %}
+
+{% block head %}
+<style type="text/tailwindcss">
+    .grid-bg-dark {
+        background-image: radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);
+        background-size: 40px 40px;
+    }
+    .legal-content h2 {
+        @apply text-2xl font-bold text-[var(--text-main)] mt-12 mb-6 scroll-mt-24;
+    }
+    .legal-content h3 {
+        @apply text-lg font-bold text-[var(--text-main)] mt-8 mb-4;
+    }
+    .legal-content p {
+        @apply text-[var(--text-muted)] leading-relaxed mb-6;
+    }
+    .toc-link.active {
+        color: var(--accent);
+        border-left-color: var(--accent);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="relative grid-bg-dark min-h-screen">
+    <header class="relative pt-16 pb-12 border-b border-[var(--border)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center px-3 py-1 rounded bg-accent/10 text-accent mb-6">
+                    <span class="text-[11px] font-bold uppercase tracking-[0.2em]">Legal Framework</span>
+                </div>
+                <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 text-[var(--text-main)]">Terms of Service</h1>
+                <p class="text-lg text-[var(--text-muted)] leading-relaxed">
+                    These Terms of Service govern your use of the QuantDataApi platform, ensuring a secure and transparent experience for all developers and organizations.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col lg:flex-row gap-16">
+        <aside class="lg:w-1/4 flex-shrink-0">
+                <nav class="sticky top-24 space-y-1">
+                    <p class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 px-4">Navigation</p>
+                    <a class="toc-link block px-4 py-2 text-sm text-[var(--text-muted)] hover:text-accent border-l-2 border-[var(--border)] transition-all" href="#acceptance">1. Acceptance</a>
+                    <a class="toc-link block px-4 py-2 text-sm text-[var(--text-muted)] hover:text-accent border-l-2 border-[var(--border)] transition-all" href="#eligibility">2. Eligibility</a>
+                    <a class="toc-link block px-4 py-2 text-sm text-[var(--text-muted)] hover:text-accent border-l-2 border-[var(--border)] transition-all" href="#acceptable-use">3. Acceptable Use</a>
+                    <a class="toc-link block px-4 py-2 text-sm text-[var(--text-muted)] hover:text-accent border-l-2 border-[var(--border)] transition-all" href="#api-limits">4. API Limits</a>
+                    <a class="toc-link block px-4 py-2 text-sm text-[var(--text-muted)] hover:text-accent border-l-2 border-[var(--border)] transition-all" href="#ownership">5. Data Ownership</a>
+                    <a class="toc-link block px-4 py-2 text-sm text-[var(--text-muted)] hover:text-accent border-l-2 border-[var(--border)] transition-all" href="#payment">6. Payment Terms</a>
+                    <a class="toc-link block px-4 py-2 text-sm text-[var(--text-muted)] hover:text-accent border-l-2 border-[var(--border)] transition-all" href="#liability">7. Limitation of Liability</a>
+                </nav>
+            </aside>
+
+            <article class="lg:w-3/4 legal-content">
+                <section id="acceptance">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>
+                        By accessing or using the QuantDataApi platform, website, and services (collectively, the "Service"), you agree to be bound by these Terms of Service. If you are entering into this agreement on behalf of a company or other legal entity, you represent that you have the authority to bind such entity to these terms.
+                    </p>
+                    <p>
+                        Our Service provides financial market data through APIs and other developer tools. These terms govern your use of the data, the API keys, and our documentation.
+                    </p>
+                </section>
+
+                <section id="eligibility">
+                    <h2>2. Eligibility and Account Security</h2>
+                    <p>
+                        You must be at least 18 years old to use the Service. You are responsible for maintaining the confidentiality of your API keys and account credentials.
+                    </p>
+                    <ul>
+                        <li>One account per user or organization unless explicitly authorized.</li>
+                        <li>Account credentials must not be shared with third parties.</li>
+                        <li>You must notify us immediately of any unauthorized use of your account.</li>
+                    </ul>
+                </section>
+
+                <section id="acceptable-use">
+                    <h2>3. Acceptable Use Policy</h2>
+                    <p>
+                        You agree not to use the Service for any unlawful purpose or in any way that could damage, disable, or impair our infrastructure. Prohibited activities include:
+                    </p>
+                    <div class="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-6 space-y-4">
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-rose-500">cancel</span>
+                            <div>
+                                <h4 class="text-[var(--text-main)] font-semibold text-sm">No Scraping</h4>
+                                <p class="text-[var(--text-muted)] text-sm mt-1">Automated scraping of our website or reverse engineering of our data delivery protocols is strictly prohibited.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-rose-500">cancel</span>
+                            <div>
+                                <h4 class="text-[var(--text-main)] font-semibold text-sm">No Redistribution</h4>
+                                <p class="text-[var(--text-muted)] text-sm mt-1">You may not resell or redistribute raw data feeds unless you have an Enterprise Redistribution license.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="api-limits">
+                    <h2>4. API Limits and Usage</h2>
+                    <p>
+                        We implement rate limits and usage quotas to ensure fair access for all users. These limits vary based on your subscription tier.
+                    </p>
+                    <div class="overflow-hidden border border-[var(--border)] rounded-lg">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-[var(--surface)] text-[var(--text-main)]">
+                                <tr>
+                                    <th class="px-4 py-3 border-b border-[var(--border)]">Tier</th>
+                                    <th class="px-4 py-3 border-b border-[var(--border)]">Rate Limit</th>
+                                    <th class="px-4 py-3 border-b border-[var(--border)]">Monthly Quota</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-[var(--text-muted)]">
+                                <tr class="border-b border-[var(--border)]">
+                                    <td class="px-4 py-3">Free</td>
+                                    <td class="px-4 py-3">5 req/sec</td>
+                                    <td class="px-4 py-3">1,000</td>
+                                </tr>
+                                <tr class="border-b border-[var(--border)]">
+                                    <td class="px-4 py-3">Pro</td>
+                                    <td class="px-4 py-3">100 req/sec</td>
+                                    <td class="px-4 py-3">100,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">Enterprise</td>
+                                    <td class="px-4 py-3">Custom</td>
+                                    <td class="px-4 py-3">Unlimited</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="ownership">
+                    <h2>5. Data Ownership and Intellectual Property</h2>
+                    <p>
+                        QuantDataApi and its third-party data providers retain all right, title, and interest in and to the market data provided. Your use of the Service grants you a limited, non-exclusive, non-transferable license to use the data for your internal business applications.
+                    </p>
+                </section>
+
+                <section id="payment">
+                    <h2>6. Payment Terms</h2>
+                    <p>
+                        Subscription fees are billed in advance on a monthly or annual basis.
+                    </p>
+                    <ul>
+                        <li>All payments are non-refundable except as required by law.</li>
+                        <li>Failure to pay may result in immediate suspension of API access.</li>
+                        <li>Fees are exclusive of taxes unless otherwise stated.</li>
+                    </ul>
+                </section>
+
+                <section class="border-t border-[var(--border)] pt-12" id="liability">
+                    <h2>7. Limitation of Liability</h2>
+                    <div class="bg-[var(--surface)]/50 p-6 rounded-lg border border-[var(--border)] italic text-[var(--text-muted)]">
+                        "The service and all data provided are offered 'as is' without warranty of any kind. In no event shall QuantDataApi be liable for any financial losses, trading losses, or data errors. Trading financial instruments involves significant risk."
+                    </div>
+                </section>
+            </article>
+        </div> <!-- End Flex Container -->
+
+        <div class="mt-20 p-8 rounded-2xl bg-gradient-to-br from-[var(--surface)] to-[var(--background)] border border-[var(--border)]">
+            <h3 class="text-xl font-bold text-[var(--text-main)] mb-4">Still have questions?</h3>
+            <p class="text-[var(--text-muted)] text-sm mb-6 leading-relaxed">Our legal and compliance team is here to help you understand our licensing models and terms of use for institutional applications.</p>
+            <div class="flex flex-wrap gap-4">
+                <button class="px-6 py-2.5 bg-accent text-[var(--on-accent)] font-bold rounded-lg text-sm hover:brightness-110 transition-all">Contact Legal Team</button>
+                <button class="px-6 py-2.5 bg-[var(--background)] border border-[var(--border)] text-[var(--text-main)] font-bold rounded-lg text-sm hover:bg-[var(--surface)] transition-all">Download PDF</button>
+            </div>
+        </div>
+    </div> <!-- End max-w-7xl Container -->
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Simple TOC highlighting logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('.toc-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        function highlightNav() {
+            let scrollY = window.pageYOffset;
+            sections.forEach(current => {
+                const sectionHeight = current.offsetHeight;
+                const sectionTop = current.offsetTop - 100;
+                const sectionId = current.getAttribute('id');
+                
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightNav);
+        highlightNav(); // Initial call
+    });
+</script>
+{% endblock %}
