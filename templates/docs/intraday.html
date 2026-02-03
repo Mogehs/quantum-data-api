@@ -57,21 +57,36 @@
 
 {% block docs_aside %}
 <h4 class="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">Request Samples</h4>
-<div class="bg-slate-950 rounded-xl overflow-hidden shadow-2xl border border-slate-800">
+<div class="code-block overflow-hidden bg-slate-950 rounded-xl shadow-sm border border-slate-800">
     <div class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700/50">
-        <span class="text-[10px] text-slate-400 font-mono">Python</span>
-        <span class="material-symbols-outlined text-sm text-slate-500 hover:text-white cursor-pointer">content_copy</span>
+        <div class="flex gap-1">
+            <button data-lang="curl" data-file="Terminal" class="lang-tab px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-[var(--background)] text-accent shadow-sm rounded transition-all">cURL</button>
+            <button data-lang="python" data-file="request.py" class="lang-tab px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-accent rounded transition-all">Python</button>
+            <button data-lang="nodejs" data-file="request.js" class="lang-tab px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-accent rounded transition-all">Node.js</button>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="file-name text-[10px] text-slate-400 font-mono">Terminal</span>
+            <span class="material-symbols-outlined text-sm text-slate-400 hover:text-white cursor-pointer copy-btn">content_copy</span>
+        </div>
     </div>
     <div class="p-6 font-mono text-xs leading-relaxed overflow-x-auto text-slate-300">
-        <div><span class="text-pink-400">import</span> requests</div>
-        <div class="mt-4"><span class="text-cyan-400">url</span> = <span class="text-amber-300">'https://api.quantdata.io/query'</span></div>
-        <div><span class="text-cyan-400">params</span> = {</div>
-        <div class="pl-4"><span class="text-amber-300">'function'</span>: <span class="text-amber-300">'TIME_SERIES_INTRADAY'</span>,</div>
-        <div class="pl-4"><span class="text-amber-300">'symbol'</span>: <span class="text-amber-300">'IBM'</span>,</div>
-        <div class="pl-4"><span class="text-amber-300">'interval'</span>: <span class="text-amber-300">'5min'</span>,</div>
-        <div class="pl-4"><span class="text-amber-300">'apikey'</span>: <span class="text-amber-300">'demo'</span></div>
-        <div>}</div>
-        <div class="mt-4"><span class="text-cyan-400">r</span> = requests.get(url, params=params)</div>
+        <div class="lang-snippet" data-lang="curl">
+            <code>curl "https://api.quantdata.io/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo"</code>
+        </div>
+        <div class="lang-snippet hidden" data-lang="python">
+            <div><span class="text-pink-400">import</span> requests</div>
+            <div class="mt-4"><span class="text-cyan-400">url</span> = <span class="text-amber-300">'https://api.quantdata.io/query'</span></div>
+            <div><span class="text-cyan-400">params</span> = {</div>
+            <div class="pl-4"><span class="text-amber-300">'function'</span>: <span class="text-amber-300">'TIME_SERIES_INTRADAY'</span>,</div>
+            <div class="pl-4"><span class="text-amber-300">'symbol'</span>: <span class="text-amber-300">'IBM'</span>,</div>
+            <div class="pl-4"><span class="text-amber-300">'interval'</span>: <span class="text-amber-300">'5min'</span>,</div>
+            <div class="pl-4"><span class="text-amber-300">'apikey'</span>: <span class="text-amber-300">'demo'</span></div>
+            <div>}</div>
+            <div class="mt-4"><span class="text-cyan-400">r</span> = requests.get(url, params=params)</div>
+        </div>
+        <div class="lang-snippet hidden" data-lang="nodejs">
+            <code>const axios = require('axios');<br/><br/>axios.get('https://api.quantdata.io/query', {<br/>&nbsp;&nbsp;params: {<br/>&nbsp;&nbsp;&nbsp;&nbsp;function: 'TIME_SERIES_INTRADAY',<br/>&nbsp;&nbsp;&nbsp;&nbsp;symbol: 'IBM',<br/>&nbsp;&nbsp;&nbsp;&nbsp;interval: '5min',<br/>&nbsp;&nbsp;&nbsp;&nbsp;apikey: 'demo'<br/>&nbsp;&nbsp;}<br/>}).then(res => console.log(res.data));</code>
+        </div>
     </div>
 </div>
 

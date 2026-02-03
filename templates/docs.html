@@ -11,14 +11,13 @@
 </style>
 {% endblock %}
 
-{% block navbar %}{% endblock %}
 {% block footer %}{% endblock %}
 
 {% block content %}
 <div class="docs-layout">
     {% include 'partials/docs_header.html' %}
     
-    <div class="flex min-h-[calc(100vh-5.5rem)] relative">
+    <div class="flex min-h-[calc(100vh-6.75rem)] relative">
         <!-- Backdrop for mobile sidebar -->
         <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity duration-300 opacity-0"></div>
         
@@ -33,7 +32,7 @@
         </main>
         
         <!-- Right Sidebar (Aside) -->
-        <aside class="hidden lg:block lg:w-[320px] xl:w-[380px] bg-[var(--surface)]/30 border-l border-[var(--border)] lg:sticky lg:top-[5.5rem] lg:h-[calc(100vh-5.5rem)] overflow-y-auto custom-scrollbar">
+        <aside class="hidden lg:block lg:w-[320px] xl:w-[380px] bg-[var(--surface)]/30 border-l border-[var(--border)] lg:sticky lg:top-[6.75rem] lg:h-[calc(100vh-6.75rem)] overflow-y-auto custom-scrollbar">
             <div class="p-8 lg:p-10">
                 {% block docs_aside %}
                     {% include 'partials/docs_aside.html' %}
@@ -52,27 +51,57 @@
 
 {% block scripts %}
 <script>
-    // Language Tab Switching
-    document.querySelectorAll('.lang-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            const lang = tab.getAttribute('data-lang');
-            const fileName = lang === 'py' ? 'example.py' : (lang === 'js' ? 'example.js' : 'main.go');
-            
-            // Update Tab styles
-            document.querySelectorAll('.lang-tab').forEach(t => {
-                t.classList.remove('bg-[var(--background)]', 'text-accent', 'shadow-sm');
-                t.classList.add('text-[var(--text-muted)]');
+    // Unified Code Tab Switching System
+    document.querySelectorAll('.code-block').forEach(block => {
+        const tabs = block.querySelectorAll('.lang-tab');
+        const snippets = block.querySelectorAll('.lang-snippet');
+        const fileNameEl = block.querySelector('.file-name');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const lang = tab.getAttribute('data-lang');
+                const fileName = tab.getAttribute('data-file');
+                
+                // Update tabs within this specific block
+                tabs.forEach(t => {
+                    t.classList.remove('bg-[var(--background)]', 'text-accent', 'shadow-sm');
+                    t.classList.add('text-[var(--text-muted)]');
+                });
+                tab.classList.add('bg-[var(--background)]', 'text-accent', 'shadow-sm');
+                tab.classList.remove('text-[var(--text-muted)]');
+
+                // Update snippets within this specific block
+                snippets.forEach(s => s.classList.add('hidden'));
+                const target = block.querySelector(`.lang-snippet[data-lang="${lang}"]`);
+                if (target) target.classList.remove('hidden');
+
+                // Update file name if element exists
+                if (fileNameEl && fileName) {
+                    fileNameEl.textContent = fileName;
+                }
             });
-            tab.classList.add('bg-[var(--background)]', 'text-accent', 'shadow-sm');
-            tab.classList.remove('text-[var(--text-muted)]');
-
-            // Update Snipets visibility
-            document.querySelectorAll('.lang-snippet').forEach(s => s.classList.add('hidden'));
-            document.getElementById(`snippet-${lang}`).classList.remove('hidden');
-
-            // Update file name
-            document.getElementById('file-name').textContent = fileName;
         });
+    });
+
+    // Unified Copy to Clipboard
+    document.querySelectorAll('.code-block').forEach(block => {
+        const copyBtn = block.querySelector('.copy-btn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                const activeSnippet = block.querySelector('.lang-snippet:not(.hidden)');
+                const text = activeSnippet.innerText;
+                
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalIcon = copyBtn.textContent;
+                    copyBtn.textContent = 'check';
+                    copyBtn.classList.add('text-emerald-500');
+                    setTimeout(() => {
+                        copyBtn.textContent = originalIcon;
+                        copyBtn.classList.remove('text-emerald-500');
+                    }, 2000);
+                });
+            });
+        }
     });
 
     // Sidebar Collapsible Submenus

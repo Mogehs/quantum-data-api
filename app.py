@@ -28,13 +28,13 @@ async def playground(request: Request):
 async def contact_page(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request, "page": "contact"})
 
-@app.get("/terms")
-async def terms_of_service(request: Request):
-    return templates.TemplateResponse("terms.html", {"request": request, "page": "terms"})
+# @app.get("/terms")
+# async def terms_of_service(request: Request):
+#     return templates.TemplateResponse("terms.html", {"request": request, "page": "terms"})
 
-@app.get("/privacy")
-async def privacy_policy(request: Request):
-    return templates.TemplateResponse("privacy.html", {"request": request, "page": "privacy"})
+# @app.get("/privacy")
+# async def privacy_policy(request: Request):
+#     return templates.TemplateResponse("privacy.html", {"request": request, "page": "privacy"})
 
 @app.get("/docs/auth")
 async def docs_auth(request: Request):
@@ -109,4 +109,4 @@ async def docs_placeholder(request: Request, slug: str):
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 10000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="127.0.0.1", port=port)
