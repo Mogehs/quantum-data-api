@@ -10,3 +10,8 @@
     {% include 'partials/blog.html' %}
     {% include 'partials/contact.html' %}
 {% endblock %}
+
+{% block scripts %}
+<!-- Load Lightweight Charts via CDN with specific version for stability -->
+<script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+{% endblock %}

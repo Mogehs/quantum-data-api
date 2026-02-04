@@ -31,7 +31,7 @@
                     <div class="inline-block h-8 w-8 rounded-full border-2 border-[var(--background)] bg-[var(--surface)] flex items-center justify-center text-[10px] font-bold text-[var(--text-main)]">LS</div>
                 </div>
                 <div class="text-xs text-[var(--text-muted)] font-medium">
-                    Joined by <span class="text-[var(--text-main)] font-bold">4,200+</span> engineers this month
+                    Joined by <span class="text-[var(--text-main)] font-bold" id="engineer-count">4,281</span> engineers this month
                 </div>
             </div>
         </div>
@@ -97,7 +97,10 @@
             <div class="absolute -bottom-6 -left-6 bg-[var(--surface)] p-4 rounded-lg border border-[var(--border)] shadow-xl animate-slide-up [animation-delay:800ms] hidden sm:block">
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                    <div class="text-[11px] font-bold text-[var(--text-main)] uppercase tracking-wider">System Live</div>
+                    <div class="text-[11px] font-bold text-[var(--text-main)] uppercase tracking-wider flex items-center gap-2">
+            System Live 
+            <div id="throughput-pulse" class="w-12 h-4 overflow-hidden opacity-50 flex items-end gap-[1px]"></div>
+        </div>
                 </div>
             </div>
         </div>
@@ -165,6 +168,42 @@
                     });
                 }
             });
+        }
+
+        // --- NEW: Dynamic Hero Elements ---
+        
+        // 1. Engineer Counter
+        const counterEl = document.getElementById('engineer-count');
+        if (counterEl) {
+            let count = 4281;
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    count += Math.floor(Math.random() * 2) + 1;
+                    counterEl.textContent = count.toLocaleString();
+                    counterEl.classList.add('text-accent');
+                    setTimeout(() => counterEl.classList.remove('text-accent'), 1000);
+                }
+            }, 5000);
+        }
+
+        // 2. Throughput Pulse (Sparkline)
+        const pulseEl = document.getElementById('throughput-pulse');
+        if (pulseEl) {
+            for (let i = 0; i < 12; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'w-1 bg-emerald-500/50 rounded-t-sm transition-all duration-300';
+                bar.style.height = '20%';
+                pulseEl.appendChild(bar);
+            }
+
+            setInterval(() => {
+                const bars = pulseEl.children;
+                for (let bar of bars) {
+                    const h = 20 + Math.random() * 80;
+                    bar.style.height = `${h}%`;
+                    bar.style.opacity = h / 100;
+                }
+            }, 400);
         }
     })();
 </script>

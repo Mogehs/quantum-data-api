@@ -21,9 +21,9 @@
                 </button>
             </div>
         </div>
-        <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+        <div class="grid lg:grid-cols-12 gap-8 items-start relative">
             <div class="lg:col-span-4 animate-slide-up">
-                <div class="bg-[var(--surface)] p-8 rounded-xl border border-[var(--border)] h-full flex flex-col card-lift">
+                <div id="ft-form-card" class="bg-[var(--surface)] p-8 rounded-xl border border-[var(--border)] flex flex-col card-lift relative z-10">
                     <div class="space-y-6 flex-grow">
                         <div>
                             <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Instrument Symbol</label>
@@ -31,35 +31,35 @@
                                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                                     <span class="material-symbols-outlined text-sm">search</span>
                                 </span>
-                                <input class="block w-full pl-9 border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-sm focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 outline-none transition-all" placeholder="Search Ticker..." type="text" value="AAPL"/>
+                                <input id="ft-symbol" class="block w-full pl-9 border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-sm focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 outline-none transition-all" placeholder="Search Ticker..." type="text" value="AAPL"/>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Start Date</label>
-                                <input class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 px-3 outline-none transition-all" type="date" value="2024-01-01"/>
+                                <input id="ft-start" class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 px-3 outline-none transition-all" type="date" value="2024-01-01"/>
                             </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">End Date</label>
-                                <input class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 px-3 outline-none transition-all" type="date" value="2024-05-20"/>
+                                <input id="ft-end" class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 px-3 outline-none transition-all" type="date" value="2024-05-20"/>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Interval</label>
-                                <select class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 outline-none transition-all">
-                                    <option>Tick</option>
-                                    <option>1 Min</option>
-                                    <option selected="">5 Min</option>
-                                    <option>Daily</option>
+                                <select id="ft-interval" class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 outline-none transition-all">
+                                    <option value="tick">Tick</option>
+                                    <option value="1min">1 Min</option>
+                                    <option value="5min" selected="">5 Min</option>
+                                    <option value="daily">Daily</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">Format</label>
-                                <select class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 outline-none transition-all">
-                                    <option>JSON</option>
-                                    <option>CSV</option>
-                                    <option>Parquet</option>
+                                <select id="ft-format" class="w-full border-[var(--border)] bg-[var(--background)] text-[var(--text-main)] rounded-lg text-xs focus:ring-[var(--accent)] focus:border-[var(--accent)] py-2.5 outline-none transition-all">
+                                    <option value="json">JSON</option>
+                                    <option value="csv">CSV</option>
+                                    <option value="parquet">Parquet</option>
                                 </select>
                             </div>
                         </div>
@@ -78,8 +78,8 @@
                     </button>
                 </div>
             </div>
-            <div class="lg:col-span-8 animate-slide-up [animation-delay:200ms]">
-                <div class="bg-[#0B1222] rounded-xl border border-[var(--border)] overflow-hidden h-full flex flex-col shadow-lg">
+            <div class="lg:col-span-8 animate-slide-up [animation-delay:200ms] self-stretch relative">
+                <div class="bg-[#0B1222] rounded-xl border border-[var(--border)] overflow-hidden absolute inset-0 flex flex-col shadow-lg">
                     <div class="flex items-center px-4 py-2 border-b border-[var(--border)]/50 bg-[#111A2E]">
                         <div class="flex gap-1 mr-6" id="code-tabs">
                             <button data-lang="curl" class="tab-btn px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white border-b-2 border-[var(--accent)] transition-all">cURL</button>
@@ -93,16 +93,17 @@
                             </button>
                         </div>
                     </div>
-                    <div class="p-8 font-mono text-xs overflow-auto flex-grow bg-[#0B1222] relative">
+                    <div class="p-8 font-mono text-xs overflow-y-auto scrollbar-hide flex-grow bg-[#0B1222] relative min-h-0">
+                        <!-- Content that can scroll if form is shorter than code -->
                         <!-- cURL Snippet -->
                         <div id="curl-snippet" class="code-snippet text-slate-400 opacity-100 transition-all duration-300 transform translate-x-0">
                             <span class="text-blue-400">curl</span> --request GET \<br/>
                             &nbsp;&nbsp;--url <span class="text-orange-300">'https://api.quantdata.io/v2/market/bars'</span> \<br/>
-                            &nbsp;&nbsp;--header <span class="text-orange-300">'Authorization: Bearer YOUR_API_KEY'</span> \<br/>
-                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'symbol=AAPL'</span> \<br/>
-                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'start=2024-01-01'</span> \<br/>
-                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'end=2024-05-20'</span> \<br/>
-                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'interval=5min'</span>
+                            &nbsp;&nbsp;--header <span class="text-orange-300">'Authorization: Bearer KEY'</span> \<br/>
+                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'symbol=<span id="curl-val-symbol">AAPL</span>'</span> \<br/>
+                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'start=<span id="curl-val-start">2024-01-01</span>'</span> \<br/>
+                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'end=<span id="curl-val-end">2024-05-20</span>'</span> \<br/>
+                            &nbsp;&nbsp;--data-urlencode <span class="text-orange-300">'interval=<span id="curl-val-interval">5min</span>'</span>
                         </div>
                         
                         <!-- Node.js Snippet -->
@@ -111,8 +112,8 @@
                             <span class="text-blue-400">const</span> options = {<br/>
                             &nbsp;&nbsp;method: <span class="text-orange-300">'GET'</span>,<br/>
                             &nbsp;&nbsp;url: <span class="text-orange-300">'https://api.quantdata.io/v2/market/bars'</span>,<br/>
-                            &nbsp;&nbsp;params: { <span class="text-slate-300">symbol</span>: <span class="text-orange-300">'AAPL'</span>, <span class="text-slate-300">interval</span>: <span class="text-orange-300">'5min'</span> },<br/>
-                            &nbsp;&nbsp;headers: { <span class="text-slate-300">Authorization</span>: <span class="text-orange-300">'Bearer YOUR_API_KEY'</span> }<br/>
+                            &nbsp;&nbsp;params: { <span class="text-slate-300">symbol</span>: <span class="text-orange-300">'<span id="node-val-symbol">AAPL</span>'</span>, <span class="text-slate-300">interval</span>: <span class="text-orange-300">'<span id="node-val-interval">5min</span>'</span> },<br/>
+                            &nbsp;&nbsp;headers: { <span class="text-slate-300">Authorization</span>: <span class="text-orange-300">'Bearer KEY'</span> }<br/>
                             };<br/><br/>
                             <span class="text-emerald-400">axios</span>.<span class="text-blue-400">request</span>(options).<span class="text-blue-400">then</span>(<span class="text-blue-400">function</span> (response) {<br/>
                             &nbsp;&nbsp;<span class="text-slate-300">console</span>.<span class="text-blue-400">log</span>(response.data);<br/>
@@ -124,11 +125,11 @@
                             <span class="text-blue-400">import</span> requests<br/><br/>
                             <span class="text-slate-300">url</span> = <span class="text-orange-300">"https://api.quantdata.io/v2/market/bars"</span><br/>
                             <span class="text-slate-300">params</span> = {<br/>
-                            &nbsp;&nbsp;<span class="text-orange-300">"symbol"</span>: <span class="text-orange-300">"AAPL"</span>,<br/>
-                            &nbsp;&nbsp;<span class="text-orange-300">"start"</span>: <span class="text-orange-300">"2024-01-01"</span>,<br/>
-                            &nbsp;&nbsp;<span class="text-orange-300">"interval"</span>: <span class="text-orange-300">"5min"</span><br/>
+                            &nbsp;&nbsp;<span class="text-orange-300">"symbol"</span>: <span class="text-orange-300">"<span id="py-val-symbol">AAPL</span>"</span>,<br/>
+                            &nbsp;&nbsp;<span class="text-orange-300">"start"</span>: <span class="text-orange-300">"<span id="py-val-start">2024-01-01</span>"</span>,<br/>
+                            &nbsp;&nbsp;<span class="text-orange-300">"interval"</span>: <span class="text-orange-300">"<span id="py-val-interval">5min</span>"</span><br/>
                             }<br/>
-                            <span class="text-slate-300">headers</span> = {<span class="text-orange-300">"Authorization"</span>: <span class="text-orange-300">"Bearer YOUR_API_KEY"</span>}<br/><br/>
+                            <span class="text-slate-300">headers</span> = {<span class="text-orange-300">"Authorization"</span>: <span class="text-orange-300">"Bearer KEY"</span>}<br/><br/>
                             <span class="text-slate-300">response</span> = requests.<span class="text-emerald-400">get</span>(url, params=params, headers=headers)<br/>
                             <span class="text-blue-400">print</span>(response.<span class="text-emerald-400">json</span>())
                         </div>
@@ -169,34 +170,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="chart-container" class="flex-grow min-h-[400px] relative p-8 flex items-end gap-2 overflow-hidden bg-[var(--background)]">
+                <div id="ft-chart-container" class="h-[500px] relative overflow-hidden bg-[var(--background)] border-b border-[var(--border)]/50">
                     <div class="absolute inset-0 grid-bg-light opacity-50 pointer-events-none"></div>
-                    {% for i in range(7) %}
-                        <div class="flex-1 flex flex-col items-center justify-end h-full z-10">
-                            {% if i % 2 == 0 %}
-                                <div class="w-[1px] h-32 bg-[var(--border)]"></div>
-                                <div class="chart-bar w-4 h-[64px] bg-rose-500 rounded-sm shadow-sm hover:brightness-110 transition-transform origin-bottom cursor-pointer duration-700 ease-out scale-y-0 will-change-transform" data-scale="1"></div>
-                                <div class="w-[1px] h-12 bg-[var(--border)]"></div>
-                            {% else %}
-                                <div class="w-[1px] h-24 bg-[var(--border)]"></div>
-                                <div class="chart-bar w-4 h-[80px] bg-emerald-500 rounded-sm shadow-sm hover:brightness-110 transition-transform origin-bottom cursor-pointer duration-700 ease-out scale-y-0 will-change-transform" data-scale="1"></div>
-                                <div class="w-[1px] h-16 bg-[var(--border)]"></div>
-                            {% endif %}
+                    <div id="ft-chart-loader" class="loader-overlay active">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+                            <p class="text-[10px] font-bold text-accent uppercase tracking-widest mt-4">Optimizing Feed...</p>
                         </div>
-                    {% endfor %}
-                    <div class="absolute left-0 top-0 bottom-0 w-12 border-r border-[var(--border)] flex flex-col justify-between py-8 px-2 text-[9px] font-mono text-slate-400 bg-[var(--background)]/80 backdrop-blur-sm">
-                        <span>198.50</span>
-                        <span>196.25</span>
-                        <span>194.00</span>
-                        <span>191.75</span>
-                        <span>189.50</span>
-                    </div>
-                    <div class="absolute bottom-0 left-12 right-0 h-6 border-t border-[var(--border)] flex justify-between px-8 items-center text-[9px] font-mono text-slate-400 bg-[var(--background)]/80 backdrop-blur-sm">
-                        <span>09:30</span>
-                        <span>11:00</span>
-                        <span>13:00</span>
-                        <span>14:30</span>
-                        <span>16:00</span>
                     </div>
                 </div>
             </div>
@@ -244,6 +224,35 @@
 <style>
     .will-change-transform { will-change: transform; }
     
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    /* Loader Overlay */
+    .loader-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(11, 18, 34, 0.8);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .loader-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     /* Make native date picker icons white in dark mode only */
     .dark input[type="date"]::-webkit-calendar-picker-indicator {
         filter: invert(1) brightness(100%) contrast(100%);
@@ -253,7 +262,150 @@
 
 <script>
     (function() {
-        // Tab system with animations
+        // --- Features Chart Logic ---
+        let ftChart;
+        let ftSeries;
+
+        function initFtChart() {
+            const container = document.getElementById('ft-chart-container');
+            const loader = document.getElementById('ft-chart-loader');
+            
+            if (!container) return;
+            
+            if (typeof LightweightCharts === 'undefined' || ftChart) {
+                if (loader && !ftChart) loader.classList.remove('active'); // Hide if lib missing
+                return;
+            }
+
+            const isDark = document.documentElement.classList.contains('dark');
+            ftChart = LightweightCharts.createChart(container, {
+                width: container.clientWidth,
+                height: container.clientHeight || 400,
+                layout: {
+                    background: { type: 'solid', color: 'transparent' },
+                    textColor: isDark ? '#A9B2C7' : '#4A5875',
+                },
+                grid: {
+                    vertLines: { color: isDark ? '#1E2A44' : '#E2E8F0' },
+                    horzLines: { color: isDark ? '#1E2A44' : '#E2E8F0' },
+                },
+                rightPriceScale: { borderColor: isDark ? '#1E2A44' : '#E2E8F0' },
+                timeScale: { borderColor: isDark ? '#1E2A44' : '#E2E8F0' },
+                autoSize: true,
+            });
+
+            ftSeries = ftChart.addCandlestickSeries({
+                upColor: '#10b981',
+                downColor: '#ef4444',
+                borderVisible: false,
+                wickUpColor: '#10b981',
+                wickDownColor: '#ef4444',
+            });
+
+            window.addEventListener('resize', () => {
+                if (ftChart) ftChart.applyOptions({ 
+                    width: container.clientWidth,
+                    height: container.clientHeight
+                });
+            });
+        }
+
+        async function ftFetchData() {
+            const loader = document.getElementById('ft-chart-loader');
+            if (loader) loader.classList.add('active');
+
+            try {
+                // --- API INTEGRATION POINT ---
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                const symbol = document.getElementById('ft-symbol').value || 'AAPL';
+                const interval = document.getElementById('ft-interval').value;
+                const start = document.getElementById('ft-start').value;
+
+                // Generate mock data based on form state
+                const data = [];
+                let time = Math.floor(new Date(start || Date.now()).getTime() / 1000);
+                let lastPrice = 180 + Math.random() * 40;
+                const points = interval === 'tick' ? 100 : 50;
+                const step = interval === '1min' ? 60 : (interval === '5min' ? 300 : 86400);
+
+                for (let i = 0; i < points; i++) {
+                    const open = lastPrice;
+                    const change = (Math.random() - 0.5) * (lastPrice * 0.02);
+                    const close = open + change;
+                    data.push({
+                        time: time,
+                        open: parseFloat(open.toFixed(2)),
+                        high: parseFloat((Math.max(open, close) + Math.random()).toFixed(2)),
+                        low: parseFloat((Math.min(open, close) - Math.random()).toFixed(2)),
+                        close: parseFloat(close.toFixed(2))
+                    });
+                    lastPrice = close;
+                    time += step;
+                }
+
+                if (ftSeries) ftSeries.setData(data);
+                if (ftChart) ftChart.timeScale().fitContent();
+                
+                // Update the live response display
+                const resp = document.getElementById('live-response');
+                if (resp) {
+                    const mockJson = {
+                        status: "success",
+                        data: data.slice(0, 2)
+                    };
+                    resp.innerHTML = JSON.stringify(mockJson, null, 2).replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+                }
+            } catch (err) {
+                console.error("Chart fetch error:", err);
+            } finally {
+                if (loader) loader.classList.remove('active');
+            }
+        }
+
+        function updateCodeSnippets() {
+            const vals = {
+                symbol: document.getElementById('ft-symbol').value || 'AAPL',
+                start: document.getElementById('ft-start').value || '2024-01-01',
+                end: document.getElementById('ft-end').value || '2024-05-20',
+                interval: document.getElementById('ft-interval').value || '5min',
+                format: document.getElementById('ft-format').value || 'json'
+            };
+
+            // Update all placeholder spans
+            const mappings = {
+                'curl-val-symbol': vals.symbol,
+                'curl-val-start': vals.start,
+                'curl-val-end': vals.end,
+                'curl-val-interval': vals.interval,
+                'node-val-symbol': vals.symbol,
+                'node-val-interval': vals.interval,
+                'py-val-symbol': vals.symbol,
+                'py-val-start': vals.start,
+                'py-val-interval': vals.interval
+            };
+
+            for (const [id, val] of Object.entries(mappings)) {
+                const el = document.getElementById(id);
+                if (el) el.innerText = val;
+            }
+        }
+
+        // Add event listeners to all form inputs
+        ['ft-symbol', 'ft-start', 'ft-end', 'ft-interval', 'ft-format'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', () => {
+                    updateCodeSnippets();
+                    if (id === 'ft-symbol' || id === 'ft-interval') {
+                        // Debounce chart update or just wait for 'Run Query'
+                    }
+                });
+                el.addEventListener('change', updateCodeSnippets);
+            }
+        });
+
+        // --- Demo & Tab Logic ---
         const tabBtns = document.querySelectorAll('.tab-btn');
         const snippets = document.querySelectorAll('.code-snippet');
         
@@ -262,7 +414,6 @@
                 const lang = btn.getAttribute('data-lang');
                 const target = document.getElementById(`${lang}-snippet`);
                 
-                // Update buttons
                 tabBtns.forEach(b => {
                     b.classList.replace('text-white', 'text-slate-500');
                     b.classList.replace('border-[var(--accent)]', 'border-transparent');
@@ -270,45 +421,44 @@
                 btn.classList.replace('text-slate-500', 'text-white');
                 btn.classList.replace('border-transparent', 'border-[var(--accent)]');
 
-                // Animate snippets (fade + slide)
                 snippets.forEach(s => {
                     s.classList.add('opacity-0', 'translate-x-3');
                     setTimeout(() => s.classList.add('hidden'), 200);
                 });
                 
                 setTimeout(() => {
-                    target.classList.remove('hidden');
-                    setTimeout(() => {
-                        target.classList.remove('opacity-0', 'translate-x-3');
-                        target.classList.add('opacity-100', 'translate-x-0');
-                    }, 50);
+                    if (target) {
+                        target.classList.remove('hidden');
+                        setTimeout(() => {
+                            target.classList.remove('opacity-0', 'translate-x-3');
+                            target.classList.add('opacity-100', 'translate-x-0');
+                        }, 50);
+                    }
                 }, 200);
             });
         });
 
-        // Run Query Loading state
         const runBtn = document.getElementById('run-query');
         if (runBtn) {
             runBtn.addEventListener('click', () => {
                 const text = runBtn.querySelector('.btn-text');
                 const loader = runBtn.querySelector('.btn-loader');
                 
-                text.classList.add('hidden');
-                loader.classList.remove('hidden');
+                if (text) text.classList.add('hidden');
+                if (loader) loader.classList.remove('hidden');
                 
-                setTimeout(() => {
-                    text.classList.remove('hidden');
-                    loader.classList.add('hidden');
-                    
-                    // Simple sparkle effect on code response
+                ftFetchData().finally(() => {
+                    if (text) text.classList.remove('hidden');
+                    if (loader) loader.classList.add('hidden');
                     const resp = document.getElementById('live-response');
-                    resp.classList.add('animate-pulse', 'text-white');
-                    setTimeout(() => resp.classList.remove('animate-pulse', 'text-white'), 800);
-                }, 1000);
+                    if (resp) {
+                        resp.classList.add('animate-pulse', 'text-white');
+                        setTimeout(() => resp.classList.remove('animate-pulse', 'text-white'), 800);
+                    }
+                });
             });
         }
 
-        // Auto-writing Demo Logic
         let demoStarted = false;
         let stopDemo = false;
 
@@ -316,110 +466,61 @@
             if (demoStarted) return;
             demoStarted = true;
 
-            const snippet = document.getElementById('curl-snippet');
-            const response = document.getElementById('live-response');
+            const symbolInput = document.getElementById('ft-symbol');
             const runBtn = document.getElementById('run-query');
-            
-            if (!snippet || !response || !runBtn) return;
+            if (!symbolInput || !runBtn) return;
 
-            // Stop demo if user interacts
             tabBtns.forEach(btn => btn.addEventListener('click', () => stopDemo = true));
             runBtn.addEventListener('mousedown', () => stopDemo = true);
+            symbolInput.addEventListener('mousedown', () => stopDemo = true);
 
-            const codeText = `curl --request GET \\
-  --url 'https://api.quantdata.io/v2/market/bars' \\
-  --header 'Authorization: Bearer YOUR_API_KEY' \\
-  --data-urlencode 'symbol=AAPL' \\
-  --data-urlencode 'interval=5min'`;
-
-            const jsonText = `{
-  "status": "success",
-  "data": [
-    { "t": 1704114000, "o": 192.53, "h": 193.10 },
-    { "t": 1704114300, "o": 192.89, "h": 192.95 }
-  ]
-}`;
-
-            snippet.innerHTML = '';
-            response.innerHTML = '';
+            const targetSymbol = 'NVDA';
+            symbolInput.value = '';
             
             let charIdx = 0;
-            function typeCode() {
+            function typeSymbol() {
                 if (stopDemo) return;
-                if (charIdx < codeText.length) {
-                    const char = codeText[charIdx];
-                    if (char === '\n') {
-                        snippet.innerHTML += '<br/>';
-                    } else if (char === ' ') {
-                        snippet.innerHTML += '&nbsp;';
-                    } else {
-                        snippet.innerHTML += char;
-                    }
+                if (charIdx < targetSymbol.length) {
+                    symbolInput.value += targetSymbol[charIdx];
                     charIdx++;
-                    setTimeout(typeCode, 20);
+                    updateCodeSnippets(); // Show syncing in real-time
+                    setTimeout(typeSymbol, 150);
                 } else {
                     setTimeout(() => {
-                        if (stopDemo) return;
-                        runBtn.click();
-                        setTimeout(() => {
-                            if (stopDemo) return;
-                            typeResponse();
-                        }, 1200);
+                        if (!stopDemo) runBtn.click();
                     }, 500);
                 }
             }
-
-            let jsonIdx = 0;
-            function typeResponse() {
-                if (stopDemo) return;
-                if (jsonIdx < jsonText.length) {
-                    const char = jsonText[jsonIdx];
-                    if (char === '\n') {
-                        response.innerHTML += '<br/>';
-                    } else if (char === ' ') {
-                        response.innerHTML += '&nbsp;';
-                    } else {
-                        response.innerHTML += char;
-                    }
-                    jsonIdx++;
-                    setTimeout(typeResponse, 10);
-                }
-            }
-
-            typeCode();
+            setTimeout(typeSymbol, 500);
         }
 
         const demoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(startCodeDemo, 1000); // Small delay for user to settle
+                    initFtChart();
+                    ftFetchData(); // Trigger initial fetch to hide loader
+                    setTimeout(startCodeDemo, 1000);
                     demoObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.1 }); // Lower threshold for more reliable trigger
 
         const featuresSection = document.getElementById('features');
         if (featuresSection) demoObserver.observe(featuresSection);
 
-        // Chart animation on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const bars = entry.target.querySelectorAll('.chart-bar');
-                    bars.forEach((bar, i) => {
-                        setTimeout(() => {
-                            bar.classList.replace('scale-y-0', 'scale-y-100');
-                        }, i * 60);
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
+        // Initialize snippets with current form values
+        updateCodeSnippets();
 
-        const chart = document.getElementById('chart-container');
-        if (chart) observer.observe(chart);
+        // FAILSAFE: Force hide loader after 5s if observer/init fails
+        setTimeout(() => {
+            const loader = document.getElementById('ft-chart-loader');
+            if (loader && loader.classList.contains('active')) {
+                console.warn("Failsafe: Force hiding chart loader");
+                loader.classList.remove('active');
+            }
+        }, 5000);
 
-        // Export format selection
+        // Export Selection
         const formatCards = document.querySelectorAll('.export-format');
         formatCards.forEach(card => {
             card.addEventListener('click', () => {
