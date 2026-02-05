@@ -315,49 +315,50 @@
             if (loader) loader.classList.add('active');
 
             try {
-                // --- API INTEGRATION POINT ---
-                await new Promise(resolve => setTimeout(resolve, 800));
-
                 const symbol = document.getElementById('ft-symbol').value || 'AAPL';
-                const interval = document.getElementById('ft-interval').value;
-                const start = document.getElementById('ft-start').value;
+                const interval = document.getElementById('ft-interval').value || '5min';
+                const start = document.getElementById('ft-start').value || '2024-05-15';
+                const end = document.getElementById('ft-end').value || '2024-05-20';
+                const asset = 'equities'; // Default for features demo
 
-                // Generate mock data based on form state
-                const data = [];
-                let time = Math.floor(new Date(start || Date.now()).getTime() / 1000);
-                let lastPrice = 180 + Math.random() * 40;
-                const points = interval === 'tick' ? 100 : 50;
-                const step = interval === '1min' ? 60 : (interval === '5min' ? 300 : 86400);
-
-                for (let i = 0; i < points; i++) {
-                    const open = lastPrice;
-                    const change = (Math.random() - 0.5) * (lastPrice * 0.02);
-                    const close = open + change;
-                    data.push({
-                        time: time,
-                        open: parseFloat(open.toFixed(2)),
-                        high: parseFloat((Math.max(open, close) + Math.random()).toFixed(2)),
-                        low: parseFloat((Math.min(open, close) - Math.random()).toFixed(2)),
-                        close: parseFloat(close.toFixed(2))
-                    });
-                    lastPrice = close;
-                    time += step;
+                const url = `/api/mock/data?asset=${asset}&symbol=${symbol}&tf=${interval}&start=${start}&end=${end}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || `API Error: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.status === "error") {
+                    throw new Error(result.message);
                 }
 
-                if (ftSeries) ftSeries.setData(data);
-                if (ftChart) ftChart.timeScale().fitContent();
+                const data = result.data;
+
+                if (ftSeries && data.length > 0) ftSeries.setData(data);
+                if (ftChart && data.length > 0) ftChart.timeScale().fitContent();
                 
                 // Update the live response display
                 const resp = document.getElementById('live-response');
                 if (resp) {
-                    const mockJson = {
+                    resp.innerHTML = JSON.stringify({
                         status: "success",
+                        metadata: result.metadata,
                         data: data.slice(0, 2)
-                    };
-                    resp.innerHTML = JSON.stringify(mockJson, null, 2).replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+                    }, null, 2).replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
                 }
             } catch (err) {
                 console.error("Chart fetch error:", err);
+                const resp = document.getElementById('live-response');
+                if (resp) {
+                    resp.innerHTML = JSON.stringify({
+                        status: "error",
+                        message: err.message
+                    }, null, 2).replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+                }
+                // Optional: alert(`Error: ${err.message}`);
             } finally {
                 if (loader) loader.classList.remove('active');
             }
@@ -391,17 +392,32 @@
             }
         }
 
+        // Debounce helper
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
+        }
+
+        const debouncedFetch = debounce(ftFetchData, 500);
+
         // Add event listeners to all form inputs
         ['ft-symbol', 'ft-start', 'ft-end', 'ft-interval', 'ft-format'].forEach(id => {
             const el = document.getElementById(id);
             if (el) {
                 el.addEventListener('input', () => {
                     updateCodeSnippets();
-                    if (id === 'ft-symbol' || id === 'ft-interval') {
-                        // Debounce chart update or just wait for 'Run Query'
+                    if (id === 'ft-symbol') {
+                        debouncedFetch();
                     }
                 });
-                el.addEventListener('change', updateCodeSnippets);
+                el.addEventListener('change', () => {
+                    updateCodeSnippets();
+                    ftFetchData();
+                });
             }
         });
 

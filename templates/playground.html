@@ -489,19 +489,22 @@
             const start = (elements.start && elements.start.value) || '2024-05-15';
             const end = (elements.end && elements.end.value) || '2024-05-20';
 
-            /* 
             // --- BACKEND INTEGRATION POINT ---
-            // To connect to your real API, uncomment the following block and remove the mock logic below.
+            const url = `/api/mock/data?asset=${assetType}&symbol=${symbol}&tf=${timeframe}&start=${start}&end=${end}`;
+            const response = await fetch(url);
             
-            const response = await fetch(`/api/data?asset=${assetType}&symbol=${symbol}&tf=${timeframe}&start=${start}&end=${end}`);
-            if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `API Error: ${response.statusText}`);
+            }
+            
             const result = await response.json();
-            currentData = result.data; // Ensure this matches your API structure
-            */
-
-            // --- MOCK DATA LOGIC (Current) ---
-            await new Promise(resolve => setTimeout(resolve, 600)); // Simulating network lag
-            currentData = generateMockData(symbol, timeframe, start, end);
+            
+            if (result.status === "error") {
+                throw new Error(result.message);
+            }
+            
+            currentData = result.data; 
             // ---------------------------------
 
             // Update Chart
@@ -564,6 +567,15 @@
 
         } catch (err) {
             console.error('Error fetching/updating data:', err);
+            // Show error in JSON output or as an alert
+            if (elements.jsonOutput) {
+                elements.jsonOutput.textContent = JSON.stringify({
+                    status: "error",
+                    message: err.message
+                }, null, 4);
+            }
+            // Optional: Add a small toast or alert in the UI
+            alert(`Error: ${err.message}`);
         } finally {
             if (elements.chartLoader) elements.chartLoader.classList.remove('active');
         }
@@ -593,9 +605,12 @@
     // --- Event Listeners ---
     if (elements.executeBtn) elements.executeBtn.addEventListener('click', fetchData);
 
-    // Live update snippets while typing/changing
-    [elements.symbol, elements.timeframe, elements.start].forEach(el => {
-        if (el) el.addEventListener('input', updateSnippets);
+    // Live update snippets while typing/changing + Trigger re-fetch
+    [elements.symbol, elements.timeframe, elements.start, elements.end, elements.assetType].forEach(el => {
+        if (el) {
+            el.addEventListener('input', updateSnippets);
+            el.addEventListener('change', fetchData);
+        }
     });
 
     // Code Tab Switching

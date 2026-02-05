@@ -2,6 +2,9 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import uvicorn
+import random
+import time
+from datetime import datetime, timedelta
 
 app = FastAPI(title="QuantDataApi", docs_url=None, redoc_url=None)
 
@@ -516,7 +519,76 @@ async def docs_placeholder(request: Request, slug: str):
         "title": title
     })
 
+def generate_mock_ohlc(symbol, timeframe, start_date, end_date):
+    """Generates mock OHLC data for the playground."""
+    data = []
+    try:
+        start_ts = datetime.strptime(start_date, "%Y-%m-%d") if start_date else datetime.now() - timedelta(days=5)
+        end_ts = datetime.strptime(end_date, "%Y-%m-%d") if end_date else datetime.now()
+    except ValueError:
+        start_ts = datetime.now() - timedelta(days=5)
+        end_ts = datetime.now()
+
+    # Determine step based on timeframe
+    if timeframe == 'daily':
+        delta = timedelta(days=1)
+        steps = (end_ts - start_ts).days + 1
+    else:
+        # Default to 5min for mock if not daily
+        delta = timedelta(minutes=5)
+        steps = min(300, int((end_ts - start_ts).total_seconds() / 300) + 1)
+
+    current_time = start_ts
+    last_price = 150.0 + random.random() * 100.0
+    
+    for _ in range(steps):
+        open_p = last_price
+        close_p = open_p + (random.random() - 0.5) * 4.0
+        high_p = max(open_p, close_p) + random.random() * 2.0
+        low_p = min(open_p, close_p) - random.random() * 2.0
+        volume = random.randint(100000, 1000000)
+
+        data.append({
+            "time": int(current_time.timestamp()),
+            "open": round(open_p, 2),
+            "high": round(high_p, 2),
+            "low": round(low_p, 2),
+            "close": round(close_p, 2),
+            "volume": volume
+        })
+        
+        last_price = close_p
+        current_time += delta
+        if len(data) >= 500: # Safety cap
+            break
+            
+    return data
+
+@app.get("/api/mock/data")
+async def get_mock_data(asset: str = "equities", symbol: str = "AAPL", tf: str = "5min", start: str = None, end: str = None):
+    # Simulate slight network delay
+    time.sleep(0.3)
+    
+    # Simple validation
+    if not symbol:
+        return {"status": "error", "message": "Symbol is required"}
+    
+    data = generate_mock_ohlc(symbol, tf, start, end)
+    
+    return {
+        "status": "success",
+        "metadata": {
+            "symbol": symbol,
+            "timeframe": tf,
+            "asset": asset,
+            "start": start,
+            "end": end,
+            "count": len(data)
+        },
+        "data": data
+    }
+
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 10000))
-    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=True)
+    uvicorn.run("app:app", host="127.0.0.1", port=port, reload=True)
