@@ -20,7 +20,7 @@ blog_posts = [
         "read_time": "12 min read",
         "category": "Engineering",
         "featured": True,
-        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop",
+        "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop",
         "summary": "How we rebuilt our market data distribution engine from the ground up using Rust and kernel-bypass networking to deliver institutional-grade performance to retail developers.",
         "content_intro": "In the world of high-frequency trading and real-time market data, every microsecond counts. This post explores how we rebuilt our Market Data Core from the ground up using Rust and kernel-bypass networking to deliver sub-ms latency at massive scale.",
         "content": """
@@ -519,4 +519,4 @@ async def docs_placeholder(request: Request, slug: str):
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 10000))
-    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=True)
+    uvicorn.run("app:app", host="127.0.0.1", port=port, reload=True)

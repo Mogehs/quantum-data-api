@@ -19,28 +19,28 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {% if featured_post and current_page == 1 and current_category == 'All' and not search_query %}
         <section class="mb-20">
-            <a href="/blog/{{ featured_post.slug }}" class="relative block rounded-2xl overflow-hidden border border-border group cursor-pointer aspect-[21/9] bg-surface grid-bg-dots">
-                <img alt="{{ featured_post.title }}" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-700" src="{{ featured_post.image }}" onerror="this.style.display='none'"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-8 lg:p-12 w-full lg:w-2/3">
+            <a href="/blog/{{ featured_post.slug }}" class="relative block rounded-2xl overflow-hidden border border-border group cursor-pointer aspect-[21/9] bg-[#0B1020]">
+                <img alt="{{ featured_post.title }}" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700" src="{{ featured_post.image }}" onerror="this.style.display='none'"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0B1020] via-[#0B1020]/40 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 lg:p-12 w-full lg:w-3/4 z-10">
                     <div class="flex items-center gap-3 mb-6">
-                        <span class="px-3 py-1 rounded-full bg-accent/10 border border-accent text-accent text-[10px] font-bold uppercase tracking-widest">Featured Story</span>
+                        <span class="px-3 py-1 rounded-full bg-accent/20 border border-accent text-accent text-[10px] font-bold uppercase tracking-widest">Featured Story</span>
                         <span class="text-text-muted text-[10px] font-bold uppercase tracking-widest">{{ featured_post.date }}</span>
                     </div>
-                    <h1 class="text-3xl lg:text-5xl font-extrabold tracking-tight mb-4 text-text-main group-hover:text-accent transition-colors">
+                    <h1 class="text-3xl lg:text-5xl font-extrabold tracking-tight mb-4 text-[#EAF0FF] group-hover:text-accent transition-colors drop-shadow-sm">
                         {{ featured_post.title }}
                     </h1>
-                    <p class="text-lg text-text-muted mb-8 line-clamp-2">
+                    <p class="text-lg text-[#A9B2C7] mb-8 line-clamp-2 max-w-2xl">
                         {{ featured_post.summary }}
                     </p>
                     <div class="flex items-center gap-4">
                         {% set f_initials = featured_post.author_name.split(' ') | map('first') | join('') | upper %}
-                        <div class="w-10 h-10 rounded-full bg-surface border border-border flex items-center justify-center text-xs font-bold text-accent">
+                        <div class="w-10 h-10 rounded-full bg-[#11172A] border border-border/50 flex items-center justify-center text-xs font-bold text-accent">
                             {{ f_initials }}
                         </div>
                         <div>
-                            <div class="text-sm font-bold text-text-main">{{ featured_post.author_name }}</div>
-                            <div class="text-xs text-text-muted">{{ featured_post.author_role }} • {{ featured_post.read_time }}</div>
+                            <div class="text-sm font-bold text-[#EAF0FF]">{{ featured_post.author_name }}</div>
+                            <div class="text-xs text-[#A9B2C7]">{{ featured_post.author_role }} • {{ featured_post.read_time }}</div>
                         </div>
                     </div>
                 </div>
