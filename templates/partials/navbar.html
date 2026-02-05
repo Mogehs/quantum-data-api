@@ -10,6 +10,7 @@
                 </a>
                 <div class="hidden md:flex gap-8 text-[13px] font-semibold text-[var(--text-muted)] uppercase tracking-wider">
                     <a class="hover:text-[var(--accent)] transition-colors" href="/docs">Documentation</a>
+                    <a class="{% if page == 'blog' %}text-[var(--accent)]{% else %}hover:text-[var(--accent)]{% endif %} transition-colors" href="/blog">Blog</a>
                     <a class="{% if page == 'playground' %}text-[var(--accent)]{% else %}hover:text-[var(--accent)]{% endif %} transition-colors" href="/playground">Playground</a>
                     <a class="{% if page == 'pricing' %}text-[var(--accent)]{% else %}hover:text-[var(--accent)]{% endif %} transition-colors" href="/pricing">Pricing</a>
                     <a class="{% if page == 'contact' %}text-[var(--accent)]{% else %}hover:text-[var(--accent)]{% endif %} transition-colors" href="/contact">Contact</a>

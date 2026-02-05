@@ -5,64 +5,38 @@
                 <span class="text-[var(--accent)] text-xs font-bold uppercase tracking-widest mb-3 block">Engineering Blog</span>
                 <h2 class="text-4xl font-extrabold text-[var(--text-main)]">Latest from the Blog</h2>
             </div>
-            <a class="text-xs font-bold text-[var(--accent)] hover:underline flex items-center gap-2 transition-all hover:gap-3 group active:scale-95" href="#">
+            <a class="text-xs font-bold text-[var(--accent)] hover:underline flex items-center gap-2 transition-all hover:gap-3 group active:scale-95" href="/blog">
                 View all posts <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </a>
         </div>
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Blog Post 1 -->
+            {% for post in recent_posts %}
+            <!-- Blog Post -->
             <div class="group animate-slide-up bg-[var(--surface)] p-5 rounded-xl border border-[var(--border)] card-lift">
-                <div class="aspect-[16/9] bg-[var(--background)] rounded-lg mb-6 overflow-hidden relative border border-[var(--border)] transition-colors duration-300">
-                    <div class="w-full h-full grid-bg-light opacity-30 dark:opacity-10 absolute inset-0"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20 group-hover:scale-110 group-hover:text-[var(--accent)] transition-transform duration-300">analytics</span>
+                <a href="/blog/{{ post.slug }}" class="block">
+                    <div class="aspect-[16/9] bg-[var(--background)] rounded-lg mb-6 overflow-hidden relative border border-[var(--border)] transition-colors duration-300 grid-bg-light">
+                        <img alt="{{ post.title }}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" src="{{ post.image }}" onerror="this.style.display='none'"/>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <span class="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20 group-hover:scale-110 group-hover:text-[var(--accent)] transition-all duration-300">
+                                {% if post.category == 'Engineering' %}analytics
+                                {% elif post.category == 'Market Data' %}database
+                                {% else %}terminal{% endif %}
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest mb-3">API Performance</div>
-                <h3 class="text-lg font-bold mb-3 text-[var(--text-main)] group-hover:text-[var(--accent)] transition-colors duration-300">Optimizing WebSocket Throughput for High-Frequency Feeds</h3>
+                </a>
+                <div class="text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest mb-3">{{ post.category }}</div>
+                <a href="/blog/{{ post.slug }}" class="block">
+                    <h3 class="text-lg font-bold mb-3 text-[var(--text-main)] group-hover:text-[var(--accent)] transition-colors duration-300">{{ post.title }}</h3>
+                </a>
                 <p class="text-sm text-[var(--text-muted)] leading-relaxed mb-6">
-                    Learn how we achieved sub-ms latency using custom binary protocols and optimized buffer management...
+                    {{ post.summary[:120] }}{% if post.summary|length > 120 %}...{% endif %}
                 </p>
-                <a class="text-xs font-bold text-[var(--text-main)] flex items-center gap-2 group-hover:gap-3 transition-all active:scale-95" href="#">
+                <a class="text-xs font-bold text-[var(--text-main)] flex items-center gap-2 group-hover:gap-3 transition-all active:scale-95" href="/blog/{{ post.slug }}">
                     Read More <span class="material-symbols-outlined text-sm">chevron_right</span>
                 </a>
             </div>
-
-            <!-- Blog Post 2 -->
-            <div class="group animate-slide-up [animation-delay:200ms] bg-[var(--surface)] p-5 rounded-xl border border-[var(--border)] card-lift">
-                <div class="aspect-[16/9] bg-[var(--background)] rounded-lg mb-6 overflow-hidden relative border border-[var(--border)] transition-colors duration-300">
-                    <div class="w-full h-full grid-bg-light opacity-30 dark:opacity-10 absolute inset-0"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20 group-hover:scale-110 group-hover:text-[var(--accent)] transition-transform duration-300">database</span>
-                    </div>
-                </div>
-                <div class="text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest mb-3">Data Science</div>
-                <h3 class="text-lg font-bold mb-3 text-[var(--text-main)] group-hover:text-[var(--accent)] transition-colors duration-300">Handling Corporate Actions in Historical Datasets</h3>
-                <p class="text-sm text-[var(--text-muted)] leading-relaxed mb-6">
-                    Our guide on how adjusted price data works and why splits/dividends matter for your backtesting strategy...
-                </p>
-                <a class="text-xs font-bold text-[var(--text-main)] flex items-center gap-2 group-hover:gap-3 transition-all active:scale-95" href="#">
-                    Read More <span class="material-symbols-outlined text-sm">chevron_right</span>
-                </a>
-            </div>
-
-            <!-- Blog Post 3 -->
-            <div class="group animate-slide-up [animation-delay:400ms] bg-[var(--surface)] p-5 rounded-xl border border-[var(--border)] card-lift">
-                <div class="aspect-[16/9] bg-[var(--background)] rounded-lg mb-6 overflow-hidden relative border border-[var(--border)] transition-colors duration-300">
-                    <div class="w-full h-full grid-bg-light opacity-30 dark:opacity-10 absolute inset-0"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20 group-hover:scale-110 group-hover:text-[var(--accent)] transition-transform duration-300">terminal</span>
-                    </div>
-                </div>
-                <div class="text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest mb-3">Integrations</div>
-                <h3 class="text-lg font-bold mb-3 text-[var(--text-main)] group-hover:text-[var(--accent)] transition-colors duration-300">Connecting QuantDataApi to Python Data Frameworks</h3>
-                <p class="text-sm text-[var(--text-muted)] leading-relaxed mb-6">
-                    A step-by-step guide to streaming market data directly into Pandas and NumPy for real-time analysis...
-                </p>
-                <a class="text-xs font-bold text-[var(--text-main)] flex items-center gap-2 group-hover:gap-3 transition-all active:scale-95" href="#">
-                    Read More <span class="material-symbols-outlined text-sm">chevron_right</span>
-                </a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

@@ -1,0 +1,167 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Engineering Blog | QuantDataApi{% endblock %}
+
+{% block head %}
+<style>
+    .grid-bg-dots {
+        background-image: radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);
+        background-size: 40px 40px;
+    }
+    .featured-gradient {
+        background: linear-gradient(180deg, rgba(11, 16, 32, 0) 0%, rgba(11, 16, 32, 0.9) 100%);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="py-12 lg:py-20 bg-background text-text-main font-display">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% if featured_post and current_page == 1 and current_category == 'All' and not search_query %}
+        <section class="mb-20">
+            <a href="/blog/{{ featured_post.slug }}" class="relative block rounded-2xl overflow-hidden border border-border group cursor-pointer aspect-[21/9] bg-surface grid-bg-dots">
+                <img alt="{{ featured_post.title }}" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-700" src="{{ featured_post.image }}" onerror="this.style.display='none'"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 lg:p-12 w-full lg:w-2/3">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="px-3 py-1 rounded-full bg-accent/10 border border-accent text-accent text-[10px] font-bold uppercase tracking-widest">Featured Story</span>
+                        <span class="text-text-muted text-[10px] font-bold uppercase tracking-widest">{{ featured_post.date }}</span>
+                    </div>
+                    <h1 class="text-3xl lg:text-5xl font-extrabold tracking-tight mb-4 text-text-main group-hover:text-accent transition-colors">
+                        {{ featured_post.title }}
+                    </h1>
+                    <p class="text-lg text-text-muted mb-8 line-clamp-2">
+                        {{ featured_post.summary }}
+                    </p>
+                    <div class="flex items-center gap-4">
+                        {% set f_initials = featured_post.author_name.split(' ') | map('first') | join('') | upper %}
+                        <div class="w-10 h-10 rounded-full bg-surface border border-border flex items-center justify-center text-xs font-bold text-accent">
+                            {{ f_initials }}
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-text-main">{{ featured_post.author_name }}</div>
+                            <div class="text-xs text-text-muted">{{ featured_post.author_role }} • {{ featured_post.read_time }}</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </section>
+        {% endif %}
+
+        <div class="flex flex-wrap items-center justify-between gap-6 mb-12 pb-8 border-b border-border">
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
+                {% set categories = ['All', 'Engineering', 'Market Data', 'Product Updates'] %}
+                {% for cat in categories %}
+                <a href="/blog?category={{ cat }}&q={{ search_query }}" 
+                   class="px-4 py-2 rounded-lg font-bold text-xs whitespace-nowrap transition-all 
+                   {% if current_category == cat %}bg-accent text-on-accent{% else %}bg-surface border border-border text-text-muted hover:text-text-main hover:border-accent/50{% endif %}">
+                    {{ cat if cat != 'All' else 'All Articles' }}
+                </a>
+                {% endfor %}
+            </div>
+            <form action="/blog" method="GET" class="relative w-full sm:w-64">
+                <input type="hidden" name="category" value="{{ current_category }}">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-text-muted pointer-events-none">
+                    <span class="material-symbols-outlined text-lg">search</span>
+                </span>
+                <input name="q" value="{{ search_query }}" class="w-full bg-surface border-border rounded-lg pl-10 pr-4 py-2 text-xs text-text-main focus:ring-accent focus:border-accent placeholder-text-muted/50" placeholder="Search technical guides..." type="text"/>
+            </form>
+        </div>
+
+        {% if posts %}
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in posts %}
+            {% set initials = post.author_name.split(' ') | map('first') | join('') | upper %}
+            <div class="group flex flex-col">
+                <a href="/blog/{{ post.slug }}" class="aspect-video bg-surface rounded-xl border border-border mb-6 overflow-hidden relative block grid-bg-dots">
+                    <img alt="{{ post.title }}" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-70 transition-all duration-500" src="{{ post.image }}" onerror="this.style.display='none'"/>
+                    <div class="absolute top-4 left-4">
+                        <span class="px-2 py-1 rounded bg-accent/10 backdrop-blur-sm text-accent text-[10px] font-bold uppercase tracking-widest border border-accent">{{ post.category }}</span>
+                    </div>
+                </a>
+                <div class="flex-grow">
+                    <div class="flex items-center gap-2 text-text-muted text-[10px] font-bold uppercase tracking-widest mb-3">
+                        <span>{{ post.date }}</span>
+                        <span>•</span>
+                        <span>{{ post.read_time }}</span>
+                    </div>
+                    <a href="/blog/{{ post.slug }}" class="block">
+                        <h3 class="text-xl font-bold text-text-main mb-3 group-hover:text-primary transition-colors leading-snug">
+                            {{ post.title }}
+                        </h3>
+                    </a>
+                    <p class="text-sm text-text-muted leading-relaxed mb-6 line-clamp-3">
+                        {{ post.summary }}
+                    </p>
+                </div>
+                <div class="flex items-center justify-between mt-auto pt-6 border-t border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center text-[10px] font-bold text-secondary">
+                            {{ initials }}
+                        </div>
+                        <span class="text-xs font-semibold text-text-main">{{ post.author_name }}</span>
+                    </div>
+                    <a class="text-accent text-xs font-bold flex items-center gap-1 group-hover:underline" href="/blog/{{ post.slug }}">
+                        Read More <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if total_pages is defined and total_pages > 1 %}
+        <div class="mt-20 flex items-center justify-center gap-2">
+            <!-- Prev Button -->
+            {% if current_page > 1 %}
+            <a href="/blog?page={{ current_page - 1 }}&category={{ current_category }}&q={{ search_query }}" class="w-10 h-10 rounded border border-border flex items-center justify-center text-text-muted hover:border-primary hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </a>
+            {% else %}
+            <div class="w-10 h-10 rounded border border-border flex items-center justify-center text-text-muted/30 cursor-not-allowed">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </div>
+            {% endif %}
+            
+            <!-- Page Numbers -->
+            {% for p in range(1, total_pages + 1) %}
+            <a href="/blog?page={{ p }}&category={{ current_category }}&q={{ search_query }}" 
+               class="w-10 h-10 rounded border flex items-center justify-center font-bold text-sm transition-all 
+               {% if p == current_page %}bg-accent text-on-accent border-accent{% else %}border-border text-text-muted hover:border-accent hover:text-accent{% endif %}">
+                {{ p }}
+            </a>
+            {% endfor %}
+            
+            <!-- Next Button -->
+            {% if current_page < total_pages %}
+            <a href="/blog?page={{ current_page + 1 }}&category={{ current_category }}&q={{ search_query }}" class="w-10 h-10 rounded border border-border flex items-center justify-center text-text-muted hover:border-primary hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+            {% else %}
+            <div class="w-10 h-10 rounded border border-border flex items-center justify-center text-text-muted/30 cursor-not-allowed">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="py-20 text-center">
+            <h2 class="text-2xl font-bold text-text-main mb-4">No articles found</h2>
+            <p class="text-text-muted">Try adjusting your search or category filters.</p>
+            <a href="/blog" class="mt-8 inline-block text-primary font-bold hover:underline">Clear all filters</a>
+        </div>
+        {% endif %}
+    </div>
+</main>
+
+<section class="py-24 border-t border-border bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-extrabold mb-4 text-text-main">Never miss a technical update.</h2>
+        <p class="text-text-muted mb-10 max-w-lg mx-auto">Get engineering insights and API product updates delivered straight to your inbox.</p>
+        <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input class="flex-grow bg-background border-border rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary text-text-main" placeholder="dev@company.com" required="" type="email"/>
+            <button class="px-8 py-3 bg-accent text-on-accent font-bold rounded-lg hover:brightness-110 transition-all">Subscribe</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
